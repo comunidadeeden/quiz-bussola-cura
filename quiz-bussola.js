@@ -17,9 +17,23 @@ const ENV_CONFIG = {
   leadWebhookUrl: window.NEXT_PUBLIC_LEAD_WEBHOOK_URL || OFFER_CONFIG.leadWebhookUrl
 };
 
-const RESULT_VSL = {
-  id: "panda-78d32195-c7e4-481e-93fe-a1431fe24e2a",
-  src: "https://player-vz-3ca939d8-dc9.tv.pandavideo.com.br/embed/?v=78d32195-c7e4-481e-93fe-a1431fe24e2a"
+const RESULT_VSLS = {
+  proteger: {
+    id: "panda-78d32195-c7e4-481e-93fe-a1431fe24e2a",
+    src: "https://player-vz-3ca939d8-dc9.tv.pandavideo.com.br/embed/?v=78d32195-c7e4-481e-93fe-a1431fe24e2a"
+  },
+  evitar: {
+    id: "panda-86cb49d4-8450-4f26-beb9-bf11bff1a6f3",
+    src: "https://player-vz-3ca939d8-dc9.tv.pandavideo.com.br/embed/?v=86cb49d4-8450-4f26-beb9-bf11bff1a6f3"
+  },
+  compensar: {
+    id: "panda-b84401f4-27d1-49d5-b59b-23168d0e4bbc",
+    src: "https://player-vz-3ca939d8-dc9.tv.pandavideo.com.br/embed/?v=b84401f4-27d1-49d5-b59b-23168d0e4bbc"
+  },
+  suportar: {
+    id: "panda-156468b1-2b49-4dad-b0d0-c0c7aa217b27",
+    src: "https://player-vz-3ca939d8-dc9.tv.pandavideo.com.br/embed/?v=156468b1-2b49-4dad-b0d0-c0c7aa217b27"
+  }
 };
 
 const ENTRY_AUDIOS = {
@@ -857,11 +871,13 @@ function scoreRow(label, score, totalScore) {
 }
 
 function vslBlock(result) {
+  const vsl = RESULT_VSLS[state.result] || RESULT_VSLS.proteger;
+
   return html`
     <section class="screen vsl-section">
       <span class="eyebrow">Assista antes de decidir</span>
       <h2>Agora que você viu sua função dominante, entenda o que fazer com essa informação.</h2>
-      ${pandaVideo(RESULT_VSL)}
+      ${pandaVideo(vsl)}
       <a class="button gold full" href="${buildCheckoutUrl()}" data-checkout>${result.button}</a>
     </section>
   `;
