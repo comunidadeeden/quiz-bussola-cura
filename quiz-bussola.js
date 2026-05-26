@@ -22,6 +22,27 @@ const RESULT_VSL = {
   src: "https://player-vz-3ca939d8-dc9.tv.pandavideo.com.br/embed/?v=78d32195-c7e4-481e-93fe-a1431fe24e2a"
 };
 
+const ENTRY_AUDIOS = {
+  silencio: {
+    id: "entrada-silencio",
+    title: "A Bússola encontrou um primeiro sinal.",
+    subtitle: "Antes de continuar a análise, escute esse áudio curto do Bruno. Ele vai te ajudar a olhar menos para o nome do sintoma e mais para o que pode ter ficado guardado antes dele aparecer.",
+    label: "Ouvindo Bruno...",
+    src: "https://brunosimplicio.com.br/wp-content/uploads/2026/05/Audio-1-Silencio.mp3",
+    cta: "Continuar minha análise",
+    transcript: "Antes de continuar, presta atenção nisso.\n\nMuitas vezes, o sintoma não começa no corpo. Ele começa no silêncio.\n\nComeça naquela frase que você não disse, naquele limite que você não colocou, naquela dor que você engoliu para manter a paz, para não decepcionar alguém ou para não parecer difícil.\n\nSó que aquilo que você cala não desaparece. O que você engole continua procurando um lugar para existir.\n\nE quando a consciência não consegue falar, muitas vezes o corpo começa a falar por ela.\n\nNas próximas perguntas, não responda pensando só no nome do sintoma. Responda pensando: o que eu calei antes disso aparecer?\n\nContinua. Porque talvez o seu corpo não esteja tentando te destruir. Talvez ele esteja tentando te devolver uma voz."
+  },
+  sobrecarga: {
+    id: "entrada-sobrecarga",
+    title: "A Bússola encontrou um primeiro sinal.",
+    subtitle: "Antes de continuar a análise, escute esse áudio curto do Bruno. Ele vai te ajudar a perceber por que o sintoma talvez não seja o começo da história, mas a forma que o corpo encontrou para chamar sua atenção.",
+    label: "Ouvindo Bruno...",
+    src: "https://brunosimplicio.com.br/wp-content/uploads/2026/05/Audio-2-Suportar.mp3",
+    cta: "Continuar minha análise",
+    transcript: "Antes de seguir, eu quero te dizer uma coisa com cuidado.\n\nÀs vezes, a pessoa não percebe que está no limite porque se acostumou a viver acima do limite.\n\nEla acorda cansada e continua. Sente o corpo pesado e continua. Cuida, resolve, segura, organiza tudo… e ainda acha que não está fazendo o suficiente.\n\nSó que o corpo escuta. Ele escuta quando você diz ‘eu aguento’. Ele escuta quando você chama sobrecarga de responsabilidade. Ele escuta quando todos se acostumam com a sua força.\n\nE uma hora, o corpo começa a cobrar a conta.\n\nNas próximas perguntas, não responda como a pessoa forte que todo mundo conhece. Responda como a parte sua que está cansada de sustentar tudo calada.\n\nO diagnóstico começa quando você para de chamar excesso de normal."
+  }
+};
+
 const CATEGORIES = {
   proteger: {
     label: "Proteger",
@@ -250,6 +271,8 @@ function createInitialState() {
     currentQuestion: 0,
     answers: {},
     lead: null,
+    entryPath: null,
+    audioPlayed: {},
     result: null,
     completed: false
   };
@@ -317,7 +340,7 @@ function trackEvent(eventName, payload = {}) {
 }
 
 function updateProgress() {
-  const step = state.screen === "question" || state.screen === "preResult" || state.screen === "result"
+  const step = state.screen === "question" || state.screen === "micro" || state.screen === "entryAudio" || state.screen === "preResult" || state.screen === "result"
     ? Math.min(state.currentQuestion + 1, QUESTIONS.length)
     : 0;
   const degrees = Math.round((step / QUESTIONS.length) * 360);
@@ -335,6 +358,7 @@ function render() {
   if (state.screen === "lead") return renderLeadCapture();
   if (state.screen === "question") return renderQuestion();
   if (state.screen === "micro") return renderMicroText();
+  if (state.screen === "entryAudio") return renderAudioGate(ENTRY_AUDIOS[state.entryPath || "sobrecarga"], () => goToQuestion(5));
   if (state.screen === "preResult") return renderPreResult();
   if (state.screen === "result") return renderResult();
 }
@@ -610,11 +634,112 @@ function renderMicroText() {
   `;
 
   document.querySelector("#continue-micro").addEventListener("click", () => {
-    state.currentQuestion = 5;
-    state.screen = "question";
+    state.entryPath = determineEntryAudioPath();
+    state.screen = "entryAudio";
     saveState();
     render();
   });
+}
+
+function renderAudioGate(audioConfig, onContinue) {
+  const canContinue = Boolean(state.audioPlayed[audioConfig.id]);
+
+  root.innerHTML = html`
+    <section class="screen panel">
+      <div class="audio-card">
+        ${progressBlock()}
+        <span class="eyebrow">Áudio da Bússola</span>
+        <h2>${audioConfig.title}</h2>
+        <p>${audioConfig.subtitle}</p>
+        <div class="audio-player">
+          <div class="audio-meta">
+            <button class="play-button" id="play-audio" aria-label="Reproduzir áudio" type="button"><span aria-hidden="true"></span></button>
+            <div class="waveform" aria-hidden="true">${Array.from({ length: 42 }, () => "<i></i>").join("")}</div>
+            <button class="speed-button" id="speed-audio" type="button" aria-label="Alterar velocidade do áudio">1.0x</button>
+          </div>
+          <div class="audio-status" id="audio-status">${canContinue ? audioConfig.label : "Clique no play ou abra a transcrição para continuar."}</div>
+          <audio id="audio-element" preload="none" src="${audioConfig.src}"></audio>
+        </div>
+        <details class="transcript" id="transcript-toggle">
+          <summary>Ver transcrição</summary>
+          <p>${audioConfig.transcript}</p>
+        </details>
+        <button class="button gold full" id="continue-audio" ${canContinue ? "" : "disabled"}>${audioConfig.cta}</button>
+      </div>
+    </section>
+  `;
+
+  const audio = document.querySelector("#audio-element");
+  const playButton = document.querySelector("#play-audio");
+  const speedButton = document.querySelector("#speed-audio");
+  const continueButton = document.querySelector("#continue-audio");
+  const status = document.querySelector("#audio-status");
+  const transcript = document.querySelector("#transcript-toggle");
+  const speeds = [1, 1.5, 2];
+  let speedIndex = 0;
+
+  function setPlaying(isPlaying) {
+    playButton.classList.toggle("is-playing", isPlaying);
+    playButton.setAttribute("aria-label", isPlaying ? "Pausar áudio" : "Reproduzir áudio");
+  }
+
+  function unlock(reason) {
+    state.audioPlayed[audioConfig.id] = true;
+    continueButton.disabled = false;
+    status.textContent = reason === "transcript" ? "Transcrição aberta. Você já pode continuar." : audioConfig.label;
+    saveState();
+  }
+
+  audio.addEventListener("error", () => {
+    unlock("transcript");
+    transcript.open = true;
+    status.textContent = "Áudio indisponível neste momento. Use a transcrição para continuar.";
+  });
+
+  playButton.addEventListener("click", async () => {
+    unlock("play");
+    if (!audio.paused) {
+      audio.pause();
+      setPlaying(false);
+      return;
+    }
+
+    trackEvent("quiz_audio_play", { audioId: audioConfig.id, entryPath: state.entryPath });
+    try {
+      await audio.play();
+      setPlaying(true);
+    } catch (error) {
+      transcript.open = true;
+      status.textContent = "Áudio indisponível neste momento. Use a transcrição para continuar.";
+      setPlaying(false);
+    }
+  });
+
+  audio.addEventListener("pause", () => setPlaying(false));
+  audio.addEventListener("ended", () => setPlaying(false));
+  audio.addEventListener("play", () => setPlaying(true));
+
+  speedButton.addEventListener("click", () => {
+    speedIndex = (speedIndex + 1) % speeds.length;
+    audio.playbackRate = speeds[speedIndex];
+    speedButton.textContent = `${speeds[speedIndex].toFixed(1)}x`.replace("2.0x", "2x");
+  });
+
+  transcript.addEventListener("toggle", () => {
+    if (transcript.open) unlock("transcript");
+  });
+
+  continueButton.addEventListener("click", () => {
+    trackEvent("quiz_audio_continue", { audioId: audioConfig.id, entryPath: state.entryPath });
+    onContinue();
+  });
+}
+
+function goToQuestion(index) {
+  state.currentQuestion = index;
+  state.screen = "question";
+  saveState();
+  render();
 }
 
 function renderPreResult() {
@@ -832,6 +957,23 @@ function determineResult() {
   }
 
   return tied[0] || "suportar";
+}
+
+function determineEntryAudioPath() {
+  const partialScores = calculateScoresFor(["sintomas", "periodo", "quando_aparece", "nao_esta_bem"]);
+  const sobrecarga = partialScores.suportar || 0;
+  const silencio = (partialScores.proteger || 0) + (partialScores.evitar || 0) + (partialScores.compensar || 0);
+  if (!sobrecarga && !silencio) return "silencio";
+  return sobrecarga >= silencio ? "sobrecarga" : "silencio";
+}
+
+function calculateScoresFor(questionIds) {
+  return questionIds.reduce((scores, id) => {
+    Object.entries(state.answers[id]?.scores || {}).forEach(([category, value]) => {
+      scores[category] += value;
+    });
+    return scores;
+  }, { proteger: 0, evitar: 0, compensar: 0, suportar: 0 });
 }
 
 function mergeScores(items) {
