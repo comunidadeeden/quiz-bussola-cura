@@ -6,7 +6,7 @@ const OFFER_CONFIG = {
   formatText: "100% online",
   durationText: "3 horas",
   priceText: "R$37",
-  checkoutUrl: "https://pay.hotmart.com/V105745814K?off=npn32ytr",
+  checkoutUrl: "https://pay.hotmart.com/V105745814K?bid=1779765794512",
   salesPageUrl: "https://brunosimplicio.com.br/workshop-bussola-da-cura-04/",
   leadWebhookUrl: "",
   privacyUrl: "#"
@@ -15,6 +15,11 @@ const OFFER_CONFIG = {
 const ENV_CONFIG = {
   checkoutUrl: window.NEXT_PUBLIC_CHECKOUT_URL || OFFER_CONFIG.checkoutUrl,
   leadWebhookUrl: window.NEXT_PUBLIC_LEAD_WEBHOOK_URL || OFFER_CONFIG.leadWebhookUrl
+};
+
+const RESULT_VSL = {
+  id: "panda-78d32195-c7e4-481e-93fe-a1431fe24e2a",
+  src: "https://player-vz-3ca939d8-dc9.tv.pandavideo.com.br/embed/?v=78d32195-c7e4-481e-93fe-a1431fe24e2a"
 };
 
 const CATEGORIES = {
@@ -28,8 +33,7 @@ const CATEGORIES = {
     microdiagnosis: "Talvez você não precise ser menos sensível. Talvez precise reconhecer onde sua sensibilidade virou alarme de invasão.",
     investigation: "Quem ou o que tem passado de um limite que você não consegue sustentar?",
     ctaSpecific: "Agora você precisa descobrir a raiz dessa proteção.",
-    button: "Quero descobrir a raiz no workshop",
-    vsl: null
+    button: "Quero descobrir a raiz no workshop"
   },
   evitar: {
     label: "Evitar",
@@ -41,11 +45,7 @@ const CATEGORIES = {
     microdiagnosis: "Talvez você não esteja fugindo da vida. Talvez esteja tentando sair de uma situação específica que sua consciência ainda tenta justificar.",
     investigation: "Onde você continua presente, mas por dentro já foi embora?",
     ctaSpecific: "Agora você precisa descobrir de onde seu corpo está tentando te tirar.",
-    button: "Quero aprender a rastrear esse padrão",
-    vsl: {
-      id: "panda-86cb49d4-8450-4f26-beb9-bf11bff1a6f3",
-      src: "https://player-vz-3ca939d8-dc9.tv.pandavideo.com.br/embed/?v=86cb49d4-8450-4f26-beb9-bf11bff1a6f3"
-    }
+    button: "Quero aprender a rastrear esse padrão"
   },
   compensar: {
     label: "Compensar",
@@ -57,11 +57,7 @@ const CATEGORIES = {
     microdiagnosis: "Talvez o problema não seja apenas o excesso. Talvez o excesso esteja apontando para uma falta que ainda não pôde ser sentida por inteiro.",
     investigation: "O que você tenta preencher quando não suporta sentir o vazio?",
     ctaSpecific: "Agora você precisa descobrir qual falta está pedindo compensação.",
-    button: "Quero entender meu padrão no workshop",
-    vsl: {
-      id: "panda-b84401f4-27d1-49d5-b59b-23168d0e4bbc",
-      src: "https://player-vz-3ca939d8-dc9.tv.pandavideo.com.br/embed/?v=b84401f4-27d1-49d5-b59b-23168d0e4bbc"
-    }
+    button: "Quero entender meu padrão no workshop"
   },
   suportar: {
     label: "Suportar",
@@ -73,11 +69,7 @@ const CATEGORIES = {
     microdiagnosis: "Talvez seu corpo não esteja falhando. Talvez ele esteja finalmente recusando uma carga que você normalizou.",
     investigation: "Que peso você continua carregando só porque todos se acostumaram com a sua força?",
     ctaSpecific: "Agora você precisa descobrir que carga seu corpo está sustentando.",
-    button: "Quero rastrear a raiz no workshop",
-    vsl: {
-      id: "panda-156468b1-2b49-4dad-b0d0-c0c7aa217b27",
-      src: "https://player-vz-3ca939d8-dc9.tv.pandavideo.com.br/embed/?v=156468b1-2b49-4dad-b0d0-c0c7aa217b27"
-    }
+    button: "Quero rastrear a raiz no workshop"
   }
 };
 
@@ -109,7 +101,7 @@ const QUESTIONS = [
   },
   {
     id: "sintomas",
-    text: "Quais desses sintomas ou padrões fazem parte da sua realidade hoje?",
+    text: "Quais desses sintomas fazem parte da sua realidade hoje?",
     subtitle: "Selecione até 3 opções.",
     kind: "multi",
     max: 3,
@@ -130,7 +122,7 @@ const QUESTIONS = [
   },
   {
     id: "tempo",
-    text: "Há quanto tempo você convive com esses sintomas ou padrões?",
+    text: "Há quanto tempo você convive com esses sintomas, dores ou doenças?",
     kind: "single",
     options: [
       ["A", "Menos de 6 meses"],
@@ -228,30 +220,6 @@ const QUESTIONS = [
       ["B", "A pessoa que tenta evitar conflitos, conversas difíceis ou situações desconfortáveis.", "evitar"],
       ["C", "A pessoa que sente muito quando não é vista, escolhida, valorizada ou lembrada.", "compensar"],
       ["D", "A pessoa que segura a barra, resolve tudo e tenta não dar trabalho para ninguém.", "suportar"]
-    ]
-  },
-  {
-    id: "incomodo",
-    text: "O que mais te incomoda quando pensa nesses sintomas que voltam ou insistem em aparecer?",
-    kind: "single",
-    options: [
-      ["A", "Não entender por que meu corpo reage tanto a certas pessoas, ambientes ou situações.", "proteger"],
-      ["B", "Ter medo de precisar parar tudo de novo por causa de uma crise, dor ou travamento.", "evitar"],
-      ["C", "Sentir que eu entro em ciclos de alívio, culpa e repetição.", "compensar"],
-      ["D", "Sentir que meu corpo está cansado antes mesmo do dia começar.", "suportar"],
-      ["E", "Não conseguir enxergar um padrão claro, só sentir que algo não está certo.", null, "cta"]
-    ]
-  },
-  {
-    id: "entender",
-    text: "Se você pudesse entender uma coisa sobre o que acontece com seu corpo hoje, qual seria?",
-    kind: "single",
-    options: [
-      ["A", "Por que algumas pessoas, ambientes ou situações parecem disparar reações em mim.", "proteger"],
-      ["B", "Por que meu corpo trava, dói ou entra em crise justamente quando eu mais preciso funcionar.", "evitar"],
-      ["C", "Por que eu busco alívio rápido mesmo sabendo que depois posso me sentir culpada.", "compensar"],
-      ["D", "Por que vivo cansada, tensa ou pesada mesmo quando tento descansar.", "suportar"],
-      ["E", "Por que os sintomas voltam, mesmo quando eu tento cuidar deles.", null, "recorrencia"]
     ]
   },
   {
@@ -377,7 +345,7 @@ function renderIntro() {
       <div class="panel-content">
         <span class="eyebrow">${OFFER_CONFIG.quizName}</span>
         <h1>Descubra o que seus sintomas podem estar tentando mostrar</h1>
-        <p class="lead">Responda algumas perguntas rápidas sobre sua idade, fase de vida, sintomas e padrões que se repetem.</p>
+        <p class="lead">Responda algumas perguntas rápidas sobre sua idade, fase de vida e sintomas que se repetem.</p>
         <p class="lead">Ao final, a Bússola vai cruzar suas respostas e mostrar qual caminho de investigação pode fazer mais sentido para você hoje.</p>
         <button class="button gold full" id="start-quiz">Começar minha análise</button>
       </div>
@@ -631,7 +599,7 @@ function renderMicroText() {
       <div class="micro-card">
         <span class="eyebrow">Primeiro retrato</span>
         <h2>Certo, ${name}. Já temos um primeiro retrato.</h2>
-        <p>Até aqui, você mostrou qual fase da vida está vivendo, quais sintomas ou padrões mais aparecem, há quanto tempo isso faz parte da sua realidade e com que frequência isso volta.</p>
+        <p>Até aqui, você mostrou qual fase da vida está vivendo, quais sintomas mais aparecem, há quanto tempo isso faz parte da sua realidade e com que frequência isso volta.</p>
         <div class="pitch-box light">
           <strong>Agora a Bússola vai olhar para uma coisa que quase ninguém observa:</strong>
           <p>o que estava acontecendo na sua vida no período em que esses sintomas começaram, pioraram ou voltaram.</p>
@@ -740,7 +708,7 @@ function personalizedResultText(result) {
 
 function symptomSummary() {
   const labels = state.answers.sintomas?.labels || [];
-  if (!labels.length) return "sintomas ou padrões recorrentes";
+  if (!labels.length) return "sintomas recorrentes";
   return labels.slice(0, 3).map((label) => label.replace(/\.$/, "").toLowerCase()).join("; ");
 }
 
@@ -768,7 +736,7 @@ function vslBlock(result) {
     <section class="screen vsl-section">
       <span class="eyebrow">Assista antes de decidir</span>
       <h2>Agora que você viu sua função dominante, entenda o que fazer com essa informação.</h2>
-      ${result.vsl ? pandaVideo(result.vsl) : vslPlaceholder()}
+      ${pandaVideo(RESULT_VSL)}
       <a class="button gold full" href="${buildCheckoutUrl()}" data-checkout>${result.button}</a>
     </section>
   `;
@@ -857,7 +825,7 @@ function determineResult() {
   const tied = categories.filter((id) => scores[id] === max);
   if (tied.length === 1) return tied[0];
 
-  const priorityQuestions = ["entender", "incomodo", "papel_relacoes", "nao_esta_bem", "periodo"];
+  const priorityQuestions = ["papel_relacoes", "nao_esta_bem", "periodo"];
   for (const id of priorityQuestions) {
     const category = state.answers[id]?.category;
     if (category && tied.includes(category)) return category;
