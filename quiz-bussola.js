@@ -5,7 +5,6 @@ const OFFER_CONFIG = {
   timeText: "09h30",
   formatText: "100% online",
   durationText: "3 horas",
-  // ATENÇÃO: confirmar preço final. A página fala R$37, mas o checkout pode estar em R$47.
   priceText: "R$37",
   checkoutUrl: "https://pay.hotmart.com/V105745814K?off=npn32ytr",
   salesPageUrl: "https://brunosimplicio.com.br/workshop-bussola-da-cura-04/",
@@ -23,22 +22,11 @@ const CATEGORIES = {
     label: "Proteger",
     name: "Corpo-Guardião",
     message: "Eu preciso me proteger.",
-    microTitle: "Sua Bússola está apontando para uma resposta de proteção.",
-    microText: [
-      "Até aqui, parece que seu corpo reage criando barreiras quando algo ou alguém passa de um limite que você não conseguiu sustentar emocionalmente.",
-      "Talvez o sintoma não seja apenas um incômodo. Talvez ele esteja tentando criar no corpo uma fronteira que você ainda não conseguiu criar na vida."
-    ],
     title: "Seu resultado: Corpo-Guardião",
-    subtitle: "Sua Bússola apontou primeiro para a função Proteger.",
+    subtitle: "Pelas suas respostas, a Bússola encontrou um padrão dominante de proteção.",
     impact: "Quando algo passa do limite emocional, seu corpo pode tentar criar uma barreira.",
-    description: [
-      "Esse padrão costuma aparecer em pessoas que toleram invasões por tempo demais. Invasão de espaço. Invasão de opinião. Invasão de corpo. Invasão de intimidade. Invasão de responsabilidade.",
-      "Por fora, você pode parecer forte, fechada, controlada ou até difícil. Mas, por dentro, existe uma parte sua tentando dizer: ‘Eu preciso me proteger.’"
-    ],
-    explanation: "O seu corpo pode estar tentando fazer biologicamente aquilo que você ainda não conseguiu fazer emocionalmente: estabelecer um limite. Quando você não diz ‘não’, o corpo pode tentar dizer. Quando você não fecha a porta, o corpo pode criar uma barreira.",
-    patterns: ["Pele", "Alergias", "Candidíase", "Infecção urinária", "Herpes", "Psoríase", "Dermatite", "Irritações recorrentes"],
-    microdiagnosis: "Você talvez não precise ‘ser menos sensível’. Talvez precise aprender a reconhecer onde sua sensibilidade virou alarme de invasão.",
-    investigation: "Quem ou o que, na sua vida, tem passado de um limite que você não consegue sustentar?",
+    microdiagnosis: "Talvez você não precise ser menos sensível. Talvez precise reconhecer onde sua sensibilidade virou alarme de invasão.",
+    investigation: "Quem ou o que tem passado de um limite que você não consegue sustentar?",
     ctaSpecific: "Agora você precisa descobrir a raiz dessa proteção.",
     button: "Quero descobrir a raiz no workshop",
     vsl: null
@@ -47,21 +35,10 @@ const CATEGORIES = {
     label: "Evitar",
     name: "Corpo-Retirada",
     message: "Eu preciso sair daqui.",
-    microTitle: "Sua Bússola está apontando para uma resposta de retirada.",
-    microText: [
-      "Até aqui, parece que seu corpo tenta te tirar de situações que você não consegue abandonar conscientemente.",
-      "Às vezes, a dor não aparece para te destruir. Ela aparece para te forçar a parar onde você insistiu em continuar."
-    ],
     title: "Seu resultado: Corpo-Retirada",
-    subtitle: "Sua Bússola apontou primeiro para a função Evitar.",
+    subtitle: "Pelas suas respostas, a Bússola encontrou um padrão dominante de retirada.",
     impact: "Quando você permanece tempo demais em algo que internamente rejeita, seu corpo pode tentar te tirar dali.",
-    description: [
-      "Esse padrão costuma aparecer em pessoas que ignoram sinais internos como: ‘Eu não quero ir’, ‘Eu não quero ficar’, ‘Eu não aguento mais isso’, ‘Eu preciso sair daqui’.",
-      "Mas, em vez de sair, a pessoa se adapta. Em vez de falar, ela engole. Em vez de escolher, ela suporta até o corpo interromper."
-    ],
-    explanation: "O corpo pode estar tentando fazer uma retirada que você não se autorizou a fazer conscientemente. Às vezes, a crise não aparece apenas como problema. Ela aparece como interrupção: de um compromisso, de uma exposição, de uma relação, de uma rotina ou de um lugar onde você já não queria mais estar.",
-    patterns: ["Enxaqueca", "Crises de pânico", "Lombalgia", "Desmaios", "Tendinites", "Crises que fazem parar"],
-    microdiagnosis: "Talvez você não esteja fugindo da vida. Talvez esteja tentando fugir de uma situação específica que sua consciência ainda tenta justificar.",
+    microdiagnosis: "Talvez você não esteja fugindo da vida. Talvez esteja tentando sair de uma situação específica que sua consciência ainda tenta justificar.",
     investigation: "Onde você continua presente, mas por dentro já foi embora?",
     ctaSpecific: "Agora você precisa descobrir de onde seu corpo está tentando te tirar.",
     button: "Quero aprender a rastrear esse padrão",
@@ -74,20 +51,9 @@ const CATEGORIES = {
     label: "Compensar",
     name: "Corpo-Compensação",
     message: "Eu preciso preencher esse vazio.",
-    microTitle: "Sua Bússola está apontando para uma resposta de compensação.",
-    microText: [
-      "Até aqui, parece que seu corpo e seus impulsos tentam preencher algo que ficou faltando.",
-      "Nem todo excesso é falta de controle. Às vezes, o excesso é uma tentativa desesperada de tampar um vazio antigo."
-    ],
     title: "Seu resultado: Corpo-Compensação",
-    subtitle: "Sua Bússola apontou primeiro para a função Compensar.",
+    subtitle: "Pelas suas respostas, a Bússola encontrou um padrão dominante de compensação.",
     impact: "Quando uma falta emocional fica aberta, seu corpo ou comportamento pode buscar alívio, preenchimento ou anestesia.",
-    description: [
-      "Esse padrão costuma aparecer em pessoas que vivem ciclos como: falta, vazio, ansiedade, impulso, alívio rápido, culpa e repetição.",
-      "Você pode até chamar isso de falta de controle, mas a pergunta mais profunda é: ‘Que falta esse excesso está tentando compensar?’"
-    ],
-    explanation: "A compensação aparece quando algo dentro da pessoa fica sem resposta. Pode ser falta de afeto, segurança, reconhecimento, presença, pertencimento ou uma reparação que nunca veio. Então o corpo busca substitutos: comida, compra, sexo, controle, rituais, vícios ou excessos.",
-    patterns: ["Compulsão alimentar", "Compras compulsivas", "Vícios", "TOC", "Compulsão sexual", "Exageros difíceis de controlar"],
     microdiagnosis: "Talvez o problema não seja apenas o excesso. Talvez o excesso esteja apontando para uma falta que ainda não pôde ser sentida por inteiro.",
     investigation: "O que você tenta preencher quando não suporta sentir o vazio?",
     ctaSpecific: "Agora você precisa descobrir qual falta está pedindo compensação.",
@@ -101,20 +67,9 @@ const CATEGORIES = {
     label: "Suportar",
     name: "Corpo-Sustentador",
     message: "Estou carregando peso demais.",
-    microTitle: "Sua Bússola está apontando para uma resposta de sustentação.",
-    microText: [
-      "Até aqui, parece que seu corpo tenta carregar o peso que você aprendeu a suportar em silêncio.",
-      "Talvez você não esteja fraca. Talvez você esteja forte há tempo demais."
-    ],
     title: "Seu resultado: Corpo-Sustentador",
-    subtitle: "Sua Bússola apontou primeiro para a função Suportar.",
+    subtitle: "Pelas suas respostas, a Bússola encontrou um padrão dominante de sustentação.",
     impact: "Quando você carrega peso demais por tempo demais, seu corpo pode começar a sustentar essa carga por você.",
-    description: [
-      "Esse padrão costuma aparecer em pessoas que dizem: ‘Eu resolvo’, ‘Deixa comigo’, ‘Eu dou conta’, ‘Não posso parar agora’, ‘Se eu não fizer, ninguém faz’.",
-      "O problema é que o corpo escuta. Ele escuta quando você carrega tudo, quando não divide, quando engole cansaço e quando transforma exaustão em identidade."
-    ],
-    explanation: "O corpo pode estar tentando sustentar biologicamente uma sobrecarga emocional, familiar, profissional ou relacional. Esse padrão costuma aparecer em pessoas que foram reconhecidas por serem fortes, responsáveis, maduras ou indispensáveis. Mas existe um preço: o corpo começa a travar, tensionar, inflamar, apertar, pesar e pedir pausa.",
-    patterns: ["Gastrite", "Bruxismo", "Pressão alta", "Fibromialgia", "Dores articulares", "Tensão crônica", "Sensação de peso no corpo"],
     microdiagnosis: "Talvez seu corpo não esteja falhando. Talvez ele esteja finalmente recusando uma carga que você normalizou.",
     investigation: "Que peso você continua carregando só porque todos se acostumaram com a sua força?",
     ctaSpecific: "Agora você precisa descobrir que carga seu corpo está sustentando.",
@@ -128,178 +83,184 @@ const CATEGORIES = {
 
 const QUESTIONS = [
   {
-    id: "q1",
-    text: "Quando seu corpo piora, qual cenário emocional costuma estar por trás?",
+    id: "idade",
+    text: "Qual é a sua faixa de idade?",
+    kind: "single",
     options: [
-      ["A", "proteger", "Alguém invade meu espaço, passa dos meus limites ou me faz sentir exposta."],
-      ["B", "evitar", "Eu estou em uma situação da qual queria sair, mas continuo ali."],
-      ["C", "compensar", "Eu me sinto vazia, rejeitada, sozinha ou carente de algo que não consigo nomear."],
-      ["D", "suportar", "Eu estou carregando responsabilidades demais e dizendo para mim mesma: ‘eu aguento’."]
+      ["A", "Até 24 anos"],
+      ["B", "De 25 a 34 anos"],
+      ["C", "De 35 a 44 anos"],
+      ["D", "De 45 a 54 anos"],
+      ["E", "55 anos ou mais"]
     ]
   },
   {
-    id: "q2",
-    text: "Mesmo quando você trata ou tenta resolver, o que parece voltar junto com o sintoma?",
+    id: "relacionamento",
+    text: "Qual é a sua situação atual de relacionamento?",
+    kind: "single",
     options: [
-      ["A", "proteger", "A sensação de estar invadida, exposta ou sem limite."],
-      ["B", "evitar", "A vontade de sair, cancelar tudo ou sumir daquela situação."],
-      ["C", "compensar", "A busca por algum alívio rápido para preencher o desconforto."],
-      ["D", "suportar", "O peso de continuar carregando tudo como se eu desse conta."]
+      ["A", "Solteira"],
+      ["B", "Em um relacionamento"],
+      ["C", "Casada ou em união estável"],
+      ["D", "Separada ou divorciada"],
+      ["E", "Viúva"],
+      ["F", "Prefiro não responder"]
     ]
   },
   {
-    id: "q3",
-    text: "Onde seu corpo tem sentido mais o peso ultimamente?",
+    id: "sintomas",
+    text: "Quais desses sintomas ou padrões fazem parte da sua realidade hoje?",
+    subtitle: "Selecione até 3 opções.",
+    kind: "multi",
+    max: 3,
     options: [
-      ["A", "proteger", "Em irritações, inflamações, pele, infecções ou reações recorrentes."],
-      ["B", "evitar", "Em crises, dores ou travamentos que me obrigam a parar."],
-      ["C", "compensar", "Em excessos, compulsões, ansiedade ou tentativas de anestesiar."],
-      ["D", "suportar", "Em cansaço, tensão, peso, gastrite, bruxismo ou dores persistentes."]
+      ["A", "Dores que voltam sempre, mesmo depois de melhorar por um tempo.", null, "recorrencia"],
+      ["B", "Dor nas costas, lombar travada ou tensão nos ombros.", ["evitar", "suportar"]],
+      ["C", "Dor de cabeça, enxaqueca ou pressão na cabeça.", "evitar"],
+      ["D", "Ansiedade, crise de pânico ou sensação de perder o controle.", "evitar"],
+      ["E", "Cansaço constante, como se o descanso não recuperasse.", "suportar"],
+      ["F", "Gastrite, azia, enjoo ou sensação de peso no estômago.", "suportar"],
+      ["G", "Bruxismo, mandíbula travada ou tensão no corpo.", "suportar"],
+      ["H", "Candidíase, infecção urinária, herpes ou sintomas íntimos recorrentes.", "proteger"],
+      ["I", "Dermatite, alergias, psoríase, coceiras ou irritações na pele.", "proteger"],
+      ["J", "Compulsão alimentar, compras por impulso, exageros ou busca de alívio rápido.", "compensar"],
+      ["K", "Dores articulares, fibromialgia ou dores espalhadas pelo corpo.", "suportar"],
+      ["L", "Nenhum desses exatamente, mas tenho outro sintoma recorrente.", null, "recorrencia"]
     ]
   },
   {
-    id: "q4",
-    text: "Se seu corpo pudesse falar durante uma crise, ele provavelmente diria:",
+    id: "tempo",
+    text: "Há quanto tempo você convive com esses sintomas ou padrões?",
+    kind: "single",
     options: [
-      ["A", "proteger", "Eu preciso impedir que isso entre."],
-      ["B", "evitar", "Eu preciso sair daqui."],
-      ["C", "compensar", "Eu preciso preencher esse vazio."],
-      ["D", "suportar", "Eu preciso suportar só mais um pouco."]
+      ["A", "Menos de 6 meses"],
+      ["B", "Entre 6 meses e 2 anos"],
+      ["C", "Entre 2 e 5 anos"],
+      ["D", "Mais de 5 anos"],
+      ["E", "Desde a infância ou adolescência"],
+      ["F", "Vai e volta em fases específicas da vida"]
     ]
   },
   {
-    id: "q5",
-    text: "Que tipo de pessoa ou situação mais drena você?",
+    id: "frequencia",
+    text: "Com que frequência isso aparece ou volta na sua vida?",
+    kind: "single",
     options: [
-      ["A", "proteger", "Pessoas invasivas, críticas, controladoras ou que não respeitam meu espaço."],
-      ["B", "evitar", "Situações em que me sinto presa, exposta, cobrada ou sem saída."],
-      ["C", "compensar", "Relações em que me sinto invisível, trocada, rejeitada ou não escolhida."],
-      ["D", "suportar", "Pessoas que dependem de mim, me sobrecarregam ou esperam que eu resolva tudo."]
+      ["A", "Quase todos os dias"],
+      ["B", "Algumas vezes por semana"],
+      ["C", "Em fases de estresse ou pressão"],
+      ["D", "De tempos em tempos, mas quando vem atrapalha bastante"],
+      ["E", "Melhorou por um tempo, mas voltou recentemente"],
+      ["F", "Não sei dizer com clareza"]
     ]
   },
   {
-    id: "q6",
-    text: "Qual dessas verdades é mais difícil admitir?",
+    id: "periodo",
+    text: () => dynamicPeriodQuestion(),
+    kind: "single",
     options: [
-      ["A", "proteger", "Eu me protejo tanto porque tenho medo de ser ferida de novo."],
-      ["B", "evitar", "Eu fujo não porque sou fraca, mas porque uma parte minha sente perigo."],
-      ["C", "compensar", "Eu busco alívio porque tem um vazio que eu ainda não sei encarar."],
-      ["D", "suportar", "Eu tenho orgulho de aguentar, mas isso está me custando caro."]
+      ["A", "Pessoas cobrando demais, invadindo meu espaço, criticando ou passando dos meus limites.", "proteger"],
+      ["B", "Uma situação, relação, ambiente ou obrigação que eu queria evitar, mas continuei enfrentando.", "evitar"],
+      ["C", "Momentos de rejeição, solidão, carência, ansiedade ou busca de algum alívio.", "compensar"],
+      ["D", "Acúmulo de responsabilidades, pressão, trabalho, família, cuidado com outros ou sensação de ter que dar conta.", "suportar"],
+      ["E", "Não tinha pensado nisso ainda.", null, "recorrencia"]
     ]
   },
   {
-    id: "q7",
-    text: "Na sua infância ou adolescência, qual adaptação fez mais sentido para sobreviver emocionalmente?",
+    id: "quando_aparece",
+    text: "Quando esses sintomas aparecem, o que você costuma fazer primeiro?",
+    kind: "single",
     options: [
-      ["A", "proteger", "Me fechar, desconfiar e não deixar qualquer pessoa se aproximar."],
-      ["B", "evitar", "Ficar quieta, desaparecer, evitar conflito ou não dar trabalho."],
-      ["C", "compensar", "Buscar aprovação, agradar, compensar faltas ou tentar ser suficiente."],
-      ["D", "suportar", "Ser responsável cedo, cuidar dos outros ou parecer forte mesmo sem estar bem."]
+      ["A", "Tento controlar o sintoma e seguir a vida.", null, "recorrencia"],
+      ["B", "Procuro descansar, me afastar ou cancelar algumas coisas.", "evitar"],
+      ["C", "Busco algum alívio rápido para conseguir me sentir melhor.", "compensar"],
+      ["D", "Continuo fazendo o que precisa ser feito, mesmo sem estar bem.", "suportar"],
+      ["E", "Procuro ajuda, mas sinto que nem sempre encontro a causa.", null, "cta"]
     ]
   },
   {
-    id: "q8",
-    text: "Quando o sintoma melhora por um tempo e depois volta, o que geralmente continuou igual na sua vida?",
+    id: "nao_esta_bem",
+    text: "O que você costuma fazer quando percebe que não está bem?",
+    kind: "single",
     options: [
-      ["A", "proteger", "Os limites com certas pessoas ou ambientes continuam frágeis."],
-      ["B", "evitar", "Eu continuo em lugares, relações ou compromissos dos quais queria sair."],
-      ["C", "compensar", "Eu continuo tentando preencher a mesma falta com alívios temporários."],
-      ["D", "suportar", "Eu continuo carregando responsabilidades que não deveriam ser só minhas."]
+      ["A", "Fico mais fechada, irritada, sensível ou na defensiva.", "proteger"],
+      ["B", "Tento sumir, dormir, cancelar compromissos ou me afastar.", "evitar"],
+      ["C", "Procuro algo para aliviar na hora: comida, celular, compra, prazer ou controle.", "compensar"],
+      ["D", "Continuo resolvendo tudo, mesmo cansada, porque sinto que não posso parar.", "suportar"]
     ]
   },
   {
-    id: "q9",
-    text: "Qual ciclo repetitivo você mais reconhece em si?",
+    id: "cansaco",
+    text: "Sinto um cansaço que não passa, mesmo quando descanso, como se minha bateria não carregasse mais.",
+    intro: "Complete de acordo com o que mais se aproxima da sua realidade:",
+    kind: "scale",
+    intensity: "cansaco",
+    options: scaleOptions([null, null, { suportar: 1 }, { suportar: 2 }, { suportar: 3 }])
+  },
+  {
+    id: "recorrencia",
+    text: "Eu melhoro por um tempo, mas depois os sintomas voltam em fases parecidas.",
+    intro: "Complete de acordo com o que mais se aproxima da sua realidade:",
+    kind: "scale",
+    intensity: "recorrencia",
+    options: scaleOptions(null, [0, 0, 1, 2, 3])
+  },
+  {
+    id: "limite_corpo",
+    text: "Eu só percebo que passei do limite quando meu corpo começa a travar, doer ou dar sinais.",
+    intro: "Complete de acordo com o que mais se aproxima da sua realidade:",
+    kind: "scale",
+    intensity: "limite",
+    options: scaleOptions([
+      null,
+      null,
+      { evitar: 1, suportar: 1 },
+      { evitar: 1, suportar: 1 },
+      { evitar: 2, suportar: 2 }
+    ])
+  },
+  {
+    id: "papel_relacoes",
+    text: "Nas suas relações com família, amigos, trabalho ou relacionamento amoroso, qual papel você mais costuma ocupar?",
+    kind: "single",
     options: [
-      ["A", "proteger", "Eu tolero invasões até meu corpo começar a reagir."],
-      ["B", "evitar", "Eu fico onde não quero estar até meu corpo me obrigar a parar."],
-      ["C", "compensar", "Eu tento anestesiar a falta até o excesso virar problema."],
-      ["D", "suportar", "Eu sustento tudo em silêncio até meu corpo cobrar a conta."]
+      ["A", "A pessoa que vai aceitando muita coisa, mas depois se fecha ou se irrita.", "proteger"],
+      ["B", "A pessoa que tenta evitar conflitos, conversas difíceis ou situações desconfortáveis.", "evitar"],
+      ["C", "A pessoa que sente muito quando não é vista, escolhida, valorizada ou lembrada.", "compensar"],
+      ["D", "A pessoa que segura a barra, resolve tudo e tenta não dar trabalho para ninguém.", "suportar"]
     ]
   },
   {
-    id: "q10",
-    weight: 2,
-    text: "Qual grupo de sintomas ou padrões mais chama sua atenção hoje?",
+    id: "incomodo",
+    text: "O que mais te incomoda quando pensa nesses sintomas que voltam ou insistem em aparecer?",
+    kind: "single",
     options: [
-      ["A", "proteger", "Pele, alergias, candidíase, infecção urinária, herpes, psoríase, dermatite ou irritações recorrentes."],
-      ["B", "evitar", "Enxaqueca, crises de pânico, lombalgia, desmaios, tendinites ou crises que me fazem parar."],
-      ["C", "compensar", "Compulsão alimentar, compras compulsivas, vícios, TOC, compulsão sexual ou exageros difíceis de controlar."],
-      ["D", "suportar", "Gastrite, bruxismo, pressão alta, fibromialgia, dores articulares, tensão crônica ou sensação de peso no corpo."]
+      ["A", "Não entender por que meu corpo reage tanto a certas pessoas, ambientes ou situações.", "proteger"],
+      ["B", "Ter medo de precisar parar tudo de novo por causa de uma crise, dor ou travamento.", "evitar"],
+      ["C", "Sentir que eu entro em ciclos de alívio, culpa e repetição.", "compensar"],
+      ["D", "Sentir que meu corpo está cansado antes mesmo do dia começar.", "suportar"],
+      ["E", "Não conseguir enxergar um padrão claro, só sentir que algo não está certo.", null, "cta"]
     ]
   },
   {
-    id: "q11",
-    text: "O que você mais quer recuperar hoje?",
+    id: "entender",
+    text: "Se você pudesse entender uma coisa sobre o que acontece com seu corpo hoje, qual seria?",
+    kind: "single",
     options: [
-      ["A", "proteger", "A sensação de segurança no meu corpo e nos meus limites."],
-      ["B", "evitar", "A liberdade de não me sentir presa ao que me faz mal."],
-      ["C", "compensar", "A leveza de não precisar buscar alívio em excesso."],
-      ["D", "suportar", "A energia e a força que eu sinto que fui perdendo."]
+      ["A", "Por que algumas pessoas, ambientes ou situações parecem disparar reações em mim.", "proteger"],
+      ["B", "Por que meu corpo trava, dói ou entra em crise justamente quando eu mais preciso funcionar.", "evitar"],
+      ["C", "Por que eu busco alívio rápido mesmo sabendo que depois posso me sentir culpada.", "compensar"],
+      ["D", "Por que vivo cansada, tensa ou pesada mesmo quando tento descansar.", "suportar"],
+      ["E", "Por que os sintomas voltam, mesmo quando eu tento cuidar deles.", null, "recorrencia"]
     ]
   },
   {
-    id: "q12",
-    text: "O que você mais precisa aprender agora?",
-    options: [
-      ["A", "proteger", "Colocar limites antes que meu corpo precise virar uma barreira."],
-      ["B", "evitar", "Reconhecer de onde preciso sair antes que meu corpo me force a parar."],
-      ["C", "compensar", "Olhar para o vazio sem precisar anestesiá-lo com excessos."],
-      ["D", "suportar", "Devolver cargas que nunca deveriam ter sido minhas."]
-    ]
+    id: "pergunta_bruno",
+    text: "Se você pudesse fazer uma pergunta para o Bruno responder no Workshop Bússola da Cura, qual seria?",
+    kind: "open",
+    placeholder: "Exemplo: por que minha gastrite sempre volta quando estou sobrecarregada?\nExemplo: como descobrir a raiz emocional da minha enxaqueca?\nExemplo: por que eu melhoro por um tempo e depois tudo volta?"
   }
 ];
-
-const TIEBREAKER = {
-  id: "tie",
-  text: "Quando você escuta a frase ‘meu corpo está tentando me avisar’, qual complemento parece mais verdadeiro?",
-  options: [
-    ["A", "proteger", "…que eu preciso me proteger melhor."],
-    ["B", "evitar", "…que eu preciso sair de onde estou."],
-    ["C", "compensar", "…que eu estou tentando preencher uma falta."],
-    ["D", "suportar", "…que eu estou carregando peso demais."]
-  ]
-};
-
-const ENTRY_QUESTIONS = [
-  {
-    id: "entry1",
-    text: "Antes dos seus sintomas, dores ou desconfortos aparecerem, o que mais parece acontecer com você?",
-    options: [
-      ["A", "silencio", "Eu costumo engolir muita coisa, evitar falar e fingir que está tudo bem."],
-      ["B", "sobrecarga", "Eu costumo carregar muita coisa, resolver tudo e continuar mesmo cansada."]
-    ]
-  },
-  {
-    id: "entry2",
-    text: "Qual frase parece mais verdadeira hoje?",
-    options: [
-      ["A", "silencio", "Tem coisas que eu nunca falei, mas meu corpo parece não ter esquecido."],
-      ["B", "sobrecarga", "Tem pesos que eu nunca devolvi, mas meu corpo parece estar cobrando."]
-    ]
-  }
-];
-
-const ENTRY_AUDIOS = {
-  silencio: {
-    id: "entrada-silencio",
-    title: "A Bússola encontrou um primeiro sinal.",
-    subtitle: "Antes de continuar o diagnóstico, escute esse áudio curto do Bruno. Ele vai te ajudar a entender por que o sintoma talvez não seja o começo da história — mas a última forma que o corpo encontrou para chamar sua atenção.",
-    label: "Ouvindo Bruno...",
-    src: "http://brunosimplicio.com.br/wp-content/uploads/2026/05/Audio-1-Silencio.mp3",
-    cta: "Continuar meu diagnóstico",
-    transcript: "Antes de continuar, presta atenção nisso.\n\nMuitas vezes, o sintoma não começa no corpo. Ele começa no silêncio.\n\nComeça naquela frase que você não disse, naquele limite que você não colocou, naquela dor que você engoliu para manter a paz, para não decepcionar alguém ou para não parecer difícil.\n\nSó que aquilo que você cala não desaparece. O que você engole continua procurando um lugar para existir.\n\nE quando a consciência não consegue falar, muitas vezes o corpo começa a falar por ela.\n\nNas próximas perguntas, não responda pensando só no nome do sintoma. Responda pensando: o que eu calei antes disso aparecer?\n\nContinua. Porque talvez o seu corpo não esteja tentando te destruir. Talvez ele esteja tentando te devolver uma voz."
-  },
-  sobrecarga: {
-    id: "entrada-sobrecarga",
-    title: "A Bússola encontrou um primeiro sinal.",
-    subtitle: "Antes de continuar o diagnóstico, escute esse áudio curto do Bruno. Ele vai te ajudar a entender por que o sintoma talvez não seja o começo da história — mas a última forma que o corpo encontrou para chamar sua atenção.",
-    label: "Ouvindo Bruno...",
-    src: "http://brunosimplicio.com.br/wp-content/uploads/2026/05/Audio-2-Suportar.mp3",
-    cta: "Continuar meu diagnóstico",
-    transcript: "Antes de seguir, eu quero te dizer uma coisa com cuidado.\n\nÀs vezes, a pessoa não percebe que está no limite porque se acostumou a viver acima do limite.\n\nEla acorda cansada e continua. Sente o corpo pesado e continua. Cuida, resolve, segura, organiza tudo… e ainda acha que não está fazendo o suficiente.\n\nSó que o corpo escuta. Ele escuta quando você diz ‘eu aguento’. Ele escuta quando você chama sobrecarga de responsabilidade. Ele escuta quando todos se acostumam com a sua força.\n\nE uma hora, o corpo começa a cobrar a conta.\n\nNas próximas perguntas, não responda como a pessoa forte que todo mundo conhece. Responda como a parte sua que está cansada de sustentar tudo calada.\n\nO diagnóstico começa quando você para de chamar excesso de normal."
-  }
-};
 
 const UTM_KEY = "quiz_bussola_utms_v1";
 const categories = Object.keys(CATEGORIES);
@@ -319,13 +280,8 @@ function createInitialState() {
   return {
     screen: "intro",
     currentQuestion: 0,
-    currentEntryQuestion: 0,
-    entryAnswers: {},
-    entryPath: null,
     answers: {},
     lead: null,
-    audioPlayed: {},
-    tieNeeded: false,
     result: null,
     completed: false
   };
@@ -333,6 +289,20 @@ function createInitialState() {
 
 function saveState() {
   sessionStorage.setItem("quiz_bussola_current_session", JSON.stringify(state));
+}
+
+function html(strings, ...values) {
+  return strings.map((part, index) => part + (values[index] ?? "")).join("");
+}
+
+function scaleOptions(categoryWeights, recurrenceWeights = null) {
+  const labels = ["Nunca", "Raramente", "Às vezes", "Frequentemente", "Sempre"];
+  return labels.map((label, index) => {
+    const weights = Array.isArray(categoryWeights) ? categoryWeights[index] : categoryWeights;
+    const categoryMap = weights && !Array.isArray(weights) ? weights : {};
+    const category = weights && typeof weights === "string" ? weights : null;
+    return [String.fromCharCode(65 + index), label, category, null, categoryMap, recurrenceWeights?.[index] || 0];
+  });
 }
 
 function captureUtms() {
@@ -379,12 +349,12 @@ function trackEvent(eventName, payload = {}) {
 }
 
 function updateProgress() {
-  const answered = Object.keys(state.answers).filter((id) => id.startsWith("q")).length;
-  const entryAnswered = Object.keys(state.entryAnswers).length;
-  const step = Math.min(entryAnswered + answered, 14);
-  const degrees = Math.round((step / 14) * 360);
-  const needle = -35 + step * 11;
-  stepLabel.textContent = `Etapa ${step} de 14`;
+  const step = state.screen === "question" || state.screen === "preResult" || state.screen === "result"
+    ? Math.min(state.currentQuestion + 1, QUESTIONS.length)
+    : 0;
+  const degrees = Math.round((step / QUESTIONS.length) * 360);
+  const needle = -35 + step * 9;
+  stepLabel.textContent = `Etapa ${step} de ${QUESTIONS.length}`;
   document.documentElement.style.setProperty("--progress", `${degrees}deg`);
   document.documentElement.style.setProperty("--needle", `${needle}deg`);
 }
@@ -394,16 +364,11 @@ function render() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 
   if (state.screen === "intro") return renderIntro();
-  if (state.screen === "entryQuestion") return renderEntryQuestion();
-  if (state.screen === "entryAudio") return renderAudioGate(ENTRY_AUDIOS[state.entryPath || "sobrecarga"], () => goToQuestion(0));
-  if (state.screen === "question") return renderQuestion();
   if (state.screen === "lead") return renderLeadCapture();
-  if (state.screen === "tie") return renderTieBreaker();
+  if (state.screen === "question") return renderQuestion();
+  if (state.screen === "micro") return renderMicroText();
+  if (state.screen === "preResult") return renderPreResult();
   if (state.screen === "result") return renderResult();
-}
-
-function html(strings, ...values) {
-  return strings.map((part, index) => part + (values[index] ?? "")).join("");
 }
 
 function renderIntro() {
@@ -411,14 +376,10 @@ function renderIntro() {
     <section class="screen panel">
       <div class="panel-content">
         <span class="eyebrow">${OFFER_CONFIG.quizName}</span>
-        <h1>O que você viveu pode ter ficado guardado no seu corpo.</h1>
-        <p class="lead">E ele pode estar mostrando isso através de sintomas, dores ou padrões que insistem em voltar.</p>
-        <div class="intro-proof">
-          <p><strong>Descubra qual função emocional pode estar por trás do que seu corpo está tentando comunicar.</strong></p>
-          <p>Ao final, você recebe um resultado palpável: sua função dominante da Bússola e o primeiro caminho para investigar a raiz.</p>
-          <span>Teste rápido: menos de 2 minutos</span>
-        </div>
-        <button class="button gold full" id="start-quiz">Iniciar diagnóstico gratuito</button>
+        <h1>Descubra o que seus sintomas podem estar tentando mostrar</h1>
+        <p class="lead">Responda algumas perguntas rápidas sobre sua idade, fase de vida, sintomas e padrões que se repetem.</p>
+        <p class="lead">Ao final, a Bússola vai cruzar suas respostas e mostrar qual caminho de investigação pode fazer mais sentido para você hoje.</p>
+        <button class="button gold full" id="start-quiz">Começar minha análise</button>
       </div>
     </section>
   `;
@@ -431,273 +392,28 @@ function renderIntro() {
   });
 }
 
-function progressBlock() {
-  const current = state.currentQuestion + 3;
-  return html`
-    <div class="progress-shell">
-      <div class="compass-progress" aria-hidden="true"></div>
-      <div class="progress-text">
-        <strong>Etapa ${Math.min(current, 14)} de 14</strong>
-        <span>Rastreio emocional inicial</span>
-      </div>
-    </div>
-  `;
-}
-
-function renderEntryQuestion() {
-  const question = ENTRY_QUESTIONS[state.currentEntryQuestion];
-
-  root.innerHTML = html`
-    <section class="screen panel">
-      <div class="panel-content">
-        <span class="eyebrow">Etapa ${state.currentEntryQuestion + 1} de 14</span>
-        <h2 class="question-title">${question.text}</h2>
-        <div class="options" role="radiogroup" aria-label="${question.text}">
-          ${question.options.map(([code, path, label]) => entryOptionButton(code, path, label, state.entryAnswers[question.id])).join("")}
-        </div>
-      </div>
-    </section>
-  `;
-
-  document.querySelectorAll(".option-button").forEach((button) => {
-    button.addEventListener("click", () => {
-      document.querySelectorAll(".option-button").forEach((item) => item.classList.remove("selected"));
-      button.classList.add("selected");
-      state.entryAnswers[question.id] = button.dataset.path;
-      saveState();
-      trackEvent("quiz_answer", { questionId: question.id, entryPath: button.dataset.path });
-
-      setTimeout(() => {
-        if (state.currentEntryQuestion === 0) {
-          state.currentEntryQuestion = 1;
-          state.screen = "entryQuestion";
-        } else {
-          state.entryPath = determineEntryPath();
-          state.screen = "entryAudio";
-        }
-        saveState();
-        render();
-      }, 320);
-    });
-  });
-
-}
-
-function entryOptionButton(code, path, label, selected) {
-  return html`
-    <button class="option-button ${selected === path ? "selected" : ""}" data-path="${path}" data-code="${code}">
-      <span class="answer-top">
-        <span class="option-code">${code}</span>
-        <span class="option-label">${label}</span>
-      </span>
-    </button>
-  `;
-}
-
-function renderQuestion() {
-  const question = QUESTIONS[state.currentQuestion];
-  root.innerHTML = html`
-    <section class="screen panel">
-      <div class="panel-content">
-        ${progressBlock()}
-        <span class="eyebrow">Etapa ${state.currentQuestion + 3} de 14</span>
-        <h2 class="question-title">${question.text}</h2>
-        <div class="options" role="radiogroup" aria-label="${question.text}">
-          ${question.options.map(([code, category, label]) => optionButton(code, category, label, state.answers[question.id]?.category)).join("")}
-        </div>
-      </div>
-    </section>
-  `;
-
-  bindOptionButtons(question);
-}
-
-function optionButton(code, category, label, selected) {
-  return html`
-    <button class="option-button ${selected === category ? "selected" : ""}" data-category="${category}" data-code="${code}">
-      <span class="answer-top">
-        <span class="option-code">${code}</span>
-        <span class="option-label">${label}</span>
-      </span>
-    </button>
-  `;
-}
-
-function bindOptionButtons(question) {
-  document.querySelectorAll(".option-button").forEach((button) => {
-    button.addEventListener("click", () => {
-      document.querySelectorAll(".option-button").forEach((item) => item.classList.remove("selected"));
-      button.classList.add("selected");
-      const category = button.dataset.category;
-      const code = button.dataset.code;
-
-      state.answers[question.id] = { category, code, weight: question.weight || 1 };
-      saveState();
-      trackEvent("quiz_answer", { questionId: question.id, category, code });
-
-      setTimeout(() => {
-        afterQuestionAnswered();
-      }, 320);
-    });
-  });
-}
-
-function afterQuestionAnswered() {
-  const currentIndex = state.currentQuestion;
-
-  if (currentIndex === 11) {
-    const tied = getTopCategories(calculateScores()).length > 1;
-    state.tieNeeded = tied;
-    if (tied) {
-      state.screen = "tie";
-    } else {
-      showFinalResult();
-      return;
-    }
-  } else {
-    state.currentQuestion += 1;
-    state.screen = "question";
-  }
-
-  saveState();
-  render();
-}
-
-function goToQuestion(index) {
-  state.currentQuestion = index;
-  state.screen = "question";
-  saveState();
-  render();
-}
-
-function goBack() {
-  if (state.screen === "question" && state.currentQuestion > 0) {
-    state.currentQuestion -= 1;
-    state.screen = "question";
-  } else if (state.screen === "tie") {
-    state.currentQuestion = 11;
-    state.screen = "question";
-  }
-  saveState();
-  render();
-}
-
-function renderAudioGate(audioConfig, onContinue) {
-  const canContinue = Boolean(state.audioPlayed[audioConfig.id]);
-
-  root.innerHTML = html`
-    <section class="screen panel">
-      <div class="audio-card">
-        <span class="eyebrow">Áudio da Bússola</span>
-        <h2>${audioConfig.title}</h2>
-        <p>${audioConfig.subtitle}</p>
-        <div class="audio-player">
-          <div class="audio-meta">
-            <button class="play-button" id="play-audio" aria-label="Reproduzir áudio"><span aria-hidden="true"></span></button>
-            <div class="waveform" aria-hidden="true">${Array.from({ length: 42 }, () => "<i></i>").join("")}</div>
-            <button class="speed-button" id="speed-audio" type="button" aria-label="Alterar velocidade do áudio">1.0x</button>
-          </div>
-          <div class="audio-status" id="audio-status">${canContinue ? audioConfig.label : "Clique para ouvir ou abra a transcrição."}</div>
-          <audio id="audio-element" preload="none" src="${audioConfig.src}"></audio>
-        </div>
-        <details class="transcript" id="transcript-toggle">
-          <summary>Ver transcrição</summary>
-          <p>${audioConfig.transcript}</p>
-        </details>
-        <button class="button gold full" id="continue-audio" ${canContinue ? "" : "disabled"}>${audioConfig.cta}</button>
-      </div>
-    </section>
-  `;
-
-  const audio = document.querySelector("#audio-element");
-  const playButton = document.querySelector("#play-audio");
-  const speedButton = document.querySelector("#speed-audio");
-  const continueButton = document.querySelector("#continue-audio");
-  const status = document.querySelector("#audio-status");
-  const transcript = document.querySelector("#transcript-toggle");
-  const speeds = [1, 1.5, 2];
-  let speedIndex = 0;
-
-  function setPlaying(isPlaying) {
-    playButton.classList.toggle("is-playing", isPlaying);
-    playButton.setAttribute("aria-label", isPlaying ? "Pausar áudio" : "Reproduzir áudio");
-  }
-
-  function unlock(reason) {
-    state.audioPlayed[audioConfig.id] = true;
-    continueButton.disabled = false;
-    status.textContent = reason === "transcript" ? "Transcrição aberta. Você já pode continuar." : audioConfig.label;
-    saveState();
-  }
-
-  audio.addEventListener("error", () => {
-    unlock("transcript");
-    transcript.open = true;
-    status.textContent = "Áudio indisponível neste momento. Use a transcrição para continuar.";
-  });
-
-  playButton.addEventListener("click", async () => {
-    unlock("play");
-    if (!audio.paused) {
-      audio.pause();
-      setPlaying(false);
-      return;
-    }
-
-    trackEvent("quiz_audio_play", { audioId: audioConfig.id });
-    try {
-      await audio.play();
-      setPlaying(true);
-    } catch (error) {
-      transcript.open = true;
-      status.textContent = "Áudio indisponível neste momento. Use a transcrição para continuar.";
-      setPlaying(false);
-    }
-  });
-
-  audio.addEventListener("pause", () => setPlaying(false));
-  audio.addEventListener("ended", () => setPlaying(false));
-  audio.addEventListener("play", () => setPlaying(true));
-
-  speedButton.addEventListener("click", () => {
-    speedIndex = (speedIndex + 1) % speeds.length;
-    audio.playbackRate = speeds[speedIndex];
-    speedButton.textContent = `${speeds[speedIndex].toFixed(1)}x`.replace("2.0x", "2x");
-  });
-
-  transcript.addEventListener("toggle", () => {
-    if (transcript.open) unlock("transcript");
-  });
-
-  continueButton.addEventListener("click", () => {
-    trackEvent("quiz_audio_continue", { audioId: audioConfig.id });
-    onContinue();
-  });
-}
-
 function renderLeadCapture() {
   const lead = state.lead || {};
   root.innerHTML = html`
     <section class="screen panel">
       <div class="lead-card">
-        <span class="eyebrow">Passo 2 de 3</span>
-        <h2>Para liberar seu Teste da Bússola, preencha seus dados.</h2>
-        <p>Você vai receber seu resultado e os próximos passos do ${OFFER_CONFIG.workshopName}.</p>
+        <span class="eyebrow">Antes de começar</span>
+        <h2>Para liberar sua análise, preencha seus dados</h2>
         <form id="lead-form" class="form-grid" novalidate>
           <div class="field">
             <label for="lead-name">Nome</label>
             <input id="lead-name" name="name" autocomplete="name" value="${lead.name || ""}" required>
           </div>
           <div class="field">
-            <label for="lead-email">Melhor e-mail</label>
+            <label for="lead-email">E-mail</label>
             <input id="lead-email" name="email" type="email" autocomplete="email" value="${lead.email || ""}" required>
           </div>
           <div class="field">
-            <label for="lead-whatsapp">WhatsApp com DDD</label>
+            <label for="lead-whatsapp">WhatsApp</label>
             <input id="lead-whatsapp" name="whatsapp" inputmode="tel" autocomplete="tel" value="${lead.whatsapp || ""}" required>
           </div>
           <p class="error-message" id="lead-error"></p>
-          <button class="button gold full" type="submit">Começar meu teste</button>
+          <button class="button gold full" type="submit">Continuar</button>
         </form>
       </div>
     </section>
@@ -723,63 +439,231 @@ async function handleLeadSubmit(event) {
   if (!phone) return (error.textContent = "Informe um WhatsApp com DDD. Pode usar com ou sem +55.");
 
   state.lead = { ...data, whatsapp: phone.display, whatsappDigits: phone.digits };
+  state.screen = "question";
+  state.currentQuestion = 0;
   saveState();
   trackEvent("quiz_lead_submit", { email: data.email, hasWhatsapp: true });
   await postLead({ event: "lead_submitted", lead: state.lead, answers: state.answers });
-  state.screen = "entryQuestion";
-  state.currentEntryQuestion = 0;
-  saveState();
   render();
 }
 
 function normalizeBrazilianWhatsapp(value) {
   let digits = value.replace(/\D/g, "");
-
-  if (digits.startsWith("55") && (digits.length === 12 || digits.length === 13)) {
-    digits = digits.slice(2);
-  }
-
+  if (digits.startsWith("55") && (digits.length === 12 || digits.length === 13)) digits = digits.slice(2);
   if (digits.length !== 10 && digits.length !== 11) return null;
-
-  return {
-    digits,
-    display: `+55${digits}`
-  };
+  return { digits, display: `+55${digits}` };
 }
 
-function renderTieBreaker() {
-  const tied = getTopCategories(calculateScores());
-  const question = {
-    ...TIEBREAKER,
-    options: TIEBREAKER.options.filter(([, category]) => tied.includes(category))
-  };
+function renderQuestion() {
+  const question = QUESTIONS[state.currentQuestion];
+  const title = typeof question.text === "function" ? question.text() : question.text;
+  const answer = state.answers[question.id];
 
   root.innerHTML = html`
     <section class="screen panel">
       <div class="panel-content">
-        <span class="eyebrow">Pergunta de desempate</span>
-        <h2>${question.text}</h2>
-        <p>Sua Bússola encontrou mais de uma função com a mesma força. Escolha a frase que mais toca em você agora.</p>
-        <div class="options" role="radiogroup" aria-label="${question.text}">
-          ${question.options.map(([code, category, label]) => optionButton(code, category, label, state.answers.tie?.category)).join("")}
-        </div>
+        ${progressBlock()}
+        <span class="eyebrow">Etapa ${state.currentQuestion + 1} de ${QUESTIONS.length}</span>
+        ${question.intro ? `<p class="question-intro">${question.intro}</p>` : ""}
+        <h2 class="question-title">${title}</h2>
+        ${question.subtitle ? `<p class="question-subtitle">${question.subtitle}</p>` : ""}
+        ${question.kind === "open" ? openQuestion(question, answer) : optionList(question, answer)}
       </div>
     </section>
   `;
 
+  if (question.kind === "multi") return bindMultiQuestion(question);
+  if (question.kind === "open") return bindOpenQuestion(question);
+  bindSingleQuestion(question);
+}
+
+function progressBlock() {
+  const current = state.currentQuestion + 1;
+  return html`
+    <div class="progress-shell">
+      <div class="compass-progress" aria-hidden="true"></div>
+      <div class="progress-text">
+        <strong>Etapa ${current} de ${QUESTIONS.length}</strong>
+        <span>Análise emocional inicial</span>
+      </div>
+    </div>
+  `;
+}
+
+function optionList(question, answer) {
+  const selectedCodes = Array.isArray(answer?.codes) ? answer.codes : [];
+  return html`
+    <div class="options ${question.kind === "scale" ? "scale-options" : ""}" role="${question.kind === "multi" ? "group" : "radiogroup"}" aria-label="${typeof question.text === "function" ? question.text() : question.text}">
+      ${question.options.map((option) => {
+        const [code, label] = option;
+        const isSelected = question.kind === "multi" ? selectedCodes.includes(code) : answer?.code === code;
+        return optionButton(code, label, isSelected);
+      }).join("")}
+    </div>
+    ${question.kind === "multi" ? `<button class="button gold full question-next" id="multi-next" ${selectedCodes.length ? "" : "disabled"}>Continuar análise</button><p class="error-message" id="multi-error"></p>` : ""}
+  `;
+}
+
+function optionButton(code, label, selected) {
+  return html`
+    <button class="option-button ${selected ? "selected" : ""}" data-code="${code}" type="button">
+      <span class="answer-top">
+        <span class="option-code">${code}</span>
+        <span class="option-label">${label}</span>
+      </span>
+    </button>
+  `;
+}
+
+function openQuestion(question, answer) {
+  return html`
+    <form id="open-form" class="form-grid open-form">
+      <div class="field">
+        <label for="open-answer">Sua pergunta</label>
+        <textarea id="open-answer" name="openAnswer" rows="6" placeholder="${question.placeholder}">${answer?.text || ""}</textarea>
+      </div>
+      <button class="button gold full" type="submit">Ver meu resultado</button>
+    </form>
+  `;
+}
+
+function bindSingleQuestion(question) {
   document.querySelectorAll(".option-button").forEach((button) => {
     button.addEventListener("click", () => {
       document.querySelectorAll(".option-button").forEach((item) => item.classList.remove("selected"));
       button.classList.add("selected");
-      state.answers.tie = { category: button.dataset.category, code: button.dataset.code, weight: 0 };
+      const option = question.options.find(([code]) => code === button.dataset.code);
+      state.answers[question.id] = buildAnswer(question, option);
       saveState();
-      trackEvent("quiz_answer", { questionId: "tie", category: button.dataset.category, code: button.dataset.code });
-      setTimeout(() => {
-        showFinalResult();
-      }, 320);
+      trackEvent("quiz_answer", { questionId: question.id, code: button.dataset.code });
+      setTimeout(afterQuestionAnswered, 320);
+    });
+  });
+}
+
+function bindMultiQuestion(question) {
+  const next = document.querySelector("#multi-next");
+  const error = document.querySelector("#multi-error");
+
+  document.querySelectorAll(".option-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const current = state.answers[question.id]?.codes || [];
+      const code = button.dataset.code;
+      const exists = current.includes(code);
+      const nextCodes = exists ? current.filter((item) => item !== code) : [...current, code];
+
+      if (!exists && nextCodes.length > question.max) {
+        error.textContent = `Selecione no máximo ${question.max} opções.`;
+        return;
+      }
+
+      error.textContent = "";
+      state.answers[question.id] = {
+        kind: "multi",
+        codes: nextCodes,
+        labels: nextCodes.map((item) => question.options.find(([optionCode]) => optionCode === item)?.[1]).filter(Boolean),
+        scores: mergeScores(nextCodes.map((item) => buildAnswer(question, question.options.find(([optionCode]) => optionCode === item)).scores)),
+        recurrence: nextCodes.some((item) => ["A", "L"].includes(item)) ? 1 : 0
+      };
+      button.classList.toggle("selected", !exists);
+      next.disabled = !nextCodes.length;
+      saveState();
     });
   });
 
+  next.addEventListener("click", () => {
+    if (!state.answers[question.id]?.codes?.length) return;
+    trackEvent("quiz_answer", { questionId: question.id, codes: state.answers[question.id].codes });
+    afterQuestionAnswered();
+  });
+}
+
+function bindOpenQuestion(question) {
+  document.querySelector("#open-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    const value = event.currentTarget.openAnswer.value.trim();
+    state.answers[question.id] = { kind: "open", text: value };
+    saveState();
+    trackEvent("quiz_answer", { questionId: question.id, hasText: Boolean(value) });
+    state.screen = "preResult";
+    saveState();
+    render();
+  });
+}
+
+function buildAnswer(question, option) {
+  const [code, label, category, flag, categoryMap = null, recurrence = 0] = option;
+  const scores = {};
+
+  if (Array.isArray(category)) category.forEach((item) => (scores[item] = (scores[item] || 0) + 1));
+  if (typeof category === "string") scores[category] = (scores[category] || 0) + 1;
+  if (categoryMap) Object.entries(categoryMap).forEach(([key, value]) => (scores[key] = (scores[key] || 0) + value));
+
+  return {
+    kind: question.kind,
+    code,
+    label,
+    category: typeof category === "string" ? category : null,
+    flag: flag || null,
+    scores,
+    recurrence: recurrence || (flag === "recorrencia" ? 1 : 0)
+  };
+}
+
+function afterQuestionAnswered() {
+  if (state.currentQuestion === 4) {
+    state.screen = "micro";
+  } else if (state.currentQuestion >= QUESTIONS.length - 1) {
+    state.screen = "preResult";
+  } else {
+    state.currentQuestion += 1;
+    state.screen = "question";
+  }
+
+  saveState();
+  render();
+}
+
+function renderMicroText() {
+  const name = firstName();
+  root.innerHTML = html`
+    <section class="screen panel">
+      <div class="micro-card">
+        <span class="eyebrow">Primeiro retrato</span>
+        <h2>Certo, ${name}. Já temos um primeiro retrato.</h2>
+        <p>Até aqui, você mostrou qual fase da vida está vivendo, quais sintomas ou padrões mais aparecem, há quanto tempo isso faz parte da sua realidade e com que frequência isso volta.</p>
+        <div class="pitch-box light">
+          <strong>Agora a Bússola vai olhar para uma coisa que quase ninguém observa:</strong>
+          <p>o que estava acontecendo na sua vida no período em que esses sintomas começaram, pioraram ou voltaram.</p>
+        </div>
+        <button class="button gold full" id="continue-micro">Continuar análise</button>
+      </div>
+    </section>
+  `;
+
+  document.querySelector("#continue-micro").addEventListener("click", () => {
+    state.currentQuestion = 5;
+    state.screen = "question";
+    saveState();
+    render();
+  });
+}
+
+function renderPreResult() {
+  const name = firstName();
+  root.innerHTML = html`
+    <section class="screen panel">
+      <div class="micro-card">
+        <span class="eyebrow">Análise pronta</span>
+        <h2>${name}, sua análise está pronta.</h2>
+        <p>A Bússola cruzou os sintomas que você marcou, há quanto tempo isso faz parte da sua vida, o que costuma acontecer nos períodos em que isso aparece e como você reage quando seu corpo começa a dar sinais.</p>
+        <p>Agora você vai ver qual padrão apareceu com mais força nas suas respostas.</p>
+        <button class="button gold full" id="show-result">Ver meu resultado</button>
+      </div>
+    </section>
+  `;
+
+  document.querySelector("#show-result").addEventListener("click", showFinalResult);
 }
 
 function showFinalResult() {
@@ -788,7 +672,14 @@ function showFinalResult() {
   state.completed = true;
   state.screen = "result";
   saveState();
-  postLead({ event: "quiz_completed", result, scores: calculateScores(), entryPath: state.entryPath, entryAnswers: state.entryAnswers, answers: state.answers, lead: state.lead });
+  postLead({
+    event: "quiz_completed",
+    result,
+    scores: calculateScores(),
+    recurrence: recurrenceLevel(),
+    answers: state.answers,
+    lead: state.lead
+  });
   render();
 }
 
@@ -804,11 +695,11 @@ function renderResult() {
         <span class="result-badge">Seu diagnóstico emocional inicial</span>
         <h1 class="result-name">${result.name}</h1>
         <p class="lead">${result.subtitle}</p>
-        <div class="result-section">
-          <div class="dominant-card">
-            <strong>Função dominante: ${result.label}</strong>
-            <p>${result.impact}</p>
-          </div>
+        <div class="dominant-card result-summary">
+          <strong>Talvez o seu corpo esteja tentando mostrar um padrão que você normalizou.</strong>
+          <p>${personalizedResultText(result)}</p>
+        </div>
+        <div class="result-section compact-result">
           <div class="score-map">
             <strong>Mapa do seu rastreio</strong>
             ${categories.map((id) => scoreRow(CATEGORIES[id].label, scores[id], totalScore)).join("")}
@@ -830,6 +721,34 @@ function renderResult() {
 
   trackEvent("quiz_result_view", { result: resultId, scores });
   document.querySelectorAll("[data-checkout]").forEach((item) => item.addEventListener("click", handleCheckoutClick));
+}
+
+function personalizedResultText(result) {
+  const tempo = answerLabel("tempo") || "esse período";
+  const frequencia = answerLabel("frequencia") || "com alguma frequência";
+  const sintomas = symptomSummary();
+  const recurrence = recurrenceLevel();
+  const question = state.answers.pergunta_bruno?.text;
+
+  return html`
+    Você marcou sinais ligados a <mark>${sintomas}</mark>. Também indicou que convive com isso há <mark>${tempo}</mark> e que isso aparece ou volta <mark>${frequencia.toLowerCase()}</mark>.
+    ${recurrence.text ? `<br><br>${recurrence.text}` : ""}
+    <br><br>${result.impact} ${result.microdiagnosis}
+    ${question ? `<br><br><mark>A pergunta que você escreveu para o Bruno</mark> é exatamente o tipo de ponto que o workshop ajuda a organizar com método.` : ""}
+  `;
+}
+
+function symptomSummary() {
+  const labels = state.answers.sintomas?.labels || [];
+  if (!labels.length) return "sintomas ou padrões recorrentes";
+  return labels.slice(0, 3).map((label) => label.replace(/\.$/, "").toLowerCase()).join("; ");
+}
+
+function recurrenceLevel() {
+  const value = calculateRecurrence();
+  if (value >= 5) return { level: "alta", text: "Suas respostas também mostram uma recorrência alta: você melhora por um tempo, mas depois o corpo volta a apresentar sinais parecidos." };
+  if (value >= 3) return { level: "média", text: "Suas respostas mostram uma recorrência moderada: existe um padrão que parece voltar em fases específicas." };
+  return { level: "baixa", text: "" };
 }
 
 function scoreRow(label, score, totalScore) {
@@ -889,7 +808,7 @@ function ctaWorkshop(result) {
       <p class="pitch-lead">Agora você sabe qual função emocional seu corpo pode estar usando com mais frequência. <mark>Mas ainda falta descobrir a raiz.</mark></p>
       <div class="pitch-box">
         <strong>${result.ctaSpecific}</strong>
-        <p>No ${OFFER_CONFIG.workshopName}, Bruno Simplício mostra como rastrear o caminho por trás do padrão: o fato que marcou, o sentimento que ficou preso e a verdade interna que passou a se repetir.</p>
+        <p>No ${OFFER_CONFIG.workshopName}, Bruno Simplício mostra como rastrear o caminho por trás do padrão: sintoma, fase de vida, padrão emocional e protocolo de ação.</p>
       </div>
       <div class="pitch-grid">
         <div>
@@ -919,32 +838,62 @@ function ctaWorkshop(result) {
   `;
 }
 
-function calculateScores(onlyIds) {
-  const scores = { proteger: 0, evitar: 0, compensar: 0, suportar: 0 };
-  Object.entries(state.answers).forEach(([id, answer]) => {
-    if (id === "tie") return;
-    if (onlyIds && !onlyIds.includes(id)) return;
-    scores[answer.category] += answer.weight || 1;
-  });
-  return scores;
+function calculateScores() {
+  return Object.values(state.answers).reduce((scores, answer) => {
+    Object.entries(answer.scores || {}).forEach(([category, value]) => {
+      scores[category] += value;
+    });
+    return scores;
+  }, { proteger: 0, evitar: 0, compensar: 0, suportar: 0 });
 }
 
-function getTopCategories(scores) {
-  const max = Math.max(...Object.values(scores));
-  return categories.filter((id) => scores[id] === max);
+function calculateRecurrence() {
+  return Object.values(state.answers).reduce((sum, answer) => sum + (answer.recurrence || 0), 0);
 }
 
 function determineResult() {
-  if (state.answers.tie?.category) return state.answers.tie.category;
-  return getTopCategories(calculateScores())[0] || "suportar";
+  const scores = calculateScores();
+  const max = Math.max(...Object.values(scores));
+  const tied = categories.filter((id) => scores[id] === max);
+  if (tied.length === 1) return tied[0];
+
+  const priorityQuestions = ["entender", "incomodo", "papel_relacoes", "nao_esta_bem", "periodo"];
+  for (const id of priorityQuestions) {
+    const category = state.answers[id]?.category;
+    if (category && tied.includes(category)) return category;
+  }
+
+  return tied[0] || "suportar";
 }
 
-function determineEntryPath() {
-  const first = state.entryAnswers.entry1;
-  const second = state.entryAnswers.entry2;
+function mergeScores(items) {
+  return items.reduce((merged, scores) => {
+    Object.entries(scores || {}).forEach(([category, value]) => {
+      merged[category] = (merged[category] || 0) + value;
+    });
+    return merged;
+  }, {});
+}
 
-  if (first && first === second) return first;
-  return second || first || "sobrecarga";
+function dynamicPeriodQuestion() {
+  const code = state.answers.tempo?.code;
+  const options = {
+    A: "Nesses últimos 6 meses, alguma dessas situações também aconteceu na sua vida?",
+    B: "Nesse período em que os sintomas começaram ou se intensificaram, alguma dessas situações também estava acontecendo?",
+    C: "Olhando para os últimos anos, quando esses sintomas começaram ou se repetiram, alguma dessas situações fazia parte da sua vida?",
+    D: "Olhando para os períodos em que esses sintomas mais apareceram, alguma dessas situações costuma se repetir?",
+    E: "Pensando na sua história, alguma dessas situações aparece como um padrão desde cedo?",
+    F: "Nas fases em que esses sintomas voltam, alguma dessas situações costuma estar presente?"
+  };
+  return options[code] || "Nesse período, alguma dessas situações também estava acontecendo?";
+}
+
+function answerLabel(id) {
+  return state.answers[id]?.label || "";
+}
+
+function firstName() {
+  return (state.lead?.name || "sua análise").trim().split(/\s+/)[0];
 }
 
 async function postLead(payload) {

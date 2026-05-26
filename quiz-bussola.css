@@ -68,7 +68,8 @@ a {
 }
 
 button,
-input {
+input,
+textarea {
   font: inherit;
 }
 
@@ -436,6 +437,19 @@ li {
   text-align: center;
 }
 
+.question-intro,
+.question-subtitle {
+  max-width: 560px;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+
+.question-subtitle {
+  margin-top: -6px;
+  font-weight: 800;
+}
+
 .options {
   display: grid;
   gap: 10px;
@@ -454,7 +468,8 @@ li {
 
 .option-button:focus-visible,
 .button:focus-visible,
-input:focus-visible {
+input:focus-visible,
+textarea:focus-visible {
   outline: 3px solid rgba(200, 168, 90, 0.4);
   outline-offset: 3px;
 }
@@ -488,6 +503,10 @@ input:focus-visible {
   font-weight: 700;
   font-size: 12.5px;
   line-height: 1.44;
+}
+
+.question-next {
+  margin-top: 14px;
 }
 
 .micro-card,
@@ -644,14 +663,29 @@ input:focus-visible {
   font-weight: 900;
 }
 
-.field input {
+.field input,
+.field textarea {
   width: 100%;
-  min-height: 48px;
   border: 1px solid var(--line);
   border-radius: 10px;
-  padding: 0 13px;
   color: var(--text);
   background: #fff;
+}
+
+.field input {
+  min-height: 48px;
+  padding: 0 13px;
+}
+
+.field textarea {
+  min-height: 150px;
+  padding: 13px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.open-form {
+  margin-top: 10px;
 }
 
 .error-message {
@@ -697,6 +731,16 @@ input:focus-visible {
   display: block;
   margin-bottom: 6px;
   color: var(--text);
+}
+
+.result-summary {
+  text-align: center;
+}
+
+.result-summary mark {
+  color: var(--gold-dark);
+  background: transparent;
+  font-weight: 900;
 }
 
 .result-section {
@@ -874,6 +918,19 @@ input:focus-visible {
 
 .pitch-box p {
   margin-bottom: 0;
+}
+
+.pitch-box.light {
+  color: var(--text);
+  background: rgba(255, 250, 241, 0.84);
+}
+
+.pitch-box.light strong {
+  color: var(--text);
+}
+
+.pitch-box.light p {
+  color: var(--muted);
 }
 
 .pitch-grid {
