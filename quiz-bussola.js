@@ -708,25 +708,41 @@ async function handleLeadSubmit(event) {
   event.preventDefault();
   const form = event.currentTarget;
   const error = document.querySelector("#lead-error");
+  error.textContent = "";
   const data = {
     name: form.name.value.trim(),
     email: form.email.value.trim(),
     whatsapp: form.whatsapp.value.trim()
   };
 
-  const digits = data.whatsapp.replace(/\D/g, "");
+  const phone = normalizeBrazilianWhatsapp(data.whatsapp);
   if (!data.name) return (error.textContent = "Informe seu nome.");
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return (error.textContent = "Informe um e-mail válido.");
-  if (digits.length < 10 || digits.length > 11) return (error.textContent = "Informe um WhatsApp brasileiro com DDD.");
+  if (!phone) return (error.textContent = "Informe um WhatsApp com DDD. Pode usar com ou sem +55.");
 
-  state.lead = data;
+  state.lead = { ...data, whatsapp: phone.display, whatsappDigits: phone.digits };
   saveState();
   trackEvent("quiz_lead_submit", { email: data.email, hasWhatsapp: true });
-  await postLead({ event: "lead_submitted", lead: data, answers: state.answers });
+  await postLead({ event: "lead_submitted", lead: state.lead, answers: state.answers });
   state.screen = "entryQuestion";
   state.currentEntryQuestion = 0;
   saveState();
   render();
+}
+
+function normalizeBrazilianWhatsapp(value) {
+  let digits = value.replace(/\D/g, "");
+
+  if (digits.startsWith("55") && (digits.length === 12 || digits.length === 13)) {
+    digits = digits.slice(2);
+  }
+
+  if (digits.length !== 10 && digits.length !== 11) return null;
+
+  return {
+    digits,
+    display: `+55${digits}`
+  };
 }
 
 function renderTieBreaker() {
@@ -948,7 +964,24 @@ async function postLead(payload) {
       })
     });
   } catch (error) {
+    saveLeadBackup(payload);
     console.warn("Lead webhook failed", error);
+  }
+}
+
+function saveLeadBackup(payload) {
+  try {
+    const key = "quiz_bussola_pending_leads";
+    const current = JSON.parse(localStorage.getItem(key)) || [];
+    current.push({
+      ...payload,
+      utms: getUtms(),
+      source: "quiz-bussola",
+      timestamp: new Date().toISOString()
+    });
+    localStorage.setItem(key, JSON.stringify(current.slice(-50)));
+  } catch (error) {
+    console.warn("Lead backup failed", error);
   }
 }
 
