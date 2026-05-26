@@ -26,20 +26,20 @@ const ENTRY_AUDIOS = {
   silencio: {
     id: "entrada-silencio",
     title: "A Bússola encontrou um primeiro sinal.",
-    subtitle: "Antes de continuar a análise, escute esse áudio curto do Bruno. Ele vai te ajudar a olhar menos para o nome do sintoma e mais para o que pode ter ficado guardado antes dele aparecer.",
+    subtitle: "Esse caminho aparece quando suas respostas indicam que você pode ter engolido, calado, evitado falar ou guardado coisas por tempo demais.",
     label: "Ouvindo Bruno...",
     src: "https://brunosimplicio.com.br/wp-content/uploads/2026/05/Audio-1-Silencio.mp3",
     cta: "Continuar minha análise",
-    transcript: "Antes de continuar, presta atenção nisso.\n\nMuitas vezes, o sintoma não começa no corpo. Ele começa no silêncio.\n\nComeça naquela frase que você não disse, naquele limite que você não colocou, naquela dor que você engoliu para manter a paz, para não decepcionar alguém ou para não parecer difícil.\n\nSó que aquilo que você cala não desaparece. O que você engole continua procurando um lugar para existir.\n\nE quando a consciência não consegue falar, muitas vezes o corpo começa a falar por ela.\n\nNas próximas perguntas, não responda pensando só no nome do sintoma. Responda pensando: o que eu calei antes disso aparecer?\n\nContinua. Porque talvez o seu corpo não esteja tentando te destruir. Talvez ele esteja tentando te devolver uma voz."
+    transcript: "Certo, minha amiga. Já começamos bem.\n\nPelo que você respondeu, tem uma coisa que apareceu logo de cara: talvez você tenha passado tempo demais engolindo coisas que precisava falar.\n\nE eu não estou falando só de grandes traumas, não.\n\nÀs vezes é aquela frase que você segurou para não criar conflito. Aquele “não” que você queria dizer, mas engoliu. Aquela dor que você disfarçou para não parecer difícil, ingrata ou exagerada.\n\nSó que o corpo escuta tudo isso.\n\nO que você cala não desaparece. O que você engole continua procurando um lugar para existir.\n\nE muitas vezes, quando a pessoa não consegue falar por consciência, o corpo começa a falar por sintoma.\n\nEntão, nas próximas perguntas, não responde pensando só no nome da dor, da doença ou do desconforto.\n\nResponde pensando assim:\n\n“O que eu calei antes disso aparecer?”\n\nMas vamos lá! Continua comigo, porque agora a gente vai começar a rastrear o que seu corpo tá tentando dizer."
   },
   sobrecarga: {
     id: "entrada-sobrecarga",
     title: "A Bússola encontrou um primeiro sinal.",
-    subtitle: "Antes de continuar a análise, escute esse áudio curto do Bruno. Ele vai te ajudar a perceber por que o sintoma talvez não seja o começo da história, mas a forma que o corpo encontrou para chamar sua atenção.",
+    subtitle: "Esse caminho aparece quando suas respostas indicam que você pode estar carregando tudo, resolvendo tudo e continuando mesmo cansada.",
     label: "Ouvindo Bruno...",
     src: "https://brunosimplicio.com.br/wp-content/uploads/2026/05/Audio-2-Suportar.mp3",
     cta: "Continuar minha análise",
-    transcript: "Antes de seguir, eu quero te dizer uma coisa com cuidado.\n\nÀs vezes, a pessoa não percebe que está no limite porque se acostumou a viver acima do limite.\n\nEla acorda cansada e continua. Sente o corpo pesado e continua. Cuida, resolve, segura, organiza tudo… e ainda acha que não está fazendo o suficiente.\n\nSó que o corpo escuta. Ele escuta quando você diz ‘eu aguento’. Ele escuta quando você chama sobrecarga de responsabilidade. Ele escuta quando todos se acostumam com a sua força.\n\nE uma hora, o corpo começa a cobrar a conta.\n\nNas próximas perguntas, não responda como a pessoa forte que todo mundo conhece. Responda como a parte sua que está cansada de sustentar tudo calada.\n\nO diagnóstico começa quando você para de chamar excesso de normal."
+    transcript: "Certo, minha amiga. Pelo que você respondeu, já apareceu um sinal importante.\n\nTalvez você seja o tipo de pessoa que aguenta muito mais do que mostra.\n\nVocê resolve, segura, cuida, organiza, dá conta… e ainda sente que poderia estar fazendo mais.\n\nSó que deixa eu te dizer uma coisa: o corpo percebe quando você passa do limite, mesmo quando você finge que está tudo bem.\n\nEle percebe quando você acorda cansada e continua. Quando você sente o peso, mas não devolve a carga. Quando todo mundo se acostuma com a sua força, mas ninguém percebe o quanto isso te custa.\n\nE chega uma hora em que o corpo começa a cobrar essa conta.\n\nNão porque ele quer te destruir. Mas porque talvez ele esteja tentando te mostrar que você normalizou peso demais.\n\nEntão, nas próximas perguntas, não responde como a pessoa forte que todo mundo conhece.\n\nResponde como a parte sua que está cansada de sustentar tudo calada.\n\nContinua comigo. Agora a gente vai começar a rastrear o que seu corpo tá tentando te dizer."
   }
 };
 
