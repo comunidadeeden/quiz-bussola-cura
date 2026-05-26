@@ -380,10 +380,11 @@ function trackEvent(eventName, payload = {}) {
 
 function updateProgress() {
   const answered = Object.keys(state.answers).filter((id) => id.startsWith("q")).length;
-  const step = Math.min(answered, 12);
-  const degrees = Math.round((step / 12) * 360);
-  const needle = -35 + step * 13;
-  stepLabel.textContent = `Etapa ${step} de 12`;
+  const entryAnswered = Object.keys(state.entryAnswers).length;
+  const step = Math.min(entryAnswered + answered, 14);
+  const degrees = Math.round((step / 14) * 360);
+  const needle = -35 + step * 11;
+  stepLabel.textContent = `Etapa ${step} de 14`;
   document.documentElement.style.setProperty("--progress", `${degrees}deg`);
   document.documentElement.style.setProperty("--needle", `${needle}deg`);
 }
@@ -431,12 +432,12 @@ function renderIntro() {
 }
 
 function progressBlock() {
-  const current = state.currentQuestion + 1;
+  const current = state.currentQuestion + 3;
   return html`
     <div class="progress-shell">
       <div class="compass-progress" aria-hidden="true"></div>
       <div class="progress-text">
-        <strong>Etapa ${Math.min(current, 12)} de 12</strong>
+        <strong>Etapa ${Math.min(current, 14)} de 14</strong>
         <span>Rastreio emocional inicial</span>
       </div>
     </div>
@@ -449,7 +450,7 @@ function renderEntryQuestion() {
   root.innerHTML = html`
     <section class="screen panel">
       <div class="panel-content">
-        <span class="eyebrow">Pergunta-base ${state.currentEntryQuestion + 1} de 2</span>
+        <span class="eyebrow">Etapa ${state.currentEntryQuestion + 1} de 14</span>
         <h2 class="question-title">${question.text}</h2>
         <div class="options" role="radiogroup" aria-label="${question.text}">
           ${question.options.map(([code, path, label]) => entryOptionButton(code, path, label, state.entryAnswers[question.id])).join("")}
@@ -499,7 +500,7 @@ function renderQuestion() {
     <section class="screen panel">
       <div class="panel-content">
         ${progressBlock()}
-        <span class="eyebrow">Pergunta ${state.currentQuestion + 1}</span>
+        <span class="eyebrow">Etapa ${state.currentQuestion + 3} de 14</span>
         <h2 class="question-title">${question.text}</h2>
         <div class="options" role="radiogroup" aria-label="${question.text}">
           ${question.options.map(([code, category, label]) => optionButton(code, category, label, state.answers[question.id]?.category)).join("")}
@@ -593,7 +594,7 @@ function renderAudioGate(audioConfig, onContinue) {
         <div class="audio-player">
           <div class="audio-meta">
             <button class="play-button" id="play-audio" aria-label="Reproduzir áudio"><span aria-hidden="true"></span></button>
-            <div class="waveform" aria-hidden="true">${Array.from({ length: 18 }, () => "<i></i>").join("")}</div>
+            <div class="waveform" aria-hidden="true">${Array.from({ length: 42 }, () => "<i></i>").join("")}</div>
             <button class="speed-button" id="speed-audio" type="button" aria-label="Alterar velocidade do áudio">1.0x</button>
           </div>
           <div class="audio-status" id="audio-status">${canContinue ? audioConfig.label : "Clique para ouvir ou abra a transcrição."}</div>
@@ -617,6 +618,11 @@ function renderAudioGate(audioConfig, onContinue) {
   const speeds = [1, 1.5, 2];
   let speedIndex = 0;
 
+  function setPlaying(isPlaying) {
+    playButton.classList.toggle("is-playing", isPlaying);
+    playButton.setAttribute("aria-label", isPlaying ? "Pausar áudio" : "Reproduzir áudio");
+  }
+
   function unlock(reason) {
     state.audioPlayed[audioConfig.id] = true;
     continueButton.disabled = false;
@@ -632,14 +638,26 @@ function renderAudioGate(audioConfig, onContinue) {
 
   playButton.addEventListener("click", async () => {
     unlock("play");
+    if (!audio.paused) {
+      audio.pause();
+      setPlaying(false);
+      return;
+    }
+
     trackEvent("quiz_audio_play", { audioId: audioConfig.id });
     try {
       await audio.play();
+      setPlaying(true);
     } catch (error) {
       transcript.open = true;
       status.textContent = "Áudio indisponível neste momento. Use a transcrição para continuar.";
+      setPlaying(false);
     }
   });
+
+  audio.addEventListener("pause", () => setPlaying(false));
+  audio.addEventListener("ended", () => setPlaying(false));
+  audio.addEventListener("play", () => setPlaying(true));
 
   speedButton.addEventListener("click", () => {
     speedIndex = (speedIndex + 1) % speeds.length;
