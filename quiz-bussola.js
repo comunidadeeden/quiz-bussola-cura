@@ -454,10 +454,6 @@ function renderEntryQuestion() {
         <div class="options" role="radiogroup" aria-label="${question.text}">
           ${question.options.map(([code, path, label]) => entryOptionButton(code, path, label, state.entryAnswers[question.id])).join("")}
         </div>
-        <div class="back-row">
-          <button class="button ghost" id="entry-back-button" ${state.currentEntryQuestion === 0 ? "disabled" : ""}>Voltar</button>
-          <span class="question-hint">Essa etapa prepara o áudio inicial, sem interferir no resultado final.</span>
-        </div>
       </div>
     </section>
   `;
@@ -484,13 +480,6 @@ function renderEntryQuestion() {
     });
   });
 
-  document.querySelector("#entry-back-button").addEventListener("click", () => {
-    if (state.currentEntryQuestion > 0) {
-      state.currentEntryQuestion -= 1;
-      saveState();
-      render();
-    }
-  });
 }
 
 function entryOptionButton(code, path, label, selected) {
@@ -515,16 +504,11 @@ function renderQuestion() {
         <div class="options" role="radiogroup" aria-label="${question.text}">
           ${question.options.map(([code, category, label]) => optionButton(code, category, label, state.answers[question.id]?.category)).join("")}
         </div>
-        <div class="back-row">
-          <button class="button ghost" id="back-button" ${state.currentQuestion === 0 ? "disabled" : ""}>Voltar</button>
-          <span class="question-hint">Selecione a frase que mais parece verdadeira hoje.</span>
-        </div>
       </div>
     </section>
   `;
 
   bindOptionButtons(question);
-  document.querySelector("#back-button").addEventListener("click", goBack);
 }
 
 function optionButton(code, category, label, selected) {
@@ -761,9 +745,6 @@ function renderTieBreaker() {
         <div class="options" role="radiogroup" aria-label="${question.text}">
           ${question.options.map(([code, category, label]) => optionButton(code, category, label, state.answers.tie?.category)).join("")}
         </div>
-        <div class="back-row">
-          <button class="button ghost" id="back-button">Voltar</button>
-        </div>
       </div>
     </section>
   `;
@@ -781,7 +762,6 @@ function renderTieBreaker() {
     });
   });
 
-  document.querySelector("#back-button").addEventListener("click", goBack);
 }
 
 function showFinalResult() {
