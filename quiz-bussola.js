@@ -1088,12 +1088,12 @@ function saveLeadBackup(payload) {
 
 function buildCheckoutUrl() {
   const url = new URL(ENV_CONFIG.checkoutUrl);
-  const utms = getUtms();
-  url.searchParams.set("src", "quiz_bussola");
-  if (state.result) url.searchParams.set("result", state.result);
+  const currentParams = new URLSearchParams(window.location.search);
 
-  Object.entries(utms).forEach(([key, value]) => {
-    if (!url.searchParams.has(key)) url.searchParams.set(key, value);
+  currentParams.forEach((value, key) => {
+    if (key.toLowerCase().startsWith("utm_") && !url.searchParams.has(key)) {
+      url.searchParams.set(key, value);
+    }
   });
 
   return url.toString();
