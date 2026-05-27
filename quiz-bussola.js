@@ -141,13 +141,13 @@ const QUESTIONS = [
     kind: "multi",
     max: 2,
     options: [
-      ["A", "Dores recorrentes que melhoram por um tempo e depois voltam.", null, "recorrencia"],
-      ["B", "Dores, travamentos ou tensão: costas, lombar, ombros, articulações ou fibromialgia.", ["evitar", "suportar"]],
-      ["C", "Cabeça e crises: enxaqueca, pressão na cabeça, ansiedade, pânico ou sensação de perder o controle.", "evitar"],
-      ["D", "Cansaço e peso: exaustão constante, gastrite, azia, bruxismo, mandíbula travada ou corpo pesado.", "suportar"],
-      ["E", "Pele e íntimos: alergias, dermatite, psoríase, coceiras, candidíase, infecção urinária ou herpes.", "proteger"],
-      ["F", "Excessos e impulsos: compulsão alimentar, compras por impulso, vícios, exageros ou busca de alívio rápido.", "compensar"],
-      ["G", "Outros sintomas recorrentes que não aparecem nessa lista.", null, "recorrencia"]
+      ["A", "Dores que voltam sempre.", null, "recorrencia"],
+      ["B", "Dores, travamentos ou tensão no corpo.", ["evitar", "suportar"]],
+      ["C", "Enxaqueca, ansiedade ou crises.", "evitar"],
+      ["D", "Cansaço, gastrite, bruxismo ou peso no corpo.", "suportar"],
+      ["E", "Pele, alergias ou sintomas íntimos.", "proteger"],
+      ["F", "Compulsões, vícios ou impulsos.", "compensar"],
+      ["G", "Outros sintomas recorrentes.", null, "recorrencia"]
     ]
   },
   {
@@ -675,7 +675,7 @@ function renderAudioGate(audioConfig, onContinue) {
           <summary>Ver transcrição</summary>
           <p>${audioConfig.transcript}</p>
         </details>
-        <button class="button gold full" id="continue-audio" ${canContinue ? "" : "disabled"}>${audioConfig.cta}</button>
+        <button class="button gold full" id="continue-audio">${audioConfig.cta}</button>
       </div>
     </section>
   `;
@@ -792,6 +792,10 @@ function renderResult() {
         <h1 class="result-name">${result.name}</h1>
         <p class="lead">${result.subtitle}</p>
         <div class="result-section compact-result result-before-video">
+          <div class="score-map mini-score-map">
+            <strong>Mapa do seu rastreio</strong>
+            ${categories.map((id) => scoreRow(CATEGORIES[id].label, scores[id], totalScore)).join("")}
+          </div>
           <div class="phrase-card">
             <strong>A frase que seu corpo pode estar tentando dizer</strong>
             <p>${result.message}</p>
@@ -804,16 +808,6 @@ function renderResult() {
       </div>
     </section>
     ${vslBlock(result)}
-    <section class="screen panel">
-      <div class="result-hero slim-result">
-        <div class="result-section compact-result">
-          <div class="score-map">
-            <strong>Mapa do seu rastreio</strong>
-            ${categories.map((id) => scoreRow(CATEGORIES[id].label, scores[id], totalScore)).join("")}
-          </div>
-        </div>
-      </div>
-    </section>
     ${ctaWorkshop(result)}
   `;
 

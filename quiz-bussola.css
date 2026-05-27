@@ -750,23 +750,38 @@ textarea:focus-visible {
 }
 
 .result-before-video {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.05fr 0.8fr 0.8fr;
+  align-items: stretch;
 }
 
+.result-before-video .score-map,
 .result-before-video .phrase-card,
 .result-before-video .investigate-card {
-  padding: 12px;
+  padding: 10px;
 }
 
 .result-before-video p {
   margin-bottom: 0;
-  font-size: 13px;
-  line-height: 1.45;
+  font-size: 12px;
+  line-height: 1.38;
 }
 
-.slim-result {
-  padding-top: 18px;
-  padding-bottom: 18px;
+.result-before-video strong {
+  font-size: 13px;
+}
+
+.mini-score-map .score-row {
+  grid-template-columns: 70px 1fr 34px;
+  gap: 7px;
+  margin-top: 7px;
+}
+
+.mini-score-map .score-row span {
+  font-size: 10.5px;
+}
+
+.mini-score-map .score-track {
+  height: 6px;
 }
 
 .score-row {
