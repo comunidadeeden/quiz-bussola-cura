@@ -1077,12 +1077,17 @@ function saveLeadBackup(payload) {
   }
 }
 
+function shouldForwardCheckoutParam(key) {
+  const normalized = key.toLowerCase();
+  return normalized.startsWith("utm_") || normalized === "src" || normalized === "sck";
+}
+
 function buildCheckoutUrl() {
   const url = new URL(ENV_CONFIG.checkoutUrl);
   const currentParams = new URLSearchParams(window.location.search);
 
   currentParams.forEach((value, key) => {
-    if (key.toLowerCase().startsWith("utm_") && !url.searchParams.has(key)) {
+    if (shouldForwardCheckoutParam(key) && !url.searchParams.has(key)) {
       url.searchParams.set(key, value);
     }
   });
