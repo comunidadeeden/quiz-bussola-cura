@@ -375,7 +375,7 @@ function render() {
 function renderIntro() {
   root.innerHTML = html`
     <section class="screen panel">
-      <div class="panel-content ${question.kind === "multi" ? "has-fixed-action" : ""}">
+      <div class="panel-content">
         <span class="eyebrow">${OFFER_CONFIG.quizName}</span>
         <h1>Descubra o que seus sintomas podem estar tentando mostrar</h1>
         <p class="lead">Responda algumas perguntas rápidas sobre sua idade, fase de vida e sintomas que se repetem.</p>
