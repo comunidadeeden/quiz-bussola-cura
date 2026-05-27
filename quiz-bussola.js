@@ -791,20 +791,7 @@ function renderResult() {
         <span class="result-badge">Seu diagnóstico emocional inicial</span>
         <h1 class="result-name">${result.name}</h1>
         <p class="lead">${result.subtitle}</p>
-        <div class="dominant-card result-summary">
-          <strong>Talvez o seu corpo esteja tentando mostrar um padrão que você normalizou.</strong>
-          <p>${personalizedResultText(result)}</p>
-        </div>
-      </div>
-    </section>
-    ${vslBlock(result)}
-    <section class="screen panel">
-      <div class="result-hero">
-        <div class="result-section compact-result">
-          <div class="score-map">
-            <strong>Mapa do seu rastreio</strong>
-            ${categories.map((id) => scoreRow(CATEGORIES[id].label, scores[id], totalScore)).join("")}
-          </div>
+        <div class="result-section compact-result result-before-video">
           <div class="phrase-card">
             <strong>A frase que seu corpo pode estar tentando dizer</strong>
             <p>${result.message}</p>
@@ -816,26 +803,22 @@ function renderResult() {
         </div>
       </div>
     </section>
+    ${vslBlock(result)}
+    <section class="screen panel">
+      <div class="result-hero slim-result">
+        <div class="result-section compact-result">
+          <div class="score-map">
+            <strong>Mapa do seu rastreio</strong>
+            ${categories.map((id) => scoreRow(CATEGORIES[id].label, scores[id], totalScore)).join("")}
+          </div>
+        </div>
+      </div>
+    </section>
     ${ctaWorkshop(result)}
   `;
 
   trackEvent("quiz_result_view", { result: resultId, scores });
   document.querySelectorAll("[data-checkout]").forEach((item) => item.addEventListener("click", handleCheckoutClick));
-}
-
-function personalizedResultText(result) {
-  const tempo = answerLabel("tempo") || "esse período";
-  const frequencia = answerLabel("frequencia") || "com alguma frequência";
-  const sintomas = symptomSummary();
-  const recurrence = recurrenceLevel();
-  const question = state.answers.pergunta_bruno?.text;
-
-  return html`
-    Você marcou sinais ligados a <mark>${sintomas}</mark>. Também indicou que convive com isso há <mark>${tempo}</mark> e que isso aparece ou volta <mark>${frequencia.toLowerCase()}</mark>.
-    ${recurrence.text ? `<br><br>${recurrence.text}` : ""}
-    <br><br>${result.impact} ${result.microdiagnosis}
-    ${question ? `<br><br><mark>A pergunta que você escreveu para o Bruno</mark> é exatamente o tipo de ponto que o workshop ajuda a organizar com método.` : ""}
-  `;
 }
 
 function symptomSummary() {

@@ -749,6 +749,26 @@ textarea:focus-visible {
   margin-top: 12px;
 }
 
+.result-before-video {
+  grid-template-columns: 1fr 1fr;
+}
+
+.result-before-video .phrase-card,
+.result-before-video .investigate-card {
+  padding: 12px;
+}
+
+.result-before-video p {
+  margin-bottom: 0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.slim-result {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
 .score-row {
   display: grid;
   grid-template-columns: 92px 1fr 42px;
@@ -1043,6 +1063,10 @@ textarea:focus-visible {
 
   .score-row {
     grid-template-columns: 82px 1fr 38px;
+  }
+
+  .result-before-video {
+    grid-template-columns: 1fr;
   }
 
   .pitch-grid {
