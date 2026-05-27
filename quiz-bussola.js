@@ -137,22 +137,17 @@ const QUESTIONS = [
   {
     id: "sintomas",
     text: "Quais desses sintomas fazem parte da sua realidade hoje?",
-    subtitle: "Selecione até 3 opções.",
+    subtitle: "Selecione até 2 grupos. Se nenhum encaixar bem, escolha Outros.",
     kind: "multi",
-    max: 3,
+    max: 2,
     options: [
-      ["A", "Dores que voltam sempre, mesmo depois de melhorar por um tempo.", null, "recorrencia"],
-      ["B", "Dor nas costas, lombar travada ou tensão nos ombros.", ["evitar", "suportar"]],
-      ["C", "Dor de cabeça, enxaqueca ou pressão na cabeça.", "evitar"],
-      ["D", "Ansiedade, crise de pânico ou sensação de perder o controle.", "evitar"],
-      ["E", "Cansaço constante, como se o descanso não recuperasse.", "suportar"],
-      ["F", "Gastrite, azia, enjoo ou sensação de peso no estômago.", "suportar"],
-      ["G", "Bruxismo, mandíbula travada ou tensão no corpo.", "suportar"],
-      ["H", "Candidíase, infecção urinária, herpes ou sintomas íntimos recorrentes.", "proteger"],
-      ["I", "Dermatite, alergias, psoríase, coceiras ou irritações na pele.", "proteger"],
-      ["J", "Compulsão alimentar, compras por impulso, exageros ou busca de alívio rápido.", "compensar"],
-      ["K", "Dores articulares, fibromialgia ou dores espalhadas pelo corpo.", "suportar"],
-      ["L", "Nenhum desses exatamente, mas tenho outro sintoma recorrente.", null, "recorrencia"]
+      ["A", "Dores recorrentes que melhoram por um tempo e depois voltam.", null, "recorrencia"],
+      ["B", "Dores, travamentos ou tensão: costas, lombar, ombros, articulações ou fibromialgia.", ["evitar", "suportar"]],
+      ["C", "Cabeça e crises: enxaqueca, pressão na cabeça, ansiedade, pânico ou sensação de perder o controle.", "evitar"],
+      ["D", "Cansaço e peso: exaustão constante, gastrite, azia, bruxismo, mandíbula travada ou corpo pesado.", "suportar"],
+      ["E", "Pele e íntimos: alergias, dermatite, psoríase, coceiras, candidíase, infecção urinária ou herpes.", "proteger"],
+      ["F", "Excessos e impulsos: compulsão alimentar, compras por impulso, vícios, exageros ou busca de alívio rápido.", "compensar"],
+      ["G", "Outros sintomas recorrentes que não aparecem nessa lista.", null, "recorrencia"]
     ]
   },
   {
@@ -269,6 +264,7 @@ const UTM_KEY = "quiz_bussola_utms_v1";
 const categories = Object.keys(CATEGORIES);
 const root = document.querySelector("#quiz-root");
 const stepLabel = document.querySelector("#step-label");
+const preloadedAudios = new Map();
 
 localStorage.removeItem("quiz_bussola_state_v1");
 sessionStorage.removeItem("quiz_bussola_current_session");
@@ -354,7 +350,7 @@ function trackEvent(eventName, payload = {}) {
 }
 
 function updateProgress() {
-  const step = state.screen === "question" || state.screen === "micro" || state.screen === "entryAudio" || state.screen === "preResult" || state.screen === "result"
+  const step = state.screen === "question" || state.screen === "micro" || state.screen === "entryAudio" || state.screen === "result"
     ? Math.min(state.currentQuestion + 1, QUESTIONS.length)
     : 0;
   const degrees = Math.round((step / QUESTIONS.length) * 360);
@@ -373,7 +369,6 @@ function render() {
   if (state.screen === "question") return renderQuestion();
   if (state.screen === "micro") return renderMicroText();
   if (state.screen === "entryAudio") return renderAudioGate(ENTRY_AUDIOS[state.entryPath || "sobrecarga"], () => goToQuestion(5));
-  if (state.screen === "preResult") return renderPreResult();
   if (state.screen === "result") return renderResult();
 }
 
@@ -569,7 +564,7 @@ function bindMultiQuestion(question) {
         codes: nextCodes,
         labels: nextCodes.map((item) => question.options.find(([optionCode]) => optionCode === item)?.[1]).filter(Boolean),
         scores: mergeScores(nextCodes.map((item) => buildAnswer(question, question.options.find(([optionCode]) => optionCode === item)).scores)),
-        recurrence: nextCodes.some((item) => ["A", "L"].includes(item)) ? 1 : 0
+        recurrence: nextCodes.some((item) => ["A", "G"].includes(item)) ? 1 : 0
       };
       button.classList.toggle("selected", !exists);
       next.disabled = !nextCodes.length;
@@ -591,9 +586,7 @@ function bindOpenQuestion(question) {
     state.answers[question.id] = { kind: "open", text: value };
     saveState();
     trackEvent("quiz_answer", { questionId: question.id, hasText: Boolean(value) });
-    state.screen = "preResult";
-    saveState();
-    render();
+    showFinalResult();
   });
 }
 
@@ -620,7 +613,8 @@ function afterQuestionAnswered() {
   if (state.currentQuestion === 4) {
     state.screen = "micro";
   } else if (state.currentQuestion >= QUESTIONS.length - 1) {
-    state.screen = "preResult";
+    showFinalResult();
+    return;
   } else {
     state.currentQuestion += 1;
     state.screen = "question";
@@ -632,6 +626,9 @@ function afterQuestionAnswered() {
 
 function renderMicroText() {
   const name = firstName();
+  const entryPath = determineEntryAudioPath();
+  preloadAudio(ENTRY_AUDIOS[entryPath].src);
+
   root.innerHTML = html`
     <section class="screen panel">
       <div class="micro-card">
@@ -648,7 +645,7 @@ function renderMicroText() {
   `;
 
   document.querySelector("#continue-micro").addEventListener("click", () => {
-    state.entryPath = determineEntryAudioPath();
+    state.entryPath = entryPath;
     state.screen = "entryAudio";
     saveState();
     render();
@@ -672,7 +669,7 @@ function renderAudioGate(audioConfig, onContinue) {
             <button class="speed-button" id="speed-audio" type="button" aria-label="Alterar velocidade do áudio">1.0x</button>
           </div>
           <div class="audio-status" id="audio-status">${canContinue ? audioConfig.label : "Clique no play ou abra a transcrição para continuar."}</div>
-          <audio id="audio-element" preload="none" src="${audioConfig.src}"></audio>
+          <audio id="audio-element" preload="auto" src="${audioConfig.src}"></audio>
         </div>
         <details class="transcript" id="transcript-toggle">
           <summary>Ver transcrição</summary>
@@ -691,6 +688,7 @@ function renderAudioGate(audioConfig, onContinue) {
   const transcript = document.querySelector("#transcript-toggle");
   const speeds = [1, 1.5, 2];
   let speedIndex = 0;
+  audio.load();
 
   function setPlaying(isPlaying) {
     playButton.classList.toggle("is-playing", isPlaying);
@@ -756,21 +754,12 @@ function goToQuestion(index) {
   render();
 }
 
-function renderPreResult() {
-  const name = firstName();
-  root.innerHTML = html`
-    <section class="screen panel">
-      <div class="micro-card">
-        <span class="eyebrow">Análise pronta</span>
-        <h2>${name}, sua análise está pronta.</h2>
-        <p>A Bússola cruzou os sintomas que você marcou, há quanto tempo isso faz parte da sua vida, o que costuma acontecer nos períodos em que isso aparece e como você reage quando seu corpo começa a dar sinais.</p>
-        <p>Agora você vai ver qual padrão apareceu com mais força nas suas respostas.</p>
-        <button class="button gold full" id="show-result">Ver meu resultado</button>
-      </div>
-    </section>
-  `;
-
-  document.querySelector("#show-result").addEventListener("click", showFinalResult);
+function preloadAudio(src) {
+  if (!src || preloadedAudios.has(src)) return;
+  const audio = new Audio(src);
+  audio.preload = "auto";
+  audio.load();
+  preloadedAudios.set(src, audio);
 }
 
 function showFinalResult() {
@@ -806,6 +795,11 @@ function renderResult() {
           <strong>Talvez o seu corpo esteja tentando mostrar um padrão que você normalizou.</strong>
           <p>${personalizedResultText(result)}</p>
         </div>
+      </div>
+    </section>
+    ${vslBlock(result)}
+    <section class="screen panel">
+      <div class="result-hero">
         <div class="result-section compact-result">
           <div class="score-map">
             <strong>Mapa do seu rastreio</strong>
@@ -822,7 +816,6 @@ function renderResult() {
         </div>
       </div>
     </section>
-    ${vslBlock(result)}
     ${ctaWorkshop(result)}
   `;
 
