@@ -1003,15 +1003,12 @@ async function postLead(payload) {
 
   try {
     const sheetPayload = buildSheetPayload(payload);
-    const response = await fetch(ENV_CONFIG.leadWebhookUrl, {
+    await fetch(ENV_CONFIG.leadWebhookUrl, {
       method: "POST",
+      mode: "no-cors",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(sheetPayload)
     });
-
-    if (!response.ok) {
-      throw new Error(`Lead webhook returned ${response.status}`);
-    }
   } catch (error) {
     saveLeadBackup(payload);
     console.warn("Lead webhook failed", error);
