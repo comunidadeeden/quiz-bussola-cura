@@ -8,7 +8,7 @@ const OFFER_CONFIG = {
   priceText: "R$37",
   checkoutUrl: "https://pay.hotmart.com/V105745814K?bid=1779765794512",
   salesPageUrl: "https://brunosimplicio.com.br/workshop-bussola-da-cura-04/",
-  leadWebhookUrl: "https://script.google.com/macros/s/AKfycbwKSxr0fY6RrU59ahf_FyEnMyZsF1mD1GzmfC0esc2HAYlnsjuRcPK9ssIKoTbkPavazg/exec",
+  leadWebhookUrl: "https://script.google.com/macros/s/AKfycbws3Kj9A42d_UxuSLQgcI33ypFK4rSxsxZ0chSyEgE0vNo1Pet2tVTFgMEZJy7dLk2wEQ/exec",
   privacyUrl: "#"
 };
 
