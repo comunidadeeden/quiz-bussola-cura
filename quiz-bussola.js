@@ -501,7 +501,7 @@ function optionList(question, answer) {
         return optionButton(code, label, isSelected);
       }).join("")}
     </div>
-    ${question.kind === "multi" ? `<button class="button gold full question-next" id="multi-next" ${selectedCodes.length ? "" : "disabled"}>Continuar análise</button><p class="error-message" id="multi-error"></p>` : ""}
+    ${question.kind === "multi" ? `<div class="sticky-question-action"><button class="button gold full question-next" id="multi-next" ${selectedCodes.length ? "" : "disabled"}>Continuar análise</button><p class="error-message" id="multi-error"></p></div>` : ""}
   `;
 }
 

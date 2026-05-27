@@ -509,6 +509,32 @@ textarea:focus-visible {
   margin-top: 14px;
 }
 
+.sticky-question-action {
+  position: sticky;
+  bottom: 10px;
+  z-index: 5;
+  margin-top: 14px;
+  border: 1px solid rgba(200, 168, 90, 0.32);
+  border-radius: 999px;
+  background: rgba(255, 250, 241, 0.88);
+  box-shadow: 0 14px 34px rgba(37, 34, 29, 0.14);
+  backdrop-filter: blur(12px);
+}
+
+.sticky-question-action .question-next {
+  margin-top: 0;
+}
+
+.sticky-question-action .error-message {
+  position: absolute;
+  right: 12px;
+  bottom: calc(100% + 6px);
+  left: 12px;
+  min-height: 0;
+  margin: 0;
+  text-align: center;
+}
+
 .micro-card,
 .audio-card,
 .lead-card,
@@ -1082,6 +1108,10 @@ textarea:focus-visible {
 
   .result-before-video {
     grid-template-columns: 1fr;
+  }
+
+  .sticky-question-action {
+    bottom: 8px;
   }
 
   .pitch-grid {
