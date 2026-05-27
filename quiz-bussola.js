@@ -444,8 +444,8 @@ async function handleLeadSubmit(event) {
   state.currentQuestion = 0;
   saveState();
   trackEvent("quiz_lead_submit", { email: data.email, hasWhatsapp: true });
-  await postLead({ event: "lead_submitted", lead: state.lead, answers: state.answers });
   render();
+  postLead({ event: "lead_submitted", lead: state.lead, answers: state.answers });
 }
 
 function normalizeBrazilianWhatsapp(value) {
