@@ -512,9 +512,9 @@ textarea:focus-visible {
 .sticky-question-action {
   position: fixed;
   right: auto;
-  bottom: max(12px, env(safe-area-inset-bottom));
+  bottom: max(14px, env(safe-area-inset-bottom));
   left: 50%;
-  z-index: 100;
+  z-index: 999;
   width: min(680px, calc(100vw - 32px));
   padding: 6px;
   margin-top: 0;
@@ -527,7 +527,7 @@ textarea:focus-visible {
 }
 
 .has-fixed-action {
-  padding-bottom: 104px;
+  padding-bottom: 112px;
 }
 
 .sticky-question-action .question-next {
@@ -1120,8 +1120,8 @@ textarea:focus-visible {
   }
 
   .sticky-question-action {
-    bottom: max(8px, env(safe-area-inset-bottom));
-    width: calc(100vw - 16px);
+    bottom: max(10px, env(safe-area-inset-bottom));
+    width: calc(100vw - 18px);
   }
 
   .pitch-grid {

@@ -459,10 +459,11 @@ function renderQuestion() {
   const question = QUESTIONS[state.currentQuestion];
   const title = typeof question.text === "function" ? question.text() : question.text;
   const answer = state.answers[question.id];
+  const hasFixedAction = question.kind === "multi";
 
   root.innerHTML = html`
     <section class="screen panel">
-      <div class="panel-content">
+      <div class="panel-content ${hasFixedAction ? "has-fixed-action" : ""}">
         ${progressBlock()}
         <span class="eyebrow">Etapa ${state.currentQuestion + 1} de ${QUESTIONS.length}</span>
         ${question.intro ? `<p class="question-intro">${question.intro}</p>` : ""}
@@ -471,6 +472,7 @@ function renderQuestion() {
         ${question.kind === "open" ? openQuestion(question, answer) : optionList(question, answer)}
       </div>
     </section>
+    ${hasFixedAction ? stickyQuestionAction(answer) : ""}
   `;
 
   if (question.kind === "multi") return bindMultiQuestion(question);
@@ -501,7 +503,16 @@ function optionList(question, answer) {
         return optionButton(code, label, isSelected);
       }).join("")}
     </div>
-    ${question.kind === "multi" ? `<div class="sticky-question-action"><button class="button gold full question-next" id="multi-next" ${selectedCodes.length ? "" : "disabled"}>Continuar análise</button><p class="error-message" id="multi-error"></p></div>` : ""}
+  `;
+}
+
+function stickyQuestionAction(answer) {
+  const selectedCodes = Array.isArray(answer?.codes) ? answer.codes : [];
+  return html`
+    <div class="sticky-question-action">
+      <button class="button gold full question-next" id="multi-next" ${selectedCodes.length ? "" : "disabled"}>Continuar análise</button>
+      <p class="error-message" id="multi-error"></p>
+    </div>
   `;
 }
 
