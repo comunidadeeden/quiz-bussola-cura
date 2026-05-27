@@ -8,7 +8,7 @@ const OFFER_CONFIG = {
   priceText: "R$37",
   checkoutUrl: "https://pay.hotmart.com/V105745814K?bid=1779765794512",
   salesPageUrl: "https://brunosimplicio.com.br/workshop-bussola-da-cura-04/",
-  leadWebhookUrl: "",
+  leadWebhookUrl: "https://script.google.com/macros/s/AKfycbwKSxr0fY6RrU59ahf_FyEnMyZsF1mD1GzmfC0esc2HAYlnsjuRcPK9ssIKoTbkPavazg/exec",
   privacyUrl: "#"
 };
 
@@ -1019,20 +1019,72 @@ async function postLead(payload) {
   if (!ENV_CONFIG.leadWebhookUrl) return;
 
   try {
-    await fetch(ENV_CONFIG.leadWebhookUrl, {
+    const sheetPayload = buildSheetPayload(payload);
+    const response = await fetch(ENV_CONFIG.leadWebhookUrl, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...payload,
-        utms: getUtms(),
-        source: "quiz-bussola",
-        timestamp: new Date().toISOString()
-      })
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(sheetPayload)
     });
+
+    if (!response.ok) {
+      throw new Error(`Lead webhook returned ${response.status}`);
+    }
   } catch (error) {
     saveLeadBackup(payload);
     console.warn("Lead webhook failed", error);
   }
+}
+
+function buildSheetPayload(payload) {
+  const lead = payload.lead || state.lead || {};
+  const answers = payload.answers || state.answers || {};
+  const scores = payload.scores || calculateScores();
+  const recurrence = payload.recurrence || recurrenceLevel();
+  const utms = getUtms();
+
+  const flatAnswers = QUESTIONS.reduce((fields, question, index) => {
+    fields[`etapa_${index + 1}_${question.id}`] = answerDisplay(answers[question.id]);
+    return fields;
+  }, {});
+
+  return {
+    event: payload.event,
+    source: "quiz-bussola",
+    timestamp: new Date().toISOString(),
+    page_url: window.location.href,
+    nome: lead.name || "",
+    email: lead.email || "",
+    whatsapp: lead.whatsapp || "",
+    whatsapp_digits: lead.whatsappDigits || "",
+    resultado: payload.result || state.result || "",
+    resultado_nome: payload.result ? CATEGORIES[payload.result]?.name || "" : "",
+    score_proteger: scores.proteger || 0,
+    score_evitar: scores.evitar || 0,
+    score_compensar: scores.compensar || 0,
+    score_suportar: scores.suportar || 0,
+    recorrencia_nivel: recurrence.level || "",
+    audio_caminho: state.entryPath || "",
+    pergunta_bruno: answers.pergunta_bruno?.text || "",
+    utm_source: utms.utm_source || "",
+    utm_medium: utms.utm_medium || "",
+    utm_campaign: utms.utm_campaign || "",
+    utm_content: utms.utm_content || "",
+    utm_term: utms.utm_term || "",
+    fbclid: utms.fbclid || "",
+    gclid: utms.gclid || "",
+    src: utms.src || "",
+    sck: utms.sck || "",
+    ...flatAnswers,
+    answers_json: JSON.stringify(answers),
+    payload_json: JSON.stringify(payload)
+  };
+}
+
+function answerDisplay(answer) {
+  if (!answer) return "";
+  if (answer.kind === "multi") return (answer.labels || []).join(" | ");
+  if (answer.kind === "open") return answer.text || "";
+  return answer.label || "";
 }
 
 function saveLeadBackup(payload) {
