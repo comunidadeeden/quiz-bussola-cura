@@ -434,10 +434,10 @@ async function handleLeadSubmit(event) {
     whatsapp: form.whatsapp.value.trim()
   };
 
-  const phone = normalizeBrazilianWhatsapp(data.whatsapp);
+  const phone = normalizeInternationalWhatsapp(data.whatsapp);
   if (!data.name) return (error.textContent = "Informe seu nome.");
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return (error.textContent = "Informe um e-mail válido.");
-  if (!phone) return (error.textContent = "Informe um WhatsApp com DDD. Pode usar com ou sem +55.");
+  if (!phone) return (error.textContent = "Informe um WhatsApp válido com código do país.");
 
   state.lead = { ...data, whatsapp: phone.display, whatsappDigits: phone.digits };
   state.screen = "question";
@@ -448,11 +448,15 @@ async function handleLeadSubmit(event) {
   postLead({ event: "lead_submitted", lead: state.lead, answers: state.answers });
 }
 
-function normalizeBrazilianWhatsapp(value) {
-  let digits = value.replace(/\D/g, "");
-  if (digits.startsWith("55") && (digits.length === 12 || digits.length === 13)) digits = digits.slice(2);
-  if (digits.length !== 10 && digits.length !== 11) return null;
-  return { digits, display: `+55${digits}` };
+function normalizeInternationalWhatsapp(value) {
+  const trimmed = value.trim();
+  let digits = trimmed.replace(/\D/g, "");
+
+  if (digits.startsWith("00")) digits = digits.slice(2);
+  if (digits.length < 6 || digits.length > 15) return null;
+
+  const hasCountryPrefix = trimmed.startsWith("+") || trimmed.startsWith("00");
+  return { digits, display: hasCountryPrefix ? `+${digits}` : digits };
 }
 
 function renderQuestion() {
