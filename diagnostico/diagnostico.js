@@ -7,7 +7,7 @@ const OFFER_CONFIG = {
   durationText: "3 horas",
   priceText: "R$37",
   checkoutUrl: "https://pay.hotmart.com/V105745814K?bid=1779765794512",
-  liveLinkUrl: "",
+  liveLinkUrl: "https://sndflw.com/i/I8oyIPVJImwKsH5cYNFV",
   sheetTabName: "Diagnostico Live",
   salesPageUrl: "https://brunosimplicio.com.br/workshop-bussola-da-cura-04/",
   leadWebhookUrl: "https://script.google.com/macros/s/AKfycbws3Kj9A42d_UxuSLQgcI33ypFK4rSxsxZ0chSyEgE0vNo1Pet2tVTFgMEZJy7dLk2wEQ/exec",
