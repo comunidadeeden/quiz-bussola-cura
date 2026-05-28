@@ -923,10 +923,15 @@ function ctaWorkshop(result) {
         </div>
       </div>
       <p class="pitch-lead">Uma experiência prática de <mark>${OFFER_CONFIG.durationText}</mark>, ${OFFER_CONFIG.formatText}, para parar de olhar apenas para o sintoma e começar a enxergar o padrão.</p>
+      <div class="event-date">
+        <span>Workshop ao vivo</span>
+        <strong>${OFFER_CONFIG.dateText}, às ${OFFER_CONFIG.timeText}</strong>
+        <small>${OFFER_CONFIG.formatText} · ${OFFER_CONFIG.durationText}</small>
+      </div>
       <div class="price"><span>De R$197</span><strong>por ${OFFER_CONFIG.priceText}</strong></div>
       <a class="button gold full" href="${buildCheckoutUrl()}" data-checkout>Garantir minha vaga por ${OFFER_CONFIG.priceText}</a>
       <div class="checkout-meta">
-        <span>Compra segura</span>
+        <span>Compra segura · Workshop ao vivo em ${OFFER_CONFIG.dateText}, às ${OFFER_CONFIG.timeText}</span>
       </div>
     </section>
   `;

@@ -1023,6 +1023,33 @@ textarea:focus-visible {
   text-align: left;
 }
 
+.event-date {
+  display: grid;
+  gap: 4px;
+  max-width: 420px;
+  margin: 18px auto 10px;
+  border: 1px solid rgba(244, 216, 137, 0.3);
+  border-radius: 14px;
+  background: rgba(244, 216, 137, 0.08);
+  padding: 14px 16px;
+}
+
+.event-date span,
+.event-date small {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.event-date strong {
+  color: #f4d989;
+  font-family: var(--serif);
+  font-size: clamp(26px, 5vw, 36px);
+  line-height: 1;
+}
+
 .price {
   display: flex;
   align-items: baseline;
