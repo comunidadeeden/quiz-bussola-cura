@@ -992,6 +992,7 @@ function buildSheetPayload(payload) {
   const scores = payload.scores || calculateScores();
   const recurrence = payload.recurrence || recurrenceLevel();
   const utms = getUtms();
+  const submittedAt = buildLeadDateFields();
 
   const flatAnswers = QUESTIONS.reduce((fields, question, index) => {
     fields[`etapa_${index + 1}_${question.id}`] = answerDisplay(answers[question.id]);
@@ -1004,7 +1005,7 @@ function buildSheetPayload(payload) {
     sheet_name: OFFER_CONFIG.sheetTabName,
     sheet_tab: OFFER_CONFIG.sheetTabName,
     aba: OFFER_CONFIG.sheetTabName,
-    timestamp: new Date().toISOString(),
+    ...submittedAt,
     page_url: window.location.href,
     nome: lead.name || "",
     email: lead.email || "",
@@ -1034,6 +1035,36 @@ function buildSheetPayload(payload) {
   };
 }
 
+function buildLeadDateFields(date = new Date()) {
+  const timeZone = "America/Sao_Paulo";
+  const parts = new Intl.DateTimeFormat("pt-BR", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  }).formatToParts(date).reduce((fields, part) => {
+    if (part.type !== "literal") fields[part.type] = part.value;
+    return fields;
+  }, {});
+
+  const dateBR = `${parts.day}/${parts.month}/${parts.year}`;
+  const timeBR = `${parts.hour}:${parts.minute}:${parts.second}`;
+
+  return {
+    timestamp: date.toISOString(),
+    data_preenchimento: dateBR,
+    hora_preenchimento: timeBR,
+    data_hora_preenchimento: `${dateBR} ${timeBR}`,
+    data_iso_local: `${parts.year}-${parts.month}-${parts.day} ${timeBR}`,
+    timestamp_ms: date.getTime(),
+    timezone: timeZone
+  };
+}
+
 function answerDisplay(answer) {
   if (!answer) return "";
   if (answer.kind === "multi") return (answer.labels || []).join(" | ");
@@ -1049,7 +1080,7 @@ function saveLeadBackup(payload) {
       ...payload,
       utms: getUtms(),
       source: "diagnostico-bussola",
-      timestamp: new Date().toISOString()
+      ...buildLeadDateFields()
     });
     localStorage.setItem(key, JSON.stringify(current.slice(-50)));
   } catch (error) {
