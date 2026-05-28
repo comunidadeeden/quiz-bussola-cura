@@ -8,6 +8,7 @@ const OFFER_CONFIG = {
   priceText: "R$37",
   checkoutUrl: "https://pay.hotmart.com/V105745814K?bid=1779765794512",
   liveLinkUrl: "",
+  sheetTabName: "Diagnostico Live",
   salesPageUrl: "https://brunosimplicio.com.br/workshop-bussola-da-cura-04/",
   leadWebhookUrl: "https://script.google.com/macros/s/AKfycbws3Kj9A42d_UxuSLQgcI33ypFK4rSxsxZ0chSyEgE0vNo1Pet2tVTFgMEZJy7dLk2wEQ/exec",
   privacyUrl: "#"
@@ -1000,6 +1001,9 @@ function buildSheetPayload(payload) {
   return {
     event: payload.event,
     source: "diagnostico-bussola",
+    sheet_name: OFFER_CONFIG.sheetTabName,
+    sheet_tab: OFFER_CONFIG.sheetTabName,
+    aba: OFFER_CONFIG.sheetTabName,
     timestamp: new Date().toISOString(),
     page_url: window.location.href,
     nome: lead.name || "",
