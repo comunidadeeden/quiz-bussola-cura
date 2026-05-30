@@ -1,7 +1,7 @@
 const OFFER_CONFIG = {
   workshopName: "Workshop Bússola da Cura",
   quizName: "Diagnóstico da Bússola",
-  dateText: "30 de maio",
+  dateText: getNextWorkshopDateText(),
   timeText: "09h30",
   formatText: "100% online",
   durationText: "3 horas",
@@ -13,6 +13,42 @@ const OFFER_CONFIG = {
   leadWebhookUrl: "https://script.google.com/macros/s/AKfycbws3Kj9A42d_UxuSLQgcI33ypFK4rSxsxZ0chSyEgE0vNo1Pet2tVTFgMEZJy7dLk2wEQ/exec",
   privacyUrl: "#"
 };
+
+function getNextWorkshopDateText(now = new Date()) {
+  const timeZone = "America/Sao_Paulo";
+  const parts = new Intl.DateTimeFormat("pt-BR", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  }).formatToParts(now).reduce((fields, part) => {
+    if (part.type !== "literal") fields[part.type] = part.value;
+    return fields;
+  }, {});
+
+  const current = new Date(Date.UTC(
+    Number(parts.year),
+    Number(parts.month) - 1,
+    Number(parts.day),
+    Number(parts.hour),
+    Number(parts.minute),
+    Number(parts.second)
+  ));
+  const dayOfWeek = current.getUTCDay();
+  let daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
+  if (dayOfWeek === 6 && Number(parts.hour) >= 9) daysUntilSaturday = 7;
+
+  let target = new Date(Date.UTC(Number(parts.year), Number(parts.month) - 1, Number(parts.day) + daysUntilSaturday));
+  const minimumTarget = new Date(Date.UTC(2026, 5, 6));
+  if (target < minimumTarget) target = minimumTarget;
+  const day = String(target.getUTCDate()).padStart(2, "0");
+  const month = String(target.getUTCMonth() + 1).padStart(2, "0");
+  return `${day}/${month}`;
+}
 
 const ENV_CONFIG = {
   checkoutUrl: window.NEXT_PUBLIC_CHECKOUT_URL || OFFER_CONFIG.checkoutUrl,
