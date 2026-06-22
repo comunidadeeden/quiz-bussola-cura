@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "origem.brunosimplicio.com.br"
+        }
+      ],
+      "destination": "/origem-da-doenca/"
+    }
+  ]
+}
