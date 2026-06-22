@@ -1,6 +1,7 @@
 const CONFIG = {
   MEDIA_PROVIDER: "vturb",
   VTURB_PLAYER_ID: "vid-6a399b93b59da0546a73c8cc",
+  VTURB_PLAYER_SCRIPT: "https://scripts.converteai.net/a07c65c7-f155-44ff-8522-402ada1630b9/players/6a399b93b59da0546a73c8cc/v4/player.js",
   MEDIA_URL: "",
   MEDIA_TYPE: "video",
   MEDIA_POSTER: "",
@@ -270,6 +271,15 @@ function startMediaDelay() {
   }, CONFIG.REVEAL_BTN_DELAY_SECONDS * 1000);
 }
 
+function loadVturbPlayer() {
+  if (document.querySelector("script[data-vturb-player]")) return;
+  const script = document.createElement("script");
+  script.src = CONFIG.VTURB_PLAYER_SCRIPT;
+  script.async = true;
+  script.dataset.vturbPlayer = "true";
+  document.head.appendChild(script);
+}
+
 function renderMedia() {
   root.innerHTML = panel(`
     <div class="media-panel">
@@ -281,6 +291,7 @@ function renderMedia() {
     </div>
   `);
 
+  if (CONFIG.MEDIA_PROVIDER === "vturb") loadVturbPlayer();
   const player = document.querySelector("#bruno-media");
   if (player) player.addEventListener("play", startMediaDelay, { once: true });
   if (CONFIG.MEDIA_PROVIDER === "vturb" || !CONFIG.MEDIA_URL || isEmbed(CONFIG.MEDIA_URL)) startMediaDelay();
