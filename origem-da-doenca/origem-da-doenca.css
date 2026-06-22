@@ -111,6 +111,7 @@ p { color: var(--muted); font-size: 14px; line-height: 1.62; }
 .media-panel { text-align: center; }
 .media-frame { display: grid; min-height: 270px; place-items: center; overflow: hidden; margin: 20px auto 14px; border: 1px solid rgba(200,168,90,.44); border-radius: 12px; background: var(--dark); }
 .media-frame iframe, .media-frame video { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
+.media-frame vturb-smartplayer { display: block; width: 100%; max-width: 400px; }
 .audio-wrap { display: grid; gap: 18px; width: 100%; padding: 28px; }
 .media-poster { width: 112px; height: 112px; margin: 0 auto; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; object-fit: cover; }
 .audio-wrap audio { width: 100%; }

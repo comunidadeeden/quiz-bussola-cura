@@ -1,4 +1,6 @@
 const CONFIG = {
+  MEDIA_PROVIDER: "vturb",
+  VTURB_PLAYER_ID: "vid-6a399b93b59da0546a73c8cc",
   MEDIA_URL: "",
   MEDIA_TYPE: "video",
   MEDIA_POSTER: "",
@@ -244,6 +246,9 @@ function isEmbed(url) {
 }
 
 function mediaMarkup() {
+  if (CONFIG.MEDIA_PROVIDER === "vturb") {
+    return `<vturb-smartplayer id="${CONFIG.VTURB_PLAYER_ID}" style="display:block;margin:0 auto;width:100%;max-width:400px;"></vturb-smartplayer>`;
+  }
   if (!CONFIG.MEDIA_URL) {
     return `<div class="media-placeholder"><strong>Recado do Bruno</strong><span>O vídeo será inserido aqui antes do envio desta página.</span></div>`;
   }
@@ -259,7 +264,10 @@ function mediaMarkup() {
 function startMediaDelay() {
   if (state.mediaReady || state.mediaDelayStarted) return;
   state.mediaDelayStarted = true;
-  mediaTimer = window.setTimeout(() => { state.mediaReady = true; renderMedia(); }, CONFIG.REVEAL_BTN_DELAY_SECONDS * 1000);
+  mediaTimer = window.setTimeout(() => {
+    state.mediaReady = true;
+    document.querySelector("#open-letter")?.classList.add("visible");
+  }, CONFIG.REVEAL_BTN_DELAY_SECONDS * 1000);
 }
 
 function renderMedia() {
@@ -275,7 +283,7 @@ function renderMedia() {
 
   const player = document.querySelector("#bruno-media");
   if (player) player.addEventListener("play", startMediaDelay, { once: true });
-  if (!CONFIG.MEDIA_URL || isEmbed(CONFIG.MEDIA_URL)) startMediaDelay();
+  if (CONFIG.MEDIA_PROVIDER === "vturb" || !CONFIG.MEDIA_URL || isEmbed(CONFIG.MEDIA_URL)) startMediaDelay();
   document.querySelector("#open-letter").addEventListener("click", () => { state.screen = "letter"; render(); });
 }
 
