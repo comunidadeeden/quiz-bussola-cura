@@ -24,11 +24,11 @@ const QUESTIONS = [
       ["Sim, sempre em fases de estresse ou conflito", 3],
       ["Já reparei nisso algumas vezes", 2],
       ["Nunca tinha pensado nisso", 1],
-      ["Aparece do nada", 1]
+      ["Aparece \"do nada\"", 1]
     ]
   },
   {
-    text: "Você já fez exames que deram tudo normal, mas sabe que tem algo errado?",
+    text: "Você já fez exames que deram \"tudo normal\", mas sabe que tem algo errado?",
     options: [
       ["É exatamente isso", 3],
       ["Já aconteceu comigo", 2],
