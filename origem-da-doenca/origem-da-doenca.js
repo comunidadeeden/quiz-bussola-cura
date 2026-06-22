@@ -2,7 +2,7 @@ const CONFIG = {
   MEDIA_URL: "",
   MEDIA_TYPE: "video",
   MEDIA_POSTER: "",
-  GRUPO_WHATSAPP_URL: "",
+  LIVE_YOUTUBE_URL: "https://youtube.com/live/ETuBJygCWp8?feature=share",
   AULAO_DATA: "Quinta-feira, 25/06",
   AULAO_HORA: "20h30",
   REVEAL_BTN_DELAY_SECONDS: 10
@@ -307,7 +307,7 @@ function renderCommitment() {
         <span>${CONFIG.AULAO_HORA}</span>
         <span>Ao vivo, online</span>
       </div>
-      <button class="button button-primary decision-button" id="confirm-presence">Eu decido estar lá</button>
+      <button class="button button-primary decision-button" id="confirm-presence">Continuar para ativar meu lembrete</button>
     </div>
   `);
   document.querySelector("#confirm-presence").addEventListener("click", () => { state.committed = true; state.screen = "final"; render(); });
@@ -316,19 +316,18 @@ function renderCommitment() {
 function renderFinal() {
   root.innerHTML = panel(`
     <div class="final-panel">
-      <span class="eyebrow">Compromisso registrado</span>
-      <h1>Está marcado.</h1>
-      <p>Você deu o primeiro passo. A carta abriu o processo — na quinta, no aulão, a gente continua.</p>
-      <p>Agora faz uma última coisa: volta lá no grupo do WhatsApp e escreve duas palavras:</p>
-      <div class="decision-block">EU DECIDO</div>
-      <p class="group-note">Assim o Bruno sabe que você começou. E você não esquece do aulão: ${CONFIG.AULAO_DATA}, ${CONFIG.AULAO_HORA}.</p>
-      <a class="button button-primary" id="back-group" href="${CONFIG.GRUPO_WHATSAPP_URL || "#"}">Voltar para o grupo</a>
-      ${CONFIG.GRUPO_WHATSAPP_URL ? "" : `<p class="missing-link" id="missing-link">O link do grupo será configurado antes do envio.</p>`}
+      <span class="eyebrow">Último passo</span>
+      <h1>Ative seu lembrete.</h1>
+      <p>Você deu o primeiro passo. Agora abre a transmissão no YouTube e toca em <strong>“Definir lembrete”</strong>. Assim você recebe um aviso antes do aulão.</p>
+      <div class="date-card">
+        <strong>${CONFIG.AULAO_DATA}</strong>
+        <span>${CONFIG.AULAO_HORA}</span>
+        <span>Ao vivo, no YouTube</span>
+      </div>
+      <a class="button button-primary" href="${CONFIG.LIVE_YOUTUBE_URL}" target="_blank" rel="noopener noreferrer">Abrir live e ativar lembrete</a>
+      <p class="reminder-note">Ao abrir a live, toque em “Definir lembrete”. É essa pequena ação que confirma seu compromisso.</p>
     </div>
   `);
-  document.querySelector("#back-group").addEventListener("click", (event) => {
-    if (!CONFIG.GRUPO_WHATSAPP_URL) event.preventDefault();
-  });
 }
 
 render();
