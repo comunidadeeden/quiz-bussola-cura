@@ -141,7 +141,7 @@ let mediaTimer;
 let state = createState();
 
 function createState() {
-  return { screen: "intro", questionIndex: 0, score: 0, mediaReady: false, mediaDelayStarted: false, committed: false };
+  return { screen: "intro", questionIndex: 0, score: 0, mediaReady: false, mediaDelayStarted: false };
 }
 
 function render() {
@@ -155,7 +155,6 @@ function render() {
   if (state.screen === "result") return renderResult();
   if (state.screen === "media") return renderMedia();
   if (state.screen === "letter") return renderLetter();
-  if (state.screen === "commitment") return renderCommitment();
   if (state.screen === "final") return renderFinal();
 }
 
@@ -289,28 +288,10 @@ function renderLetter() {
       <article class="letter">
         ${LETTER_LINES.map((line) => `<p class="${line === "Eu decido participar deste aulão." ? "commitment-line" : ""}">${line}</p>`).join("")}
       </article>
-      <button class="button button-primary" id="open-commitment">Eu li minha carta</button>
+      <button class="button button-primary" id="open-reminder">Ativar meu lembrete</button>
     </div>
   `);
-  document.querySelector("#open-commitment").addEventListener("click", () => { state.screen = "commitment"; render(); });
-}
-
-function renderCommitment() {
-  root.innerHTML = panel(`
-    <div class="commitment-panel">
-      <span class="eyebrow">Seu compromisso</span>
-      <h2>Você acabou de tomar uma decisão.</h2>
-      <p>Na sua carta você leu: “eu decido participar deste aulão”. Agora é hora de honrar essa decisão.</p>
-      <p>O aulão <strong>A Origem da Doença</strong> acontece:</p>
-      <div class="date-card">
-        <strong>${CONFIG.AULAO_DATA}</strong>
-        <span>${CONFIG.AULAO_HORA}</span>
-        <span>Ao vivo, online</span>
-      </div>
-      <button class="button button-primary decision-button" id="confirm-presence">Continuar para ativar meu lembrete</button>
-    </div>
-  `);
-  document.querySelector("#confirm-presence").addEventListener("click", () => { state.committed = true; state.screen = "final"; render(); });
+  document.querySelector("#open-reminder").addEventListener("click", () => { state.screen = "final"; render(); });
 }
 
 function renderFinal() {

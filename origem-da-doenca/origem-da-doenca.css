@@ -127,12 +127,9 @@ p { color: var(--muted); font-size: 14px; line-height: 1.62; }
 .letter p { margin-bottom: 17px; color: #4a4338; font-family: var(--serif); font-size: clamp(21px, 5.5vw, 28px); line-height: 1.25; }
 .letter p.commitment-line { color: var(--forest-deep); font-weight: 700; }
 
-.commitment-panel { text-align: center; }
 .date-card { display: grid; gap: 8px; max-width: 400px; margin: 24px auto; border: 1px solid var(--line); border-radius: 12px; background: #fbf4e8; padding: 22px; }
 .date-card strong { color: var(--forest-deep); font-family: var(--serif); font-size: 31px; line-height: 1; }
 .date-card span { color: var(--ink); font-size: 14px; font-weight: 800; }
-.decision-button { min-height: 60px; }
-
 .final-panel { text-align: center; }
 .reminder-note { margin: 16px auto 0; color: var(--forest-deep); font-size: 13px; font-weight: 700; }
 
