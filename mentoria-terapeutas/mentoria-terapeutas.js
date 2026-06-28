@@ -103,7 +103,7 @@ let state = createState();
 
 function createState() {
   return {
-    screen: "intro",
+    screen: "lead",
     lead: null,
     currentQuestionId: "professional_status",
     answers: {},
@@ -126,7 +126,6 @@ function getTrackingParams() {
 function render() {
   window.scrollTo({ top: 0, behavior: "smooth" });
   updateProgress();
-  if (state.screen === "intro") return renderIntro();
   if (state.screen === "lead") return renderLead();
   if (state.screen === "question") return renderQuestion();
   if (state.screen === "loading") return renderLoading();
@@ -147,33 +146,12 @@ function panel(content, className = "") {
   return `<section class="screen panel ${className}"><div class="panel-inner">${content}</div></section>`;
 }
 
-function renderIntro() {
-  root.innerHTML = panel(`
-    <div class="intro">
-      <span class="eyebrow">Pesquisa rápida</span>
-      <h1>Você quer aprender a ler pessoas como o Bruno?</h1>
-      <p class="lead">Responda algumas perguntas para entendermos se a Mentoria para Terapeutas faz sentido para o seu momento. No final, você recebe um direcionamento personalizado.</p>
-      <div class="intro-grid" aria-hidden="true">
-        <div class="mini-card"><strong>2 minutos</strong><span>perguntas objetivas</span></div>
-        <div class="mini-card"><strong>2 perfis</strong><span>terapeuta ou formação</span></div>
-        <div class="mini-card"><strong>1 direção</strong><span>próximo passo claro</span></div>
-      </div>
-      <button class="button button-primary" id="start">Começar pesquisa</button>
-    </div>
-  `);
-  document.querySelector("#start").addEventListener("click", () => {
-    trackEvent("mentoria_quiz_start");
-    state.screen = "lead";
-    render();
-  });
-}
-
 function renderLead() {
   const lead = state.lead || {};
   root.innerHTML = panel(`
-    <span class="eyebrow">Antes de começar</span>
-    <h2>Preencha seus dados para liberar a pesquisa.</h2>
-    <p class="lead">Assim conseguimos organizar as respostas e te enviar o próximo passo da Mentoria para Terapeutas.</p>
+    <span class="eyebrow">Pesquisa rápida</span>
+    <h1>Você quer aprender a ler pessoas como o Bruno?</h1>
+    <p class="lead">Preencha seus dados para liberar a pesquisa da Mentoria para Terapeutas.</p>
     <form class="form" id="lead-form" novalidate>
       <div class="field">
         <label for="name">Nome</label>
@@ -214,6 +192,7 @@ function handleLeadSubmit(event) {
   localStorage.setItem("mentoria_terapeutas_lead", JSON.stringify(lead));
   sendLeadEvent("lead_submitted");
   trackEvent("mentoria_quiz_lead_submit", { email: lead.email });
+  trackEvent("mentoria_quiz_start");
   state.screen = "question";
   render();
 }
@@ -318,50 +297,18 @@ function getFinalProfile() {
 function renderResult() {
   const profile = getFinalProfile();
   const result = RESULTS[profile];
-  const ticket = state.answers.current_ticket?.answer || "Ainda não informado";
-  const block = state.answers.main_block?.answer || "Seu principal interesse apareceu nas respostas gerais.";
-  const use = state.answers.use_intention?.answer || "";
-  const argument = state.answers.strongest_argument?.answer || "";
 
   root.innerHTML = panel(`
-    <div class="result-head">
+    <div class="result-simple">
       <span class="result-badge">${result.badge}</span>
       <h1>${result.title}</h1>
-      <p class="result-copy">${result.subtitle}</p>
-    </div>
-
-    <div class="insight-grid">
-      <div class="insight">
-        <span>Seu momento</span>
-        <strong>${profile === "terapeuta" ? ticket : "Você ainda está construindo esse caminho"}</strong>
-      </div>
-      <div class="insight">
-        <span>Principal sinal</span>
-        <strong>${profile === "terapeuta" ? block : use}</strong>
-      </div>
-      <div class="insight">
-        <span>Maior interesse</span>
-        <strong>${argument}</strong>
-      </div>
-      <div class="insight">
-        <span>Direção da pesquisa</span>
-        <strong>${result.insight}</strong>
-      </div>
-    </div>
-
-    <div class="vsl-box">
-      <span class="eyebrow">Assista antes de decidir</span>
-      <h2>${result.videoTitle}</h2>
       <div class="video-placeholder" aria-label="Espaço da VSL">
         <div>
           <span class="play-circle">▶</span>
           <strong>Vídeo da mentoria</strong>
-          <p>A VSL específica deste perfil entra aqui.</p>
         </div>
       </div>
-      <p class="pitch">${result.pitch}</p>
       <a class="button button-primary" id="checkout-button" href="${buildCheckoutUrl()}" ${MENTORIA_CONFIG.checkoutUrl === "#" ? "" : "target=\"_blank\" rel=\"noopener noreferrer\""}>${result.cta} - Workshop por ${MENTORIA_CONFIG.priceText}</a>
-      <p class="cta-note">${MENTORIA_CONFIG.checkoutUrl === "#" ? "Link de inscrição pendente de configuração." : "Compra segura · Acesso ao workshop · Grupo de preparação"}</p>
     </div>
   `);
 
