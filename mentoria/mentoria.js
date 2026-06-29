@@ -8,6 +8,17 @@ const MENTORIA_CONFIG = {
   priceText: "R$37"
 };
 
+const VSL_PLAYERS = {
+  terapeuta: {
+    id: "vid-6a42eb103f9c960ae39bbb50",
+    scriptUrl: "https://scripts.converteai.net/a07c65c7-f155-44ff-8522-402ada1630b9/players/6a42eb103f9c960ae39bbb50/v4/player.js"
+  },
+  nao_terapeuta: {
+    id: "vid-6a42eb18d77f3406e43d9b7e",
+    scriptUrl: "https://scripts.converteai.net/a07c65c7-f155-44ff-8522-402ada1630b9/players/6a42eb18d77f3406e43d9b7e/v4/player.js"
+  }
+};
+
 const QUESTIONS = [
   {
     id: "professional_status",
@@ -300,24 +311,34 @@ function getFinalProfile() {
 function renderResult() {
   const profile = getFinalProfile();
   const result = RESULTS[profile];
+  const player = VSL_PLAYERS[profile] || VSL_PLAYERS.nao_terapeuta;
 
   root.innerHTML = panel(`
     <div class="result-simple">
       <span class="result-badge">${result.badge}</span>
       <h1>${result.title}</h1>
-      <div class="video-placeholder" aria-label="Espaço da VSL">
-        <div>
-          <span class="play-circle">▶</span>
-          <strong>Vídeo da mentoria</strong>
-        </div>
+      <div class="video-frame" aria-label="Vídeo da mentoria">
+        <vturb-smartplayer id="${player.id}" style="display:block;margin:0 auto;width:100%;max-width:400px;">
+          <div class="vturb-player-placeholder"></div>
+        </vturb-smartplayer>
       </div>
       <a class="button button-primary" id="checkout-button" href="${buildCheckoutUrl()}" ${MENTORIA_CONFIG.checkoutUrl === "#" ? "" : "target=\"_blank\" rel=\"noopener noreferrer\""}>${result.cta} - Workshop por ${MENTORIA_CONFIG.priceText}</a>
     </div>
   `);
 
+  loadVturbPlayer(player);
   document.querySelector("#checkout-button").addEventListener("click", () => {
     trackEvent("mentoria_quiz_checkout_click", { profile });
   });
+}
+
+function loadVturbPlayer(player) {
+  if (!player?.scriptUrl || document.querySelector(`script[data-vturb-player="${player.id}"]`)) return;
+  const script = document.createElement("script");
+  script.src = player.scriptUrl;
+  script.async = true;
+  script.dataset.vturbPlayer = player.id;
+  document.head.appendChild(script);
 }
 
 function buildCheckoutUrl() {
