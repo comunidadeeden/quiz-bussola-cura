@@ -166,7 +166,7 @@ function renderLead() {
   root.innerHTML = panel(`
     <span class="eyebrow">Pesquisa rápida</span>
     <h1>Você quer aprender a ler pessoas como o Bruno?</h1>
-    <p class="lead">Preencha seus dados para liberar a pesquisa da Mentoria para Terapeutas.</p>
+    <p class="lead">Preencha seus dados para liberar a pesquisa do Workshop Raio X Humano.</p>
     <form class="form" id="lead-form" novalidate>
       <div class="field">
         <label for="name">Nome</label>
@@ -183,7 +183,7 @@ function renderLead() {
       <div class="error" id="form-error" role="alert"></div>
       <button class="button button-primary" type="submit">Continuar</button>
     </form>
-    <p class="fine-print">Suas respostas serão usadas para entender a demanda pela mentoria e enviar os próximos passos.</p>
+    <p class="fine-print">Suas respostas serão usadas para entender a demanda pelo workshop e enviar os próximos passos.</p>
   `);
 
   document.querySelector("#lead-form").addEventListener("submit", handleLeadSubmit);
@@ -293,7 +293,7 @@ function renderLoading() {
     <div class="loading">
       <div class="loading-ring" aria-hidden="true"></div>
       <h2>Organizando suas respostas...</h2>
-      <p>A pesquisa está cruzando seu momento atual com o caminho mais coerente para a mentoria.</p>
+      <p>A pesquisa está cruzando seu momento atual com o caminho mais coerente para o Workshop Raio X Humano.</p>
     </div>
   `);
   window.setTimeout(() => {
@@ -318,7 +318,7 @@ function renderResult() {
     <div class="result-simple">
       <span class="result-badge">${result.badge}</span>
       <h1>${result.title}</h1>
-      <div class="video-frame" aria-label="Vídeo da mentoria">
+      <div class="video-frame" aria-label="Vídeo do Workshop Raio X Humano">
         <vturb-smartplayer id="${player.id}" style="display:block;margin:0 auto;width:100%;max-width:400px;">
           <div class="vturb-player-placeholder"></div>
         </vturb-smartplayer>
