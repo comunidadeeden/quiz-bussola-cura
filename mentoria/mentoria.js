@@ -5,6 +5,7 @@ const MENTORIA_CONFIG = {
   sheetTabName: "Mentoria Terapeutas",
   spreadsheetId: "1y8flaW1dDzGUpV9wXnoug0ADVxUUWjtMk5v-z6ygjlg",
   sheetGid: "481510436",
+  ctaDelaySeconds: 60,
   priceText: "R$37"
 };
 
@@ -322,11 +323,14 @@ function renderResult() {
           <div class="vturb-player-placeholder"></div>
         </vturb-smartplayer>
       </div>
-      <a class="button button-primary" id="checkout-button" href="${buildCheckoutUrl()}" ${MENTORIA_CONFIG.checkoutUrl === "#" ? "" : "target=\"_blank\" rel=\"noopener noreferrer\""}>${result.cta} - Workshop por ${MENTORIA_CONFIG.priceText}</a>
+      <a class="button button-primary delayed-cta" id="checkout-button" href="${buildCheckoutUrl()}" ${MENTORIA_CONFIG.checkoutUrl === "#" ? "" : "target=\"_blank\" rel=\"noopener noreferrer\""}>${result.cta} - Workshop por ${MENTORIA_CONFIG.priceText}</a>
     </div>
   `);
 
   loadVturbPlayer(player);
+  window.setTimeout(() => {
+    document.querySelector("#checkout-button")?.classList.add("visible");
+  }, MENTORIA_CONFIG.ctaDelaySeconds * 1000);
   document.querySelector("#checkout-button").addEventListener("click", () => {
     trackEvent("mentoria_quiz_checkout_click", { profile });
   });
