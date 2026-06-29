@@ -2,6 +2,7 @@ const MENTORIA_CONFIG = {
   checkoutUrl: "#",
   leadWebhookUrl: "https://script.google.com/macros/s/AKfycbws3Kj9A42d_UxuSLQgcI33ypFK4rSxsxZ0chSyEgE0vNo1Pet2tVTFgMEZJy7dLk2wEQ/exec",
   source: "quiz_mentoria_terapeutas",
+  sheetTabName: "Mentoria Terapeutas",
   priceText: "R$37"
 };
 
@@ -328,16 +329,7 @@ function buildCheckoutUrl() {
 
 function sendLeadEvent(eventName) {
   if (!MENTORIA_CONFIG.leadWebhookUrl || !state.lead) return;
-  const payload = {
-    event: eventName,
-    source: MENTORIA_CONFIG.source,
-    profile: getFinalProfile(),
-    lead: state.lead,
-    answers: state.answers,
-    utms: state.utms,
-    page_url: window.location.href,
-    timestamp: new Date().toISOString()
-  };
+  const payload = buildSheetPayload(eventName);
 
   fetch(MENTORIA_CONFIG.leadWebhookUrl, {
     method: "POST",
@@ -345,6 +337,76 @@ function sendLeadEvent(eventName) {
     headers: { "Content-Type": "text/plain;charset=utf-8" },
     body: JSON.stringify(payload)
   }).catch((error) => console.warn("Lead webhook failed", error));
+}
+
+function buildSheetPayload(eventName) {
+  const lead = state.lead || {};
+  const submittedAt = buildLeadDateFields();
+  const utms = state.utms || {};
+
+  return {
+    event: eventName,
+    source: MENTORIA_CONFIG.source,
+    sheet_name: MENTORIA_CONFIG.sheetTabName,
+    sheet_tab: MENTORIA_CONFIG.sheetTabName,
+    aba: MENTORIA_CONFIG.sheetTabName,
+    ...submittedAt,
+    page_url: window.location.href,
+    nome: lead.name || "",
+    email: lead.email || "",
+    telefone: lead.phone || "",
+    whatsapp: lead.phone || "",
+    perfil: getFinalProfile(),
+    ja_atende_profissionalmente: answerText("professional_status"),
+    ticket_atual: answerText("current_ticket"),
+    trava_atendimentos: answerText("main_block"),
+    intencao_de_uso: answerText("use_intention"),
+    maior_interesse: answerText("strongest_argument"),
+    posicionamento: answerText("positioning_confirmation"),
+    utm_source: utms.utm_source || "",
+    utm_medium: utms.utm_medium || "",
+    utm_campaign: utms.utm_campaign || "",
+    utm_content: utms.utm_content || "",
+    utm_term: utms.utm_term || "",
+    fbclid: utms.fbclid || "",
+    gclid: utms.gclid || "",
+    src: utms.src || "",
+    sck: utms.sck || ""
+  };
+}
+
+function answerText(questionId) {
+  return state.answers[questionId]?.answer || "";
+}
+
+function buildLeadDateFields(date = new Date()) {
+  const timeZone = "America/Sao_Paulo";
+  const parts = new Intl.DateTimeFormat("pt-BR", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  }).formatToParts(date).reduce((fields, part) => {
+    if (part.type !== "literal") fields[part.type] = part.value;
+    return fields;
+  }, {});
+
+  const dateBR = `${parts.day}/${parts.month}/${parts.year}`;
+  const timeBR = `${parts.hour}:${parts.minute}:${parts.second}`;
+
+  return {
+    timestamp: date.toISOString(),
+    data_preenchimento: dateBR,
+    hora_preenchimento: timeBR,
+    data_hora_preenchimento: `${dateBR} ${timeBR}`,
+    data_iso_local: `${parts.year}-${parts.month}-${parts.day} ${timeBR}`,
+    timestamp_ms: date.getTime(),
+    timezone: timeZone
+  };
 }
 
 function trackEvent(eventName, payload = {}) {
