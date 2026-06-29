@@ -1,5 +1,5 @@
 const MENTORIA_CONFIG = {
-  checkoutUrl: "#",
+  checkoutUrl: "https://pay.hotmart.com/P106544757H",
   leadWebhookUrl: "https://script.google.com/macros/s/AKfycbws3Kj9A42d_UxuSLQgcI33ypFK4rSxsxZ0chSyEgE0vNo1Pet2tVTFgMEZJy7dLk2wEQ/exec",
   source: "quiz_mentoria_terapeutas",
   sheetTabName: "Mentoria Terapeutas",
