@@ -44,7 +44,7 @@ const QUESTIONS = [
   {
     id: "use_intention",
     stepLabel: "Intenção de uso",
-    text: "Se você aprendesse a identificar o padrão emocional por trás de uma doença ou comportamento em 30 minutos de conversa, o que faria com isso?",
+    text: "Se você pudesse entender tudo sobre uma pessoa em 1 minuto, o que faria com isso?",
     options: [
       { label: "Cobrar sessões mais caras e ter resultados mais rápidos com pacientes", tag: "monetizar" },
       { label: "Começar a atender de verdade e construir uma renda com isso", tag: "comecar" },
@@ -57,7 +57,7 @@ const QUESTIONS = [
     stepLabel: "Maior interesse",
     text: "Quando você pensa em aprender com o Bruno, o que mais te atrai?",
     options: [
-      { label: "Aprender o método que justifica cobrar R$1.000, R$2.000 ou mais por sessão", tag: "cobrar_mais" },
+      { label: "Aprender o método que justifica cobrar 5 mil ou mais por sessão", tag: "cobrar_mais" },
       { label: "Entender como o Bruno pensa e aplica na prática, não só teoria", tag: "pratica" },
       { label: "Ter uma habilidade que 99% dos terapeutas não têm", tag: "diferenciacao" },
       { label: "Usar essa leitura na minha própria vida antes de ensinar para outros", tag: "vida_pessoal" }
