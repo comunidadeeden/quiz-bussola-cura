@@ -3,6 +3,8 @@ const MENTORIA_CONFIG = {
   leadWebhookUrl: "https://script.google.com/macros/s/AKfycbws3Kj9A42d_UxuSLQgcI33ypFK4rSxsxZ0chSyEgE0vNo1Pet2tVTFgMEZJy7dLk2wEQ/exec",
   source: "quiz_mentoria_terapeutas",
   sheetTabName: "Mentoria Terapeutas",
+  spreadsheetId: "1y8flaW1dDzGUpV9wXnoug0ADVxUUWjtMk5v-z6ygjlg",
+  sheetGid: "481510436",
   priceText: "R$37"
 };
 
@@ -347,6 +349,10 @@ function buildSheetPayload(eventName) {
   return {
     event: eventName,
     source: MENTORIA_CONFIG.source,
+    spreadsheet_id: MENTORIA_CONFIG.spreadsheetId,
+    spreadsheet_url: `https://docs.google.com/spreadsheets/d/${MENTORIA_CONFIG.spreadsheetId}/edit?gid=${MENTORIA_CONFIG.sheetGid}#gid=${MENTORIA_CONFIG.sheetGid}`,
+    sheet_gid: MENTORIA_CONFIG.sheetGid,
+    gid: MENTORIA_CONFIG.sheetGid,
     sheet_name: MENTORIA_CONFIG.sheetTabName,
     sheet_tab: MENTORIA_CONFIG.sheetTabName,
     aba: MENTORIA_CONFIG.sheetTabName,
