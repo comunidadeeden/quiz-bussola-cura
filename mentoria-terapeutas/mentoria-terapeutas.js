@@ -6,6 +6,8 @@ const MENTORIA_CONFIG = {
   spreadsheetId: "1y8flaW1dDzGUpV9wXnoug0ADVxUUWjtMk5v-z6ygjlg",
   sheetGid: "481510436",
   ctaDelaySeconds: 60,
+  workshopDateText: "07 e 08 de julho",
+  workshopTimeText: "20h",
   priceText: "R$37"
 };
 
@@ -322,6 +324,11 @@ function renderResult() {
         <vturb-smartplayer id="${player.id}" style="display:block;margin:0 auto;width:100%;max-width:400px;">
           <div class="vturb-player-placeholder"></div>
         </vturb-smartplayer>
+      </div>
+      <div class="workshop-date-card" aria-label="Data do Workshop Raio X Humano">
+        <span>Workshop Raio X Humano</span>
+        <strong>${MENTORIA_CONFIG.workshopDateText}</strong>
+        <small>às ${MENTORIA_CONFIG.workshopTimeText}</small>
       </div>
       <a class="button button-primary delayed-cta" id="checkout-button" href="${buildCheckoutUrl()}" ${MENTORIA_CONFIG.checkoutUrl === "#" ? "" : "target=\"_blank\" rel=\"noopener noreferrer\""}>${result.cta} - Workshop por ${MENTORIA_CONFIG.priceText}</a>
     </div>
