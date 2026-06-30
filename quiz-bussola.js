@@ -9,6 +9,7 @@ const OFFER_CONFIG = {
   checkoutUrl: "https://pay.hotmart.com/V105745814K?bid=1779765794512",
   salesPageUrl: "https://brunosimplicio.com.br/workshop-bussola-da-cura-04/",
   leadWebhookUrl: "https://script.google.com/macros/s/AKfycbws3Kj9A42d_UxuSLQgcI33ypFK4rSxsxZ0chSyEgE0vNo1Pet2tVTFgMEZJy7dLk2wEQ/exec",
+  sheetTabName: "Quiz Bussola",
   privacyUrl: "#"
 };
 
@@ -1065,6 +1066,23 @@ async function postLead(payload) {
   }
 }
 
+function postLeadBeacon(payload) {
+  if (!ENV_CONFIG.leadWebhookUrl) return;
+
+  try {
+    const sheetPayload = buildSheetPayload(payload);
+    const body = JSON.stringify(sheetPayload);
+    if (navigator.sendBeacon) {
+      const blob = new Blob([body], { type: "text/plain;charset=utf-8" });
+      if (navigator.sendBeacon(ENV_CONFIG.leadWebhookUrl, blob)) return;
+    }
+    postLead(payload);
+  } catch (error) {
+    saveLeadBackup(payload);
+    console.warn("Lead beacon failed", error);
+  }
+}
+
 function buildSheetPayload(payload) {
   const lead = payload.lead || state.lead || {};
   const answers = payload.answers || state.answers || {};
@@ -1081,12 +1099,18 @@ function buildSheetPayload(payload) {
   return {
     event: payload.event,
     source: "quiz-bussola",
+    sheet_name: OFFER_CONFIG.sheetTabName,
+    sheet_tab: OFFER_CONFIG.sheetTabName,
+    aba: OFFER_CONFIG.sheetTabName,
     ...submittedAt,
     page_url: window.location.href,
     nome: lead.name || "",
     email: lead.email || "",
     whatsapp: lead.whatsapp || "",
     whatsapp_digits: lead.whatsappDigits || "",
+    lead_key: lead.email || lead.whatsappDigits || "",
+    clicou_botao: payload.event === "checkout_clicked" ? "sim" : "não",
+    checkout_clicked_at: payload.event === "checkout_clicked" ? new Date().toISOString() : "",
     resultado: payload.result || state.result || "",
     resultado_nome: payload.result ? CATEGORIES[payload.result]?.name || "" : "",
     score_proteger: scores.proteger || 0,
@@ -1185,6 +1209,14 @@ function buildCheckoutUrl() {
 function handleCheckoutClick(event) {
   event.preventDefault();
   const url = buildCheckoutUrl();
+  postLeadBeacon({
+    event: "checkout_clicked",
+    result: state.result,
+    scores: calculateScores(),
+    recurrence: recurrenceLevel(),
+    answers: state.answers,
+    lead: state.lead
+  });
   trackEvent("quiz_checkout_click", { result: state.result, checkoutUrl: url });
   trackEvent("quiz_cta_click", { result: state.result });
   window.location.href = url;

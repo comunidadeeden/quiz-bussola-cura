@@ -2,7 +2,7 @@ const MENTORIA_CONFIG = {
   checkoutUrl: "https://pay.hotmart.com/P106544757H",
   leadWebhookUrl: "https://script.google.com/macros/s/AKfycbws3Kj9A42d_UxuSLQgcI33ypFK4rSxsxZ0chSyEgE0vNo1Pet2tVTFgMEZJy7dLk2wEQ/exec",
   source: "quiz_mentoria_terapeutas",
-  sheetTabName: "Mentoria Terapeutas",
+  sheetTabName: "Mentoria",
   spreadsheetId: "1y8flaW1dDzGUpV9wXnoug0ADVxUUWjtMk5v-z6ygjlg",
   sheetGid: "481510436",
   ctaDelaySeconds: 60,
@@ -339,6 +339,7 @@ function renderResult() {
     document.querySelector("#checkout-button")?.classList.add("visible");
   }, MENTORIA_CONFIG.ctaDelaySeconds * 1000);
   document.querySelector("#checkout-button").addEventListener("click", () => {
+    sendLeadEvent("checkout_clicked");
     trackEvent("mentoria_quiz_checkout_click", { profile });
   });
 }
@@ -364,6 +365,11 @@ function buildCheckoutUrl() {
 function sendLeadEvent(eventName) {
   if (!MENTORIA_CONFIG.leadWebhookUrl || !state.lead) return;
   const payload = buildSheetPayload(eventName);
+
+  if (eventName === "checkout_clicked" && navigator.sendBeacon) {
+    const blob = new Blob([JSON.stringify(payload)], { type: "text/plain;charset=utf-8" });
+    if (navigator.sendBeacon(MENTORIA_CONFIG.leadWebhookUrl, blob)) return;
+  }
 
   fetch(MENTORIA_CONFIG.leadWebhookUrl, {
     method: "POST",
@@ -394,6 +400,9 @@ function buildSheetPayload(eventName) {
     email: lead.email || "",
     telefone: lead.phone || "",
     whatsapp: lead.phone || "",
+    lead_key: lead.email || lead.phone || "",
+    clicou_botao: eventName === "checkout_clicked" ? "sim" : "não",
+    checkout_clicked_at: eventName === "checkout_clicked" ? new Date().toISOString() : "",
     perfil: getFinalProfile(),
     ja_atende_profissionalmente: answerText("professional_status"),
     ticket_atual: answerText("current_ticket"),
