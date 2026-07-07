@@ -7,7 +7,6 @@ const MENTORIA_CONFIG = {
   sheetGid: "481510436",
   ctaDelaySeconds: 60,
   workshopDateText: "14 e 15 de julho",
-  workshopTimeText: "20h",
   priceText: "R$37"
 };
 
@@ -328,7 +327,6 @@ function renderResult() {
       <div class="workshop-date-card" aria-label="Data do Workshop Raio X Humano">
         <span>Workshop Raio X Humano</span>
         <strong>${MENTORIA_CONFIG.workshopDateText}</strong>
-        <small>às ${MENTORIA_CONFIG.workshopTimeText}</small>
       </div>
       <a class="button button-primary delayed-cta" id="checkout-button" href="${buildCheckoutUrl()}" ${MENTORIA_CONFIG.checkoutUrl === "#" ? "" : "target=\"_blank\" rel=\"noopener noreferrer\""}>${result.cta} - Workshop por ${MENTORIA_CONFIG.priceText}</a>
     </div>
