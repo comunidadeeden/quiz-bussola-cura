@@ -6,7 +6,7 @@ const MENTORIA_CONFIG = {
   spreadsheetId: "1y8flaW1dDzGUpV9wXnoug0ADVxUUWjtMk5v-z6ygjlg",
   sheetGid: "481510436",
   ctaDelaySeconds: 60,
-  workshopDateText: "07 e 08 de julho",
+  workshopDateText: "14 e 15 de julho",
   workshopTimeText: "20h",
   priceText: "R$37"
 };
