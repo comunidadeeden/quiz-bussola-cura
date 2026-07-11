@@ -55,7 +55,7 @@ const QUESTIONS = [
     id: "motivo_entrada_mentoria",
     number: "9",
     type: "single",
-    title: "Qual alternativa melhor representa o principal motivo pelo qual você entrou na Mentoria Raio-X Humano?",
+    title: "Qual alternativa melhor representa o principal motivo pelo qual você entrou na Mentoria Raio-X?",
     helper: "Mesmo que você se identifique com mais de uma alternativa, escolha aquela que melhor representa seu momento e seu principal objetivo ao entrar na mentoria.",
     options: [
       { label: "Já sou terapeuta e realizo atendimentos", segment: "terapeuta" },
@@ -210,7 +210,7 @@ const QUESTIONS = [
   { id: "q11_atencao_workshop", number: "11", common: true, type: "long", title: "O que mais chamou sua atenção quando viu o Workshop Raio-X Humano?", placeholder: "Escreva sua resposta" },
   { id: "q12_momento_workshop", number: "12", common: true, type: "long", title: "Qual conteúdo ou momento do workshop mais mexeu com você?", placeholder: "Escreva sua resposta" },
   { id: "q13_exatamente_disso", number: "13", common: true, type: "long", title: "Houve algum momento em que você pensou: “É exatamente disso que eu preciso”? Qual?", placeholder: "Conte qual foi esse momento" },
-  { id: "q14_motivo_compra", number: "14", common: true, type: "long", title: "Qual foi o principal motivo que fez você entrar na Mentoria Raio-X Humano?", placeholder: "Escreva sua resposta" },
+  { id: "q14_motivo_compra", number: "14", common: true, type: "long", title: "Qual foi o principal motivo que fez você entrar na Mentoria Raio-X?", placeholder: "Escreva sua resposta" },
   {
     id: "q15_entrega_influenciou",
     number: "15",
@@ -311,12 +311,11 @@ function renderIntro() {
   root.innerHTML = panel(`
     <span class="eyebrow">Pesquisa de Perfil e Expectativas</span>
     <h1>Pesquisa de Perfil e Expectativas</h1>
-    <p class="lead">Alunos da Mentoria Raio-X Humano</p>
+    <p class="lead">Alunos da Mentoria Raio-X</p>
     <div class="intro-copy">
-      <p>Queremos conhecer melhor cada pessoa que entrou na Mentoria Raio-X Humano.</p>
+      <p>Queremos conhecer melhor cada pessoa que entrou na Mentoria Raio-X.</p>
       <p>Suas respostas vão nos ajudar a compreender as necessidades reais da turma, melhorar os conteúdos, encontros e ferramentas e tornar a experiência da mentoria cada vez mais alinhada aos seus objetivos.</p>
       <p>Não existe resposta certa ou errada. Responda com sinceridade. As informações serão analisadas de forma confidencial.</p>
-      <span class="time-pill">Tempo estimado: de 8 a 12 minutos</span>
     </div>
     <button class="button button-primary" id="start-button" type="button">Começar pesquisa</button>
   `);
@@ -347,13 +346,15 @@ function renderQuestion() {
   const index = Math.max(visible.findIndex((item) => item.id === question.id), 0);
   const progress = ((index + 1) / visible.length) * 100;
 
+  const fixedActionClass = question.type === "short" || question.type === "long" || question.type === "multi" ? "has-fixed-action" : "";
+
   root.innerHTML = panel(`
     <div class="progress-track" aria-hidden="true"><div class="progress-fill" style="width:${progress}%"></div></div>
     <div class="question-number">Etapa ${index + 1} de ${visible.length} · pergunta ${question.number}</div>
     <h2>${question.title}</h2>
     ${question.helper ? `<p class="helper">${question.helper}</p>` : ""}
     ${renderQuestionInput(question)}
-  `);
+  `, fixedActionClass);
 
   bindQuestion(question);
 }
@@ -373,7 +374,7 @@ function renderQuestionInput(question) {
           ${input}
         </div>
         <div class="error" id="form-error" role="alert"></div>
-        <button class="button button-primary" type="submit">Continuar</button>
+        <button class="button button-primary fixed-submit" type="submit">Continuar</button>
       </form>
     `;
   }
@@ -388,7 +389,7 @@ function renderQuestionInput(question) {
           </button>
         `).join("")}
       </div>
-      <div class="multi-actions">
+      <div class="multi-actions fixed-action-bar">
         <div class="selection-count" id="selection-count">${selected.length ? `${selected.length} selecionada(s)` : "Selecione uma ou mais opções"}</div>
         <button class="button button-primary" id="multi-continue" type="button" ${selected.length ? "" : "disabled"}>Continuar</button>
       </div>
@@ -495,7 +496,7 @@ function renderLoading() {
     <div class="loading">
       <div class="loading-ring" aria-hidden="true"></div>
       <h2>Enviando suas respostas...</h2>
-      <p>Estamos registrando sua pesquisa na planilha da Mentoria Raio-X Humano.</p>
+      <p>Estamos registrando sua pesquisa na planilha da Mentoria Raio-X.</p>
     </div>
   `);
 
@@ -515,7 +516,7 @@ function renderFinal() {
       <span class="eyebrow">Respostas enviadas</span>
       <h1>Obrigado por compartilhar sua história.</h1>
       <p class="lead">Suas respostas foram enviadas com sucesso.</p>
-      <p class="lead">Elas vão nos ajudar a compreender melhor a turma e construir uma experiência cada vez mais alinhada aos seus objetivos dentro da Mentoria Raio-X Humano.</p>
+      <p class="lead">Elas vão nos ajudar a compreender melhor a turma e construir uma experiência cada vez mais alinhada aos seus objetivos dentro da Mentoria Raio-X.</p>
     </div>
   `);
 }
