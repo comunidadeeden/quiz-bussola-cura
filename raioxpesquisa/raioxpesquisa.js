@@ -248,7 +248,13 @@ const QUESTIONS = [
 const FIELD_IDS = QUESTIONS.map((question) => question.id);
 const root = document.querySelector("#survey-root");
 const progressLabel = document.querySelector("#progress-label");
-let state = loadState();
+try {
+  localStorage.removeItem(PESQUISA_CONFIG.storageKey);
+} catch (error) {
+  console.warn("State cleanup failed", error);
+}
+
+let state = createState();
 
 function createState() {
   return {
@@ -261,19 +267,7 @@ function createState() {
   };
 }
 
-function loadState() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(PESQUISA_CONFIG.storageKey) || "null");
-    if (saved && saved.screen && saved.answers) return { ...createState(), ...saved, utms: getTrackingParams() };
-  } catch (error) {
-    console.warn("State restore failed", error);
-  }
-  return createState();
-}
-
-function saveState() {
-  localStorage.setItem(PESQUISA_CONFIG.storageKey, JSON.stringify(state));
-}
+function saveState() {}
 
 function getTrackingParams() {
   const params = new URLSearchParams(window.location.search);
