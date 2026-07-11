@@ -50,10 +50,9 @@ const QUESTIONS = [
     title: "Qual é aproximadamente a sua renda pessoal mensal?",
     options: ["Até R$ 2.000", "De R$ 2.001 a R$ 4.000", "De R$ 4.001 a R$ 7.000", "De R$ 7.001 a R$ 10.000", "De R$ 10.001 a R$ 15.000", "De R$ 15.001 a R$ 25.000", "Acima de R$ 25.000", "Prefiro não responder"]
   },
-  { id: "profissao_atividade_atual", number: "8", type: "short", title: "Qual é a sua profissão ou principal atividade atualmente?", placeholder: "Digite sua profissão ou atividade" },
   {
     id: "motivo_entrada_mentoria",
-    number: "9",
+    number: "8",
     type: "single",
     title: "Qual alternativa melhor representa o principal motivo pelo qual você entrou na Mentoria Raio-X?",
     helper: "Mesmo que você se identifique com mais de uma alternativa, escolha aquela que melhor representa seu momento e seu principal objetivo ao entrar na mentoria.",
