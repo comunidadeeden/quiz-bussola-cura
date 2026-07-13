@@ -1,9 +1,9 @@
 const PESQUISA_CONFIG = {
-  leadWebhookUrl: "https://script.google.com/macros/s/AKfycbws3Kj9A42d_UxuSLQgcI33ypFK4rSxsxZ0chSyEgE0vNo1Pet2tVTFgMEZJy7dLk2wEQ/exec",
+  leadWebhookUrl: "https://script.google.com/macros/s/AKfycbxioFFJn6egBgk2wWNsqrE_PyNe6iL0Bx30CyUK1Y8S4Qpu6Om_1EVFdIZP3K2QLl13-w/exec",
   source: "pesquisa_raio_x",
   sheetTabName: "Pesquisa Raio X",
-  sheetGid: "192837465",
-  spreadsheetId: "1y8flaW1dDzGUpV9wXnoug0ADVxUUWjtMk5v-z6ygjlg",
+  sheetGid: "366513078",
+  spreadsheetId: "1o8GI6EUFUtIPU1EqNu5tTItEBG5J85tVlKerEbwbUtQ",
   storageKey: "pesquisa_raio_x_state_v1"
 };
 
