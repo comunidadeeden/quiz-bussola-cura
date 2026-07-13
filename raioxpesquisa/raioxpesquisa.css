@@ -253,6 +253,29 @@ p {
   text-transform: uppercase;
 }
 
+.question-header {
+  display: grid;
+  grid-template-columns: 76px 1fr 76px;
+  align-items: center;
+  min-height: 28px;
+  margin-bottom: 10px;
+}
+
+.question-header .question-number { margin-bottom: 0; }
+
+.back-button {
+  border: 0;
+  padding: 5px 0;
+  color: var(--navy);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 900;
+  text-align: left;
+}
+
+.back-button::before { content: "← "; }
+.back-button:hover { text-decoration: underline; }
+
 .helper {
   max-width: 620px;
   margin: -8px auto 20px;
@@ -322,6 +345,15 @@ p {
   background: #fff;
   font-size: 15px;
   font-weight: 650;
+}
+
+.other-field {
+  max-width: 620px;
+  margin: 16px auto 0;
+}
+
+.other-action-bar .error {
+  min-height: 0;
 }
 
 .field input {

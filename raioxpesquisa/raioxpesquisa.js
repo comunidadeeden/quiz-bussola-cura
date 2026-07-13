@@ -2,6 +2,7 @@ const PESQUISA_CONFIG = {
   leadWebhookUrl: "https://script.google.com/macros/s/AKfycbws3Kj9A42d_UxuSLQgcI33ypFK4rSxsxZ0chSyEgE0vNo1Pet2tVTFgMEZJy7dLk2wEQ/exec",
   source: "pesquisa_raio_x",
   sheetTabName: "Pesquisa Raio X",
+  sheetGid: "192837465",
   spreadsheetId: "1y8flaW1dDzGUpV9wXnoug0ADVxUUWjtMk5v-z6ygjlg",
   storageKey: "pesquisa_raio_x_state_v1"
 };
@@ -262,7 +263,9 @@ function createState() {
     answers: {},
     segment: "",
     utms: getTrackingParams(),
-    submitted: false
+    submitted: false,
+    submissionId: createSubmissionId(),
+    firstSentAt: ""
   };
 }
 
@@ -339,11 +342,15 @@ function renderQuestion() {
   const index = Math.max(visible.findIndex((item) => item.id === question.id), 0);
   const progress = ((index + 1) / visible.length) * 100;
 
-  const fixedActionClass = question.type === "short" || question.type === "long" || question.type === "multi" ? "has-fixed-action" : "";
+  const fixedActionClass = question.type === "short" || question.type === "long" || question.type === "multi" || isOtherSelected(question) ? "has-fixed-action" : "";
 
   root.innerHTML = panel(`
     <div class="progress-track" aria-hidden="true"><div class="progress-fill" style="width:${progress}%"></div></div>
-    <div class="question-number">Etapa ${index + 1} de ${visible.length} · pergunta ${question.number}</div>
+    <div class="question-header">
+      ${index > 0 ? '<button class="back-button" id="back-button" type="button" aria-label="Voltar para a pergunta anterior">Voltar</button>' : "<span></span>"}
+      <div class="question-number">Etapa ${index + 1} de ${visible.length} · pergunta ${question.number}</div>
+      <span></span>
+    </div>
     <h2>${question.title}</h2>
     ${question.helper ? `<p class="helper">${question.helper}</p>` : ""}
     ${renderQuestionInput(question)}
@@ -374,17 +381,35 @@ function renderQuestionInput(question) {
 
   if (question.type === "multi") {
     const selected = Array.isArray(state.answers[question.id]) ? state.answers[question.id] : [];
+    const otherSelected = isOtherSelected(question);
     return `
       <div class="options" role="group" aria-label="${escapeHtml(question.title)}">
         ${question.options.map((option, optionIndex) => `
-          <button class="option ${selected.includes(option) ? "selected" : ""}" type="button" data-index="${optionIndex}" aria-pressed="${selected.includes(option) ? "true" : "false"}">
+          <button class="option ${isSelectedMultiOption(selected, option) ? "selected" : ""}" type="button" data-index="${optionIndex}" aria-pressed="${isSelectedMultiOption(selected, option) ? "true" : "false"}">
             ${escapeHtml(option)}
           </button>
         `).join("")}
       </div>
+      ${otherSelected ? renderOtherField(question) : ""}
       <div class="multi-actions fixed-action-bar">
         <div class="selection-count" id="selection-count">${selected.length ? `${selected.length} selecionada(s)` : "Selecione uma ou mais opções"}</div>
         <button class="button button-primary" id="multi-continue" type="button" ${selected.length ? "" : "disabled"}>Continuar</button>
+      </div>
+    `;
+  }
+
+  if (isOtherSelected(question)) {
+    return `
+      <div class="options" role="radiogroup" aria-label="${escapeHtml(question.title)}">
+        ${question.options.map((option, optionIndex) => {
+          const label = typeof option === "string" ? option : option.label;
+          return `<button class="option ${isSelectedOption(question, label) ? "selected" : ""}" type="button" data-index="${optionIndex}" aria-pressed="${isSelectedOption(question, label) ? "true" : "false"}">${escapeHtml(label)}</button>`;
+        }).join("")}
+      </div>
+      ${renderOtherField(question)}
+      <div class="fixed-action-bar other-action-bar">
+        <div class="error" id="other-error" role="alert"></div>
+        <button class="button button-primary" id="other-continue" type="button">Continuar</button>
       </div>
     `;
   }
@@ -404,6 +429,8 @@ function renderQuestionInput(question) {
 }
 
 function bindQuestion(question) {
+  document.querySelector("#back-button")?.addEventListener("click", goBack);
+
   if (question.type === "short" || question.type === "long") {
     document.querySelector("#text-form").addEventListener("submit", (event) => {
       event.preventDefault();
@@ -423,7 +450,10 @@ function bindQuestion(question) {
     });
     document.querySelector("#multi-continue").addEventListener("click", () => {
       const selected = Array.isArray(state.answers[question.id]) ? state.answers[question.id] : [];
-      if (selected.length) answerQuestion(question, selected);
+      if (!selected.length) return;
+      const normalized = normalizeOtherMultiAnswer(question, selected);
+      if (!normalized) return;
+      answerQuestion(question, normalized);
     });
     return;
   }
@@ -432,18 +462,28 @@ function bindQuestion(question) {
     button.addEventListener("click", () => {
       const option = question.options[Number(button.dataset.index)];
       const value = typeof option === "string" ? option : option.label;
+      if (value === "Outro") {
+        state.answers[question.id] = "Outro";
+        renderQuestion();
+        return;
+      }
       document.querySelectorAll(".option").forEach((item) => item.disabled = true);
       button.classList.add("selected");
       if (option.segment) state.segment = option.segment;
       window.setTimeout(() => answerQuestion(question, value), 220);
     });
   });
+
+  document.querySelector("#other-continue")?.addEventListener("click", () => {
+    const value = normalizeOtherSingleAnswer(question);
+    if (value) answerQuestion(question, value);
+  });
 }
 
 function toggleMultiOption(question, optionIndex, button) {
   const value = question.options[optionIndex];
   const selected = Array.isArray(state.answers[question.id]) ? [...state.answers[question.id]] : [];
-  const existingIndex = selected.indexOf(value);
+  const existingIndex = value === "Outro" ? selected.findIndex((item) => item === "Outro" || item.startsWith("Outro: ")) : selected.indexOf(value);
   if (existingIndex >= 0) selected.splice(existingIndex, 1);
   else selected.push(value);
 
@@ -453,16 +493,21 @@ function toggleMultiOption(question, optionIndex, button) {
   document.querySelector("#selection-count").textContent = selected.length ? `${selected.length} selecionada(s)` : "Selecione uma ou mais opções";
   document.querySelector("#multi-continue").disabled = selected.length === 0;
   saveState();
+
+  if (value === "Outro" || selected.includes("Outro")) renderQuestion();
 }
 
 function answerQuestion(question, value) {
   state.answers[question.id] = value;
+  if (!state.firstSentAt) state.firstSentAt = new Date().toISOString();
   if (question.id === "motivo_entrada_mentoria") {
     const chosen = question.options.find((option) => option.label === value);
+    if (chosen?.segment && state.segment && state.segment !== chosen.segment) clearSegmentAnswers();
     if (chosen?.segment) state.segment = chosen.segment;
   }
 
   trackEvent("raioxpesquisa_answer", { question: question.id, segment: getSegmentLabel() });
+  sendSurveyEvent("partial", question.id);
 
   const nextId = getNextQuestionId(question.id);
   if (!nextId) {
@@ -475,6 +520,16 @@ function answerQuestion(question, value) {
   state.currentQuestionId = nextId;
   state.screen = "question";
   saveState();
+  render();
+}
+
+function goBack() {
+  const visible = getVisibleQuestions();
+  const index = visible.findIndex((question) => question.id === state.currentQuestionId);
+  const previous = visible[index - 1];
+  if (!previous) return;
+  state.currentQuestionId = previous.id;
+  state.screen = "question";
   render();
 }
 
@@ -493,7 +548,7 @@ function renderLoading() {
     </div>
   `);
 
-  sendSurveyEvent().finally(() => {
+  sendSurveyEvent("completed", state.currentQuestionId).finally(() => {
     state.screen = "final";
     state.submitted = true;
     saveState();
@@ -514,9 +569,14 @@ function renderFinal() {
   `);
 }
 
-async function sendSurveyEvent() {
-  if (!PESQUISA_CONFIG.leadWebhookUrl || state.submitted) return;
-  const payload = buildSheetPayload();
+async function sendSurveyEvent(status = "partial", lastQuestionId = "") {
+  if (!PESQUISA_CONFIG.leadWebhookUrl) return;
+  const payload = buildSheetPayload(status, lastQuestionId);
+
+  if (status === "partial" && navigator.sendBeacon) {
+    const blob = new Blob([JSON.stringify(payload)], { type: "text/plain;charset=utf-8" });
+    if (navigator.sendBeacon(PESQUISA_CONFIG.leadWebhookUrl, blob)) return;
+  }
 
   await fetch(PESQUISA_CONFIG.leadWebhookUrl, {
     method: "POST",
@@ -526,7 +586,7 @@ async function sendSurveyEvent() {
   }).catch((error) => console.warn("Pesquisa webhook failed", error));
 }
 
-function buildSheetPayload() {
+function buildSheetPayload(status, lastQuestionId) {
   const submittedAt = buildLeadDateFields();
   const utms = state.utms || {};
   const answers = FIELD_IDS.reduce((fields, id) => {
@@ -535,17 +595,25 @@ function buildSheetPayload() {
   }, {});
 
   return {
-    event: "pesquisa_completed",
+    event: status === "completed" ? "pesquisa_completed" : "pesquisa_partial",
     source: PESQUISA_CONFIG.source,
     spreadsheet_id: PESQUISA_CONFIG.spreadsheetId,
     spreadsheet_url: `https://docs.google.com/spreadsheets/d/${PESQUISA_CONFIG.spreadsheetId}/edit`,
     sheet_name: PESQUISA_CONFIG.sheetTabName,
     sheet_tab: PESQUISA_CONFIG.sheetTabName,
+    sheet_gid: PESQUISA_CONFIG.sheetGid,
+    gid: PESQUISA_CONFIG.sheetGid,
     aba: PESQUISA_CONFIG.sheetTabName,
     ...submittedAt,
     page_url: window.location.href,
     nome: answerText("nome"),
     lead_key: answerText("nome"),
+    submission_id: state.submissionId,
+    status_resposta: status === "completed" ? "concluída" : "em andamento",
+    ultima_pergunta: lastQuestionId,
+    primeiro_envio_em: state.firstSentAt || submittedAt.timestamp,
+    atualizado_em: submittedAt.timestamp,
+    upsert: true,
     "Segmento do público": getSegmentLabel(),
     segmento_do_publico: getSegmentLabel(),
     ...answers,
@@ -560,6 +628,75 @@ function buildSheetPayload() {
     src: utms.src || "",
     sck: utms.sck || ""
   };
+}
+
+function renderOtherField(question) {
+  return `
+    <div class="field other-field">
+      <label for="other-answer">Conte qual é o outro motivo ou opção</label>
+      <input id="other-answer" name="other-answer" value="${escapeHtml(getOtherText(question))}" placeholder="Escreva aqui" required>
+    </div>
+  `;
+}
+
+function isSelectedOption(question, label) {
+  const answer = state.answers[question.id];
+  return label === "Outro" ? isOtherSelected(question) : answer === label;
+}
+
+function isSelectedMultiOption(selected, option) {
+  return option === "Outro" ? selected.some((item) => item === "Outro" || item.startsWith("Outro: ")) : selected.includes(option);
+}
+
+function isOtherSelected(question) {
+  const answer = state.answers[question.id];
+  return answer === "Outro" || (typeof answer === "string" && answer.startsWith("Outro: ")) || (Array.isArray(answer) && answer.some((item) => item === "Outro" || item.startsWith("Outro: ")));
+}
+
+function getOtherText(question) {
+  const answer = state.answers[question.id];
+  if (typeof answer === "string" && answer.startsWith("Outro: ")) return answer.slice(7);
+  if (Array.isArray(answer)) {
+    const other = answer.find((item) => item.startsWith("Outro: "));
+    return other ? other.slice(7) : "";
+  }
+  return "";
+}
+
+function normalizeOtherSingleAnswer(question) {
+  const input = document.querySelector("#other-answer");
+  const detail = String(input?.value || "").trim();
+  if (!detail) {
+    document.querySelector("#other-error").textContent = "Escreva sua resposta para continuar.";
+    input?.focus();
+    return "";
+  }
+  return `Outro: ${detail}`;
+}
+
+function normalizeOtherMultiAnswer(question, selected) {
+  const hasOther = selected.includes("Outro") || selected.some((item) => item.startsWith("Outro: "));
+  if (!hasOther) return selected;
+  const input = document.querySelector("#other-answer");
+  const detail = String(input?.value || "").trim();
+  if (!detail) {
+    const error = document.querySelector("#other-error") || document.querySelector("#selection-count");
+    error.textContent = "Escreva qual é a outra opção para continuar.";
+    input?.focus();
+    return null;
+  }
+  return selected.map((item) => item === "Outro" || item.startsWith("Outro: ") ? `Outro: ${detail}` : item);
+}
+
+function clearSegmentAnswers() {
+  QUESTIONS.filter((question) => question.segment).forEach((question) => {
+    delete state.answers[question.id];
+  });
+}
+
+function createSubmissionId() {
+  if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+  return `raiox-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
 }
 
 function answerValue(questionId) {
