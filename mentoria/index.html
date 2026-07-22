@@ -33,6 +33,23 @@
   fbq('track', 'PageView');
   </script>
   <!-- End Meta Pixel Code -->
+  <script>
+  !function(w,d,c,u){
+    (w.vkPixelSales=w.vkPixelSales||{_q:[]})._q.push(['init',c]);
+    (w.vkPageViewPixel=w.vkPageViewPixel||{_q:[]})._q.push(['init',c,'page_view']);
+    ['https://cf.vkdigital.com.br/sales_pixel_beacon.js?v=56','https://cf.vkdigital.com.br/event_pageview.js'].forEach(function(src,i){
+      var s=d.createElement('script');
+      s.src=src;
+      s.async=1;
+      if(i===0) {
+        s.setAttribute('data-no-xcod-url','');
+        s.setAttribute('data-sticky-paid-source','');
+        s.setAttribute('data-global-tracking-cache','');
+      }
+      d.head.appendChild(s);
+    });
+  }(window,document,'dOP0AtWY0KNPoS4XBYdj');
+  </script>
 </head>
 <body>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=853765104440303&ev=PageView&noscript=1" alt=""></noscript>
