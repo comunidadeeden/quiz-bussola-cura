@@ -2,14 +2,14 @@
 
 .raiox-hero-visual {
   position: relative;
-  width: min(92%, 520px);
-  aspect-ratio: 1402 / 1122;
-  margin: 0 auto -18px;
+  width: min(88%, 480px);
+  aspect-ratio: 16 / 9;
+  margin: 0 auto -14px;
   overflow: hidden;
-  border: 1px solid #cfe2f2;
+  border: 1px solid rgba(207, 226, 242, .82);
   border-radius: 16px;
   background: #eef6fc;
-  box-shadow: 0 16px 34px rgba(43, 98, 140, .12);
+  box-shadow: 0 14px 30px rgba(43, 98, 140, .1);
 }
 
 .opening-title {
@@ -26,7 +26,9 @@
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: 50% 35%;
+  opacity: .92;
 }
 
 .raiox-scan-line {
@@ -115,8 +117,28 @@
 }
 
 .screen:has(.raiox-hero-visual) {
+  position: relative;
+  isolation: isolate;
   border-color: #d3e6f4;
   background: #eef6fc;
+}
+
+.screen:has(.raiox-hero-visual)::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  opacity: .13;
+  background-image: url("/raio-x-hero-composition.webp");
+  background-repeat: no-repeat;
+  background-position: center 68%;
+  background-size: 780px auto;
+  content: "";
+  filter: saturate(.82) blur(1px);
+}
+
+.screen:has(.raiox-hero-visual) .panel-inner {
+  position: relative;
+  z-index: 1;
 }
 
 /* The opening CTA must use the browser viewport, not the animated card. */
@@ -212,7 +234,7 @@
 @media (max-width: 520px) {
   .panel-inner { padding: 24px 20px; }
   .opening-title { font-size: 24px; }
-  .raiox-hero-visual { width: 94%; }
+  .raiox-hero-visual { width: 88%; }
   .opening-list li { font-size: 14px; }
   .insight-card { padding: 18px; }
 }
