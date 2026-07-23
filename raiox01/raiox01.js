@@ -145,6 +145,7 @@ const progressLabel = document.querySelector("#progress-label");
 let state = createState();
 
 function createState() {
+  const startedAt = new Date().toISOString();
   return {
     screen: "opening",
     stepIndex: 0,
@@ -152,8 +153,11 @@ function createState() {
     answers: {},
     profile: "",
     utms: getTrackingParams(),
-    submissionId: "",
-    firstSentAt: ""
+    submissionId: createSubmissionId(),
+    firstSentAt: startedAt,
+    captureViewed: false,
+    resultViewed: false,
+    checkoutClicked: false
   };
 }
 
@@ -206,8 +210,6 @@ function handleLeadSubmit(event) {
   const error = validateLead(lead);
   if (error) return document.querySelector("#form-error").textContent = error;
   state.lead = lead;
-  state.submissionId = createSubmissionId();
-  state.firstSentAt = new Date().toISOString();
   localStorage.setItem("raiox01_lead", JSON.stringify(lead));
   sendLeadEvent("lead_submitted");
   trackEvent("raiox01_lead_submit");
@@ -240,7 +242,13 @@ function renderOpening() {
     <p class="lead opening-invitation">Antes de reservar sua vaga no workshop, responda algumas perguntas.</p>
     <div class="opening-fixed-cta"><button class="button button-primary" id="start-button" type="button">Começar teste rápido</button></div>
   `);
-  document.querySelector("#start-button").addEventListener("click", () => { state.screen = "lead"; trackEvent("raiox01_start"); render(); });
+  document.querySelector("#start-button").addEventListener("click", () => {
+    state.captureViewed = true;
+    state.screen = "lead";
+    sendLeadEvent("capture_view");
+    trackEvent("raiox01_start");
+    render();
+  });
 }
 
 function renderStep() {
@@ -292,7 +300,13 @@ function answerStep(step, optionIndex, button) {
 
 function renderLoading() {
   root.innerHTML = panel(`<div class="loading"><div class="loading-ring" aria-hidden="true"></div><h2>Organizando seu resultado...</h2><p>Estamos conectando suas respostas com o caminho mais coerente para você.</p></div>`);
-  window.setTimeout(() => { state.screen = "result"; sendLeadEvent("quiz_completed"); trackEvent("raiox01_result_view", { profile: state.profile }); render(); }, 750);
+  window.setTimeout(() => {
+    state.screen = "result";
+    state.resultViewed = true;
+    sendLeadEvent("quiz_completed");
+    trackEvent("raiox01_result_view", { profile: state.profile });
+    render();
+  }, 750);
 }
 
 function renderResult() {
@@ -314,7 +328,11 @@ function renderResult() {
   `);
   loadVturbPlayer(player);
   window.setTimeout(() => document.querySelector("#checkout-button")?.classList.add("visible"), RAIOX_CONFIG.ctaDelaySeconds * 1000);
-  document.querySelector("#checkout-button").addEventListener("click", () => { sendLeadEvent("checkout_clicked"); trackEvent("raiox01_checkout_click", { profile: state.profile, vsl_profile: vslProfile }); });
+  document.querySelector("#checkout-button").addEventListener("click", () => {
+    state.checkoutClicked = true;
+    sendLeadEvent("checkout_clicked");
+    trackEvent("raiox01_checkout_click", { profile: state.profile, vsl_profile: vslProfile });
+  });
 }
 
 function getVslProfile() {
@@ -339,7 +357,7 @@ function buildCheckoutUrl() {
 }
 
 function sendLeadEvent(event, lastQuestionId = "") {
-  if (!state.lead || !RAIOX_CONFIG.leadWebhookUrl) return;
+  if (!state.submissionId || !RAIOX_CONFIG.leadWebhookUrl) return;
   const now = new Date().toISOString();
   const completed = event === "quiz_completed" || event === "checkout_clicked";
   const payload = {
@@ -358,10 +376,17 @@ function sendLeadEvent(event, lastQuestionId = "") {
     concluido_em: completed ? now : "",
     checkout_clicked_at: event === "checkout_clicked" ? now : "",
     ultima_pergunta_respondida: lastQuestionId,
-    nome: state.lead.name,
-    email: state.lead.email,
-    telefone: state.lead.phone,
-    whatsapp: state.lead.phone,
+    acessou_quiz: "sim",
+    chegou_captura: state.captureViewed ? "sim" : undefined,
+    enviou_dados: state.lead ? "sim" : undefined,
+    quiz_completo: completed ? "sim" : undefined,
+    resultado_visto: state.resultViewed ? "sim" : undefined,
+    clicou_checkout: state.checkoutClicked ? "sim" : undefined,
+    etapa_atual: getCurrentStage(event, lastQuestionId),
+    nome: state.lead?.name,
+    email: state.lead?.email,
+    telefone: state.lead?.phone,
+    whatsapp: state.lead?.phone,
     perfil: state.profile,
     perfil_vsl: getVslProfile(),
     situacao_valiosa: state.answers.profile || "",
@@ -369,15 +394,25 @@ function sendLeadEvent(event, lastQuestionId = "") {
     desejo_de_leitura: state.answers.desired_reading || "",
     leitura_rosto_atual: state.answers.face_reading || "",
     erro_que_quer_evitar: state.answers.consequence || "",
-    clicou_botao: event === "checkout_clicked" ? "sim" : "não",
     ...state.utms
   };
+  Object.keys(payload).forEach((key) => payload[key] === undefined && delete payload[key]);
   const body = JSON.stringify(payload);
   if (event === "checkout_clicked" && navigator.sendBeacon) {
     navigator.sendBeacon(RAIOX_CONFIG.leadWebhookUrl, new Blob([body], { type: "text/plain;charset=utf-8" }));
     return;
   }
   fetch(RAIOX_CONFIG.leadWebhookUrl, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body }).catch(() => {});
+}
+
+function getCurrentStage(event, lastQuestionId) {
+  if (event === "quiz_view") return "1. Abertura";
+  if (event === "capture_view") return "2. Captura de dados";
+  if (event === "lead_submitted") return "3. Pergunta 1";
+  if (event === "quiz_completed") return "9. Resultado";
+  if (event === "checkout_clicked") return "10. Checkout";
+  const questionIndex = STEPS.findIndex((step) => step.id === lastQuestionId);
+  return questionIndex >= 0 ? `${questionIndex + 3}. Etapa ${questionIndex + 1}` : "Em andamento";
 }
 
 function createSubmissionId() {
@@ -396,4 +431,5 @@ function escapeHtml(value) {
 }
 
 trackEvent("raiox01_view");
+sendLeadEvent("quiz_view");
 render();
