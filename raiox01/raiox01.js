@@ -146,7 +146,7 @@ let state = createState();
 
 function createState() {
   return {
-    screen: "lead",
+    screen: "opening",
     stepIndex: 0,
     lead: null,
     answers: {},
@@ -211,7 +211,7 @@ function handleLeadSubmit(event) {
   localStorage.setItem("raiox01_lead", JSON.stringify(lead));
   sendLeadEvent("lead_submitted");
   trackEvent("raiox01_lead_submit");
-  state.screen = "opening";
+  state.screen = "step";
   render();
 }
 
@@ -230,7 +230,7 @@ function renderOpening() {
     <p class="lead">Responda às perguntas e descubra quanto pode estar passando despercebido pelo seu olhar.</p>
     <button class="button button-primary" id="start-button" type="button">Descobrir o que eu não estou vendo</button>
   `);
-  document.querySelector("#start-button").addEventListener("click", () => { state.screen = "step"; trackEvent("raiox01_start"); render(); });
+  document.querySelector("#start-button").addEventListener("click", () => { state.screen = "lead"; trackEvent("raiox01_start"); render(); });
 }
 
 function renderStep() {
