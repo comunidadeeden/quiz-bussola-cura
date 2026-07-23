@@ -1,0 +1,98 @@
+@import url("/mentoria/mentoria.css?v=4");
+
+.opening-list,
+.result-copy,
+.workshop-content {
+  max-width: 590px;
+  margin: 0 auto;
+}
+
+.opening-list {
+  margin: 22px auto 26px;
+  padding: 0;
+  list-style: none;
+}
+
+.opening-list li {
+  position: relative;
+  margin: 0 0 10px;
+  padding-left: 22px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.opening-list li::before {
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  content: "•";
+  font-size: 20px;
+  line-height: 1;
+}
+
+.insight-card {
+  border: 1px solid #d8e3ed;
+  border-radius: 16px;
+  padding: 22px;
+  background: linear-gradient(145deg, #f8fbfe, #fff);
+}
+
+.insight-card p,
+.result-copy p,
+.workshop-content p { text-align: left; }
+
+.insight-card strong { color: var(--navy); }
+
+.result-badge {
+  background: var(--navy-soft);
+  color: var(--navy);
+}
+
+.result-copy {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+.workshop-content {
+  margin-top: 22px;
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+}
+
+.workshop-content h3 { font-size: clamp(21px, 4.8vw, 27px); }
+
+.workshop-content h4 {
+  margin: 21px 0 8px;
+  color: var(--navy);
+  font-size: 15px;
+}
+
+.date-card {
+  display: grid;
+  gap: 4px;
+  margin: 24px 0 16px;
+  border: 1px solid #d5dfeb;
+  border-radius: 14px;
+  padding: 16px;
+  background: #f7faff;
+  text-align: center;
+}
+
+.date-card span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.date-card strong { color: var(--navy); font-size: 18px; }
+.result-simple .fine-print { max-width: 520px; }
+
+@media (max-width: 520px) {
+  .panel-inner { padding: 24px 20px; }
+  .opening-list li { font-size: 14px; }
+  .insight-card { padding: 18px; }
+}
