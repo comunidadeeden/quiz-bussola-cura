@@ -229,7 +229,7 @@ function renderOpening() {
     <span class="eyebrow">Workshop Raio-X Humano</span>
     <h1 class="opening-title">Você acredita que é possível descobrir muito sobre uma pessoa apenas observando seu rosto e o formato do seu corpo?</h1>
     <figure class="raiox-hero-visual">
-      <img src="/raio-x-hero-wide.webp" alt="Leitura de traços do rosto e comportamento humano" width="1672" height="941">
+      <img src="/raio-x-hero-wide.webp?v=2" alt="Leitura de traços do rosto e comportamento humano" width="1586" height="992">
       <span class="raiox-scan-line" aria-hidden="true"></span>
     </figure>
     <p class="lead opening-promise">Em apenas <strong>2 noites ao vivo</strong>, vou mostrar quais sinais passam despercebidos para a maioria das pessoas e como essa habilidade pode ajudar você a:</p>
