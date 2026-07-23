@@ -389,11 +389,11 @@ function sendLeadEvent(event, lastQuestionId = "") {
     whatsapp: state.lead?.phone,
     perfil: state.profile,
     perfil_vsl: getVslProfile(),
-    situacao_valiosa: state.answers.profile || "",
-    leitura_corpo_atual: state.answers.body_reading || "",
-    desejo_de_leitura: state.answers.desired_reading || "",
-    leitura_rosto_atual: state.answers.face_reading || "",
-    erro_que_quer_evitar: state.answers.consequence || "",
+    "1ª Etapa - Situação mais valiosa": state.answers.profile || undefined,
+    "2ª Etapa - Seu olhar hoje": state.answers.body_reading || undefined,
+    "3ª Etapa - O que você busca": state.answers.desired_reading || undefined,
+    "4ª Etapa - Leitura do rosto": state.answers.face_reading || undefined,
+    "5ª Etapa - O erro que você evita": state.answers.consequence || undefined,
     ...state.utms
   };
   Object.keys(payload).forEach((key) => payload[key] === undefined && delete payload[key]);
@@ -412,7 +412,9 @@ function getCurrentStage(event, lastQuestionId) {
   if (event === "quiz_completed") return "9. Resultado";
   if (event === "checkout_clicked") return "10. Checkout";
   const questionIndex = STEPS.findIndex((step) => step.id === lastQuestionId);
-  return questionIndex >= 0 ? `${questionIndex + 3}. Etapa ${questionIndex + 1}` : "Em andamento";
+  if (questionIndex < 0) return "Em andamento";
+  const questionNumber = STEPS.slice(0, questionIndex + 1).filter((step) => step.type === "question").length;
+  return `Pergunta ${questionNumber} de 5`;
 }
 
 function createSubmissionId() {
