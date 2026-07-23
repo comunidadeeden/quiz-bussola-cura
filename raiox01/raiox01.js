@@ -1,10 +1,10 @@
 const RAIOX_CONFIG = {
   checkoutUrl: "https://pay.hotmart.com/P106544757H",
-  leadWebhookUrl: "https://script.google.com/macros/s/AKfycbws3Kj9A42d_UxuSLQgcI33ypFK4rSxsxZ0chSyEgE0vNo1Pet2tVTFgMEZJy7dLk2wEQ/exec",
+  leadWebhookUrl: "https://script.google.com/macros/s/AKfycbwfB9L59W9e07FwjmaS7TLOzJrec4VOv0O4taqWIttCg3M6i9QUzS6gfX2nWt0povht/exec",
   source: "quiz_raiox01",
-  sheetTabName: "Mentoria",
-  spreadsheetId: "1y8flaW1dDzGUpV9wXnoug0ADVxUUWjtMk5v-z6ygjlg",
-  sheetGid: "481510436",
+  sheetTabName: "Leads Raio X 01",
+  spreadsheetId: "1OBr2lZO_AyVS30f2_KD0qwLtrBxyY-8owmbVCq50KK4",
+  sheetGid: "521598952",
   workshopDateText: "28 e 29 de julho",
   priceText: "R$37"
 };
@@ -133,7 +133,16 @@ const progressLabel = document.querySelector("#progress-label");
 let state = createState();
 
 function createState() {
-  return { screen: "lead", stepIndex: 0, lead: null, answers: {}, profile: "", utms: getTrackingParams() };
+  return {
+    screen: "lead",
+    stepIndex: 0,
+    lead: null,
+    answers: {},
+    profile: "",
+    utms: getTrackingParams(),
+    submissionId: "",
+    firstSentAt: ""
+  };
 }
 
 function getTrackingParams() {
@@ -185,6 +194,8 @@ function handleLeadSubmit(event) {
   const error = validateLead(lead);
   if (error) return document.querySelector("#form-error").textContent = error;
   state.lead = lead;
+  state.submissionId = createSubmissionId();
+  state.firstSentAt = new Date().toISOString();
   localStorage.setItem("raiox01_lead", JSON.stringify(lead));
   sendLeadEvent("lead_submitted");
   trackEvent("raiox01_lead_submit");
@@ -246,6 +257,7 @@ function answerStep(step, optionIndex, button) {
   button.classList.add("selected");
   if (option.profile) state.profile = option.profile;
   state.answers[step.id] = option.label;
+  sendLeadEvent("partial", step.id);
   trackEvent("raiox01_answer", { question: step.id, profile: state.profile });
   window.setTimeout(() => {
     state.stepIndex += 1;
@@ -294,17 +306,26 @@ function buildCheckoutUrl() {
   return url.toString();
 }
 
-function sendLeadEvent(event) {
+function sendLeadEvent(event, lastQuestionId = "") {
   if (!state.lead || !RAIOX_CONFIG.leadWebhookUrl) return;
-  const now = new Date();
+  const now = new Date().toISOString();
+  const completed = event === "quiz_completed" || event === "checkout_clicked";
   const payload = {
     event,
     source: RAIOX_CONFIG.source,
     spreadsheet_id: RAIOX_CONFIG.spreadsheetId,
     sheet_name: RAIOX_CONFIG.sheetTabName,
     sheet_gid: RAIOX_CONFIG.sheetGid,
-    timestamp: now.toISOString(),
+    timestamp: now,
     page_url: window.location.href,
+    submission_id: state.submissionId,
+    status_resposta: completed ? "concluída" : "em andamento",
+    ultimo_evento: event,
+    primeiro_envio_em: state.firstSentAt || now,
+    atualizado_em: now,
+    concluido_em: completed ? now : "",
+    checkout_clicked_at: event === "checkout_clicked" ? now : "",
+    ultima_pergunta_respondida: lastQuestionId,
     nome: state.lead.name,
     email: state.lead.email,
     telefone: state.lead.phone,
@@ -318,7 +339,17 @@ function sendLeadEvent(event) {
     clicou_botao: event === "checkout_clicked" ? "sim" : "não",
     ...state.utms
   };
-  fetch(RAIOX_CONFIG.leadWebhookUrl, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) }).catch(() => {});
+  const body = JSON.stringify(payload);
+  if (event === "checkout_clicked" && navigator.sendBeacon) {
+    navigator.sendBeacon(RAIOX_CONFIG.leadWebhookUrl, new Blob([body], { type: "text/plain;charset=utf-8" }));
+    return;
+  }
+  fetch(RAIOX_CONFIG.leadWebhookUrl, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body }).catch(() => {});
+}
+
+function createSubmissionId() {
+  if (window.crypto && typeof window.crypto.randomUUID === "function") return window.crypto.randomUUID();
+  return `raiox01-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
 }
 
 function trackEvent(eventName, payload = {}) {
