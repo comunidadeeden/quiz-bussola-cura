@@ -31,6 +31,27 @@
   line-height: 1;
 }
 
+.opening-benefits {
+  margin: 22px auto;
+  text-align: left;
+}
+
+.opening-benefits li {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.opening-benefits li::before {
+  content: "✓";
+  color: var(--gold);
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.opening-invitation {
+  margin-top: 22px;
+}
+
 .insight-card {
   border: 1px solid #d8e3ed;
   border-radius: 16px;
