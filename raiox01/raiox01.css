@@ -232,10 +232,17 @@
 .date-card strong { color: var(--navy); font-size: 18px; }
 .result-simple .fine-print { max-width: 520px; }
 
+.result-simple > h1 {
+  max-width: 590px;
+  font-size: clamp(24px, 4.6vw, 34px);
+  line-height: 1.16;
+}
+
 @media (max-width: 520px) {
   .panel-inner { padding: 20px 18px; }
   .opening-title { font-size: 22px; }
   .raiox-hero-visual { width: 100%; }
   .opening-list li { font-size: 12px; }
+  .result-simple > h1 { font-size: 25px; }
   .insight-card { padding: 18px; }
 }
