@@ -225,11 +225,11 @@ function validateLead(lead) {
 function renderOpening() {
   root.innerHTML = panel(`
     <span class="eyebrow">Workshop Raio-X Humano</span>
+    <h1 class="opening-title">Você acredita que é possível descobrir muito sobre uma pessoa apenas observando seu rosto e o formato do seu corpo?</h1>
     <figure class="raiox-hero-visual">
       <img src="/raio-x-hero-composition.webp" alt="Composição do Workshop Raio-X Humano com Bruno Simplício ao centro" width="1402" height="1122">
       <span class="raiox-scan-line" aria-hidden="true"></span>
     </figure>
-    <h1>Você acredita que é possível descobrir muito sobre uma pessoa apenas observando seu rosto e o formato do seu corpo?</h1>
     <p class="lead">Em apenas <strong>2 noites ao vivo</strong>, vou mostrar quais sinais passam despercebidos para a maioria das pessoas e como essa habilidade pode ajudar você a:</p>
     <ul class="opening-list opening-benefits">
       <li>Entender melhor as pessoas antes mesmo da primeira conversa.</li>
@@ -238,7 +238,7 @@ function renderOpening() {
       <li>Melhorar seus relacionamentos, atendimentos e comunicação.</li>
     </ul>
     <p class="lead opening-invitation">Antes de reservar sua vaga no workshop, responda algumas perguntas.</p>
-    <button class="button button-primary" id="start-button" type="button">Começar teste rápido</button>
+    <div class="opening-fixed-cta"><button class="button button-primary" id="start-button" type="button">Começar teste rápido</button></div>
   `);
   document.querySelector("#start-button").addEventListener("click", () => { state.screen = "lead"; trackEvent("raiox01_start"); render(); });
 }
