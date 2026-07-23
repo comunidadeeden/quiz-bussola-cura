@@ -224,11 +224,11 @@ function validateLead(lead) {
 
 function renderOpening() {
   root.innerHTML = panel(`
-    <span class="eyebrow">Teste rápido · 90 segundos</span>
-    <h1>Quanto você consegue descobrir sobre uma pessoa antes mesmo de ela dizer a primeira palavra?</h1>
-    <p class="lead">O formato do corpo e determinadas características do rosto podem revelar indícios sobre personalidade, traços de caráter e tendências de comportamento.</p>
-    <p class="lead">Responda às perguntas e descubra quanto pode estar passando despercebido pelo seu olhar.</p>
-    <button class="button button-primary" id="start-button" type="button">Descobrir o que eu não estou vendo</button>
+    <span class="eyebrow">Workshop Raio-X Humano</span>
+    <h1>Descubra, em 2 dias, como identificar sinais que a maioria das pessoas nunca percebe no rosto, no corpo e no comportamento.</h1>
+    <p class="lead">Antes de liberar sua vaga, responda este teste rápido.</p>
+    <p class="lead">Suas respostas vão mostrar como você observa as pessoas hoje e preparar seu resultado para o Workshop Raio-X Humano.</p>
+    <button class="button button-primary" id="start-button" type="button">Começar teste rápido</button>
   `);
   document.querySelector("#start-button").addEventListener("click", () => { state.screen = "lead"; trackEvent("raiox01_start"); render(); });
 }
