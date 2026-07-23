@@ -232,7 +232,7 @@ function renderOpening() {
       <img src="/raio-x-hero-composition.webp" alt="Composição do Workshop Raio-X Humano com Bruno Simplício ao centro" width="1402" height="1122">
       <span class="raiox-scan-line" aria-hidden="true"></span>
     </figure>
-    <p class="lead">Em apenas <strong>2 noites ao vivo</strong>, vou mostrar quais sinais passam despercebidos para a maioria das pessoas e como essa habilidade pode ajudar você a:</p>
+    <p class="lead opening-promise">Em apenas <strong>2 noites ao vivo</strong>, vou mostrar quais sinais passam despercebidos para a maioria das pessoas e como essa habilidade pode ajudar você a:</p>
     <ul class="opening-list opening-benefits">
       <li>Entender melhor as pessoas antes mesmo da primeira conversa.</li>
       <li>Identificar traços de personalidade e padrões de comportamento.</li>
