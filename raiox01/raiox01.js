@@ -6,7 +6,19 @@ const RAIOX_CONFIG = {
   spreadsheetId: "1OBr2lZO_AyVS30f2_KD0qwLtrBxyY-8owmbVCq50KK4",
   sheetGid: "521598952",
   workshopDateText: "28 e 29 de julho",
-  priceText: "R$37"
+  priceText: "R$37",
+  ctaDelaySeconds: 60
+};
+
+const VSL_PLAYERS = {
+  terapeuta: {
+    id: "vid-6a42eb103f9c960ae39bbb50",
+    scriptUrl: "https://scripts.converteai.net/a07c65c7-f155-44ff-8522-402ada1630b9/players/6a42eb103f9c960ae39bbb50/v4/player.js"
+  },
+  nao_terapeuta: {
+    id: "vid-6a42eb18d77f3406e43d9b7e",
+    scriptUrl: "https://scripts.converteai.net/a07c65c7-f155-44ff-8522-402ada1630b9/players/6a42eb18d77f3406e43d9b7e/v4/player.js"
+  }
 };
 
 const STEPS = [
@@ -275,27 +287,37 @@ function renderLoading() {
 
 function renderResult() {
   const result = RESULTS[state.profile] || RESULTS.vida_pessoal;
+  const vslProfile = getVslProfile();
+  const player = VSL_PLAYERS[vslProfile];
   root.innerHTML = panel(`
     <div class="result-simple">
       <span class="result-badge">${result.badge}</span>
       <h1>${result.title}</h1>
-      <div class="result-copy">${result.paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("")}</div>
-      <div class="workshop-content">
-        <span class="eyebrow">Workshop Raio-X Humano</span>
-        <h3>Você não precisa esperar uma pessoa revelar quem é para começar a observá-la.</h3>
-        <p>O Workshop Raio-X Humano é uma experiência introdutória de dois dias para desenvolver um novo olhar sobre rosto, corpo, personalidade e comportamento.</p>
-        <h4>No estudo do corpo, você vai conhecer:</h4>
-        <ul class="opening-list"><li>os cinco grandes traços de caráter</li><li>como cada traço se manifesta no formato corporal</li><li>dores e mecanismos de defesa associados a cada perfil</li><li>forças, limitações e tendências de comportamento</li><li>exemplos práticos de diferentes formatos de corpo</li></ul>
-        <h4>No estudo do rosto, você vai conhecer:</h4>
-        <ul class="opening-list"><li>a divisão entre lado materno e lado paterno</li><li>o que observar na região dos olhos</li><li>indícios relacionados a peso, ausência e manipulação</li><li>diferenças e assimetrias entre os dois lados</li><li>exemplos visuais para treinar sua percepção</li></ul>
-        <p><strong>Ao final, você terá um mapa inicial para olhar uma pessoa e saber o que observar antes mesmo da primeira palavra.</strong></p>
+      <div class="video-frame" aria-label="Vídeo do Workshop Raio-X Humano">
+        <vturb-smartplayer id="${player.id}" style="display:block;margin:0 auto;width:100%;max-width:400px;">
+          <div class="vturb-player-placeholder"></div>
+        </vturb-smartplayer>
       </div>
-      <div class="date-card"><span>Workshop Raio-X Humano</span><strong>${RAIOX_CONFIG.workshopDateText}</strong><span>Investimento: ${RAIOX_CONFIG.priceText}</span></div>
-      <a class="button button-primary" id="checkout-button" href="${buildCheckoutUrl()}" target="_blank" rel="noopener noreferrer">Quero aprender a analisar rosto e corpo</a>
-      <p class="fine-print">Conheça os fundamentos da leitura corporal e facial e descubra como desenvolver essa habilidade.</p>
+      <div class="workshop-date-card"><span>Workshop Raio-X Humano</span><strong>${RAIOX_CONFIG.workshopDateText}</strong><small>Investimento: ${RAIOX_CONFIG.priceText}</small></div>
+      <a class="button button-primary delayed-cta" id="checkout-button" href="${buildCheckoutUrl()}" target="_blank" rel="noopener noreferrer">Quero aprender a analisar rosto e corpo</a>
     </div>
   `);
-  document.querySelector("#checkout-button").addEventListener("click", () => { sendLeadEvent("checkout_clicked"); trackEvent("raiox01_checkout_click", { profile: state.profile }); });
+  loadVturbPlayer(player);
+  window.setTimeout(() => document.querySelector("#checkout-button")?.classList.add("visible"), RAIOX_CONFIG.ctaDelaySeconds * 1000);
+  document.querySelector("#checkout-button").addEventListener("click", () => { sendLeadEvent("checkout_clicked"); trackEvent("raiox01_checkout_click", { profile: state.profile, vsl_profile: vslProfile }); });
+}
+
+function getVslProfile() {
+  return state.profile === "terapeuta" ? "terapeuta" : "nao_terapeuta";
+}
+
+function loadVturbPlayer(player) {
+  if (!player || document.querySelector(`script[data-vturb-player="${player.id}"]`)) return;
+  const script = document.createElement("script");
+  script.src = player.scriptUrl;
+  script.async = true;
+  script.dataset.vturbPlayer = player.id;
+  document.head.appendChild(script);
 }
 
 function buildCheckoutUrl() {
@@ -331,6 +353,7 @@ function sendLeadEvent(event, lastQuestionId = "") {
     telefone: state.lead.phone,
     whatsapp: state.lead.phone,
     perfil: state.profile,
+    perfil_vsl: getVslProfile(),
     situacao_valiosa: state.answers.profile || "",
     leitura_corpo_atual: state.answers.body_reading || "",
     desejo_de_leitura: state.answers.desired_reading || "",
