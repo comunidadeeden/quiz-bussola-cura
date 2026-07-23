@@ -2,24 +2,22 @@
 
 .raiox-hero-visual {
   position: relative;
-  width: min(88%, 480px);
+  width: min(100%, 440px);
   aspect-ratio: 16 / 9;
-  margin: 0 auto -14px;
+  margin: 12px auto 14px;
   overflow: hidden;
-  border: 1px solid rgba(207, 226, 242, .82);
+  border: 1px solid rgba(207, 226, 242, .9);
   border-radius: 16px;
   background: #eef6fc;
-  box-shadow: 0 14px 30px rgba(43, 98, 140, .1);
+  box-shadow: 0 12px 24px rgba(43, 98, 140, .09);
 }
 
 .opening-title {
   max-width: 640px;
-  position: relative;
-  z-index: 2;
-  margin: 8px auto -28px;
-  padding: 0 14px;
-  font-size: clamp(24px, 5.4vw, 35px);
-  line-height: 1.2;
+  margin: 8px auto 0;
+  padding: 0 6px;
+  font-size: clamp(22px, 5vw, 31px);
+  line-height: 1.18;
 }
 
 .raiox-hero-visual img {
@@ -27,8 +25,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 35%;
-  opacity: .92;
+  object-position: center;
+  opacity: .96;
 }
 
 .raiox-scan-line {
@@ -88,13 +86,19 @@
 }
 
 .opening-benefits {
-  margin: 22px auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+  margin: 14px auto;
   text-align: left;
 }
 
 .opening-benefits li {
   color: var(--text);
+  margin: 0;
   font-weight: 600;
+  font-size: 12px;
+  line-height: 1.35;
 }
 
 .opening-benefits li::before {
@@ -105,40 +109,29 @@
 }
 
 .opening-invitation {
-  margin-top: 22px;
+  margin-top: 14px;
+  font-size: 14px;
 }
 
 .opening-promise {
-  position: relative;
-  z-index: 2;
-  margin-top: -12px;
-  padding: 18px 16px 0;
+  margin-top: 0;
+  padding: 0 4px;
   color: #233c59;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .screen:has(.raiox-hero-visual) {
-  position: relative;
-  isolation: isolate;
   border-color: #d3e6f4;
   background: #eef6fc;
 }
 
-.screen:has(.raiox-hero-visual)::before {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  opacity: .13;
-  background-image: url("/raio-x-hero-composition.webp");
-  background-repeat: no-repeat;
-  background-position: center 68%;
-  background-size: 780px auto;
-  content: "";
-  filter: saturate(.82) blur(1px);
+.app-shell:has(.raiox-hero-visual) {
+  padding-top: 8px;
 }
 
-.screen:has(.raiox-hero-visual) .panel-inner {
-  position: relative;
-  z-index: 1;
+.app-shell:has(.raiox-hero-visual) .topbar {
+  display: none;
 }
 
 /* The opening CTA must use the browser viewport, not the animated card. */
@@ -232,9 +225,9 @@
 .result-simple .fine-print { max-width: 520px; }
 
 @media (max-width: 520px) {
-  .panel-inner { padding: 24px 20px; }
-  .opening-title { font-size: 24px; }
-  .raiox-hero-visual { width: 88%; }
-  .opening-list li { font-size: 14px; }
+  .panel-inner { padding: 20px 18px; }
+  .opening-title { font-size: 22px; }
+  .raiox-hero-visual { width: 100%; }
+  .opening-list li { font-size: 12px; }
   .insight-card { padding: 18px; }
 }
