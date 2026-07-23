@@ -225,6 +225,10 @@ function validateLead(lead) {
 function renderOpening() {
   root.innerHTML = panel(`
     <span class="eyebrow">Workshop Raio-X Humano</span>
+    <figure class="raiox-hero-visual">
+      <img src="/raio-x-hero-composition.webp" alt="Composição do Workshop Raio-X Humano com Bruno Simplício ao centro" width="1402" height="1122">
+      <span class="raiox-scan-line" aria-hidden="true"></span>
+    </figure>
     <h1>Você acredita que é possível descobrir muito sobre uma pessoa apenas observando seu rosto e o formato do seu corpo?</h1>
     <p class="lead">Em apenas <strong>2 noites ao vivo</strong>, vou mostrar quais sinais passam despercebidos para a maioria das pessoas e como essa habilidade pode ajudar você a:</p>
     <ul class="opening-list opening-benefits">
