@@ -196,7 +196,7 @@ function renderLead() {
       <div class="field"><label for="email">Melhor e-mail</label><input id="email" name="email" type="email" autocomplete="email" placeholder="voce@email.com" value="${escapeHtml(lead.email || "")}" required></div>
       <div class="field"><label for="phone">WhatsApp</label><input id="phone" name="phone" inputmode="tel" autocomplete="tel" placeholder="+55 11 99999-9999" value="${escapeHtml(lead.phone || "")}" required></div>
       <div class="error" id="form-error" role="alert"></div>
-      <button class="button button-primary" type="submit">Continuar</button>
+      <div class="fixed-cta"><button class="button button-primary" type="submit">Continuar</button></div>
     </form>
     <p class="fine-print">Seus dados serão usados para enviar informações sobre seu resultado e sobre o Workshop Raio-X Humano.</p>
   `);
@@ -240,7 +240,7 @@ function renderOpening() {
       <li>Melhorar seus relacionamentos, atendimentos e comunicação.</li>
     </ul>
     <p class="lead opening-invitation">Antes de reservar sua vaga no workshop, responda algumas perguntas.</p>
-    <div class="opening-fixed-cta"><button class="button button-primary" id="start-button" type="button">Começar teste rápido</button></div>
+    <div class="fixed-cta"><button class="button button-primary" id="start-button" type="button">Começar teste rápido</button></div>
   `);
   document.querySelector("#start-button").addEventListener("click", () => {
     state.captureViewed = true;
@@ -276,7 +276,7 @@ function renderInsight(step, progress) {
       <ul class="opening-list">${step.bullets.map((bullet) => `<li>${bullet}</li>`).join("")}</ul>
       <p><strong>${step.footer}</strong></p>
     </div>
-    <button class="button button-primary" id="continue-button" type="button">${step.button}</button>
+    <div class="fixed-cta"><button class="button button-primary" id="continue-button" type="button">${step.button}</button></div>
   `);
   document.querySelector("#continue-button").addEventListener("click", () => { state.stepIndex += 1; trackEvent("raiox01_insight_continue", { insight: step.id }); render(); });
 }
@@ -323,11 +323,11 @@ function renderResult() {
         </vturb-smartplayer>
       </div>
       <div class="workshop-date-card"><span>Workshop Raio-X Humano</span><strong>${RAIOX_CONFIG.workshopDateText}</strong><small>Investimento: ${RAIOX_CONFIG.priceText}</small></div>
-      <a class="button button-primary delayed-cta" id="checkout-button" href="${buildCheckoutUrl()}" target="_blank" rel="noopener noreferrer">Quero aprender a analisar rosto e corpo</a>
+      <div class="fixed-cta result-fixed-cta" id="checkout-cta"><a class="button button-primary" id="checkout-button" href="${buildCheckoutUrl()}" target="_blank" rel="noopener noreferrer">Quero aprender a analisar rosto e corpo</a></div>
     </div>
   `);
   loadVturbPlayer(player);
-  window.setTimeout(() => document.querySelector("#checkout-button")?.classList.add("visible"), RAIOX_CONFIG.ctaDelaySeconds * 1000);
+  window.setTimeout(() => document.querySelector("#checkout-cta")?.classList.add("visible"), RAIOX_CONFIG.ctaDelaySeconds * 1000);
   document.querySelector("#checkout-button").addEventListener("click", () => {
     state.checkoutClicked = true;
     sendLeadEvent("checkout_clicked");

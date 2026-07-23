@@ -134,13 +134,13 @@
   display: none;
 }
 
-/* The opening CTA must use the browser viewport, not the animated card. */
-.screen:has(.opening-fixed-cta) {
+/* Fixed CTAs must use the browser viewport, not the animated card. */
+.screen:has(.fixed-cta) {
   animation: none;
   transform: none;
 }
 
-.opening-fixed-cta {
+.fixed-cta {
   position: fixed;
   z-index: 9999;
   right: 0;
@@ -155,12 +155,20 @@
   backdrop-filter: blur(10px);
 }
 
-.opening-fixed-cta .button {
+.fixed-cta .button {
   width: min(100%, 590px);
   margin: 0;
 }
 
-.panel-inner:has(.opening-fixed-cta) {
+.result-fixed-cta {
+  display: none;
+}
+
+.result-fixed-cta.visible {
+  display: grid;
+}
+
+.panel-inner:has(.fixed-cta) {
   padding-bottom: 110px;
 }
 
