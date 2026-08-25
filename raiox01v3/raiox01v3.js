@@ -5,19 +5,19 @@ const RAIOX_CONFIG = {
   sheetTabName: "Leads Raio X 01 V3",
   spreadsheetId: "1OBr2lZO_AyVS30f2_KD0qwLtrBxyY-8owmbVCq50KK4",
   sheetGid: "838649206",
-  workshopDateText: "25 e 26 de Agosto",
+  workshopDateText: "01 e 02 de Setembro",
   priceText: "R$67",
   ctaDelaySeconds: 60
 };
 
 const VSL_PLAYERS = {
   terapeuta: {
-    id: "vid-6a42eb103f9c960ae39bbb50",
-    scriptUrl: "https://scripts.converteai.net/a07c65c7-f155-44ff-8522-402ada1630b9/players/6a42eb103f9c960ae39bbb50/v4/player.js"
+    id: "vid-6a8de2d9d5cdae2c958dc2a1",
+    scriptUrl: "https://scripts.converteai.net/a07c65c7-f155-44ff-8522-402ada1630b9/players/6a8de2d9d5cdae2c958dc2a1/v4/player.js"
   },
   nao_terapeuta: {
-    id: "vid-6a42eb18d77f3406e43d9b7e",
-    scriptUrl: "https://scripts.converteai.net/a07c65c7-f155-44ff-8522-402ada1630b9/players/6a42eb18d77f3406e43d9b7e/v4/player.js"
+    id: "vid-6a8de2eb31552ce9b670d0bf",
+    scriptUrl: "https://scripts.converteai.net/a07c65c7-f155-44ff-8522-402ada1630b9/players/6a8de2eb31552ce9b670d0bf/v4/player.js"
   }
 };
 
