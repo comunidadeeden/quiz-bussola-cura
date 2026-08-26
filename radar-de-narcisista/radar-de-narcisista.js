@@ -1,5 +1,5 @@
 const RADAR_CONFIG = {
-  checkoutUrl: "https://pay.hotmart.com/P106544757H?off=n0ef8dlp",
+  checkoutUrl: "https://pay.hotmart.com/P107318989J?off=7spkcy10",
   leadWebhookUrl: "https://script.google.com/macros/s/AKfycbxZ_k-DutORMsyQrG8K-c8Jky4Jcwwr-m8bgunzXl43HY0E1mjS636QrUC4O33xJXBQ4w/exec",
   source: "quiz_radar_de_narcisista",
   quizVariant: "radar_de_narcisista",
