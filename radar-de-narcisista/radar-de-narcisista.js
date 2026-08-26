@@ -208,7 +208,7 @@ function updateProgress() {
 function renderOpening() {
   root.innerHTML = panel(`
     <span class="eyebrow">Quiz Raio-X do Narcisismo · 2 minutos</span>
-    <h1 class="opening-title">Você conseguiria identificar sinais associados ao narcisismo antes mesmo de uma pessoa dizer a primeira palavra?</h1>
+    <h1 class="opening-title">Você conseguiria identificar um narcisista antes mesmo dele dizer a primeira palavra?</h1>
     <figure class="radar-hero-visual">
       <img src="/radar-de-narcisista/assets/radar-de-narcisista.png" alt="Radar de Narcisista" width="1254" height="1254">
       <span class="scan-line" aria-hidden="true"></span>
