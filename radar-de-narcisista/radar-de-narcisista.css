@@ -356,7 +356,7 @@ input:focus-visible {
   .panel, .result-page { border-radius: 16px; }
   .panel-inner { padding: 20px 16px; }
   .opening-title { font-size: 22px; }
-  .radar-hero-visual { width: min(52vw, 200px); }
+  .radar-hero-visual { width: min(58vw, 225px); }
   .opening-promise, .opening-support { font-size: 13px; }
   .opening-benefits { gap: 6px; }
   .opening-benefits li { font-size: 12px; }
@@ -383,7 +383,7 @@ input:focus-visible {
   .opening-screen .panel-inner { padding-top: 15px; }
   .opening-screen .eyebrow { margin-bottom: 7px; }
   .opening-title { font-size: 20px; }
-  .radar-hero-visual { width: min(42vw, 165px); margin: 7px auto 8px; }
+  .radar-hero-visual { width: min(47vw, 185px); margin: 7px auto 8px; }
   .benefit-heading { margin-top: 9px; }
   .opening-benefits { gap: 3px; }
 }
