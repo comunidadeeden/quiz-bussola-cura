@@ -207,7 +207,7 @@ function updateProgress() {
 
 function renderOpening() {
   root.innerHTML = panel(`
-    <span class="eyebrow">Quiz Raio-X do Narcisismo · 2 minutos</span>
+    <span class="eyebrow">Quiz Radar de Narcisista</span>
     <h1 class="opening-title">Você conseguiria identificar um narcisista antes mesmo dele dizer a primeira palavra?</h1>
     <figure class="radar-hero-visual">
       <img src="/radar-de-narcisista/assets/radar-de-narcisista.png" alt="Radar de Narcisista" width="1254" height="1254">
