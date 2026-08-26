@@ -202,7 +202,7 @@ function render() {
 }
 
 function updateProgress() {
-  progressLabel.textContent = state.screen === "step" ? `Etapa ${state.stepIndex + 1} de 6` : "";
+  if (progressLabel) progressLabel.textContent = state.screen === "step" ? `Etapa ${state.stepIndex + 1} de 6` : "";
 }
 
 function renderOpening() {
