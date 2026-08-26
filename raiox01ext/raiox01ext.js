@@ -12,12 +12,16 @@ const RAIOX_CONFIG = {
 
 const VSL_PLAYERS = {
   terapeuta: {
-    id: "vid-6a42eb103f9c960ae39bbb50",
-    scriptUrl: "https://scripts.converteai.net/a07c65c7-f155-44ff-8522-402ada1630b9/players/6a42eb103f9c960ae39bbb50/v4/player.js"
+    id: "vid-6a8de2d9d5cdae2c958dc2a1",
+    scriptUrl: "https://scripts.converteai.net/a07c65c7-f155-44ff-8522-402ada1630b9/players/6a8de2d9d5cdae2c958dc2a1/v4/player.js",
+    maxWidth: "100%",
+    placeholderPadding: "56.25%"
   },
   nao_terapeuta: {
-    id: "vid-6a42eb18d77f3406e43d9b7e",
-    scriptUrl: "https://scripts.converteai.net/a07c65c7-f155-44ff-8522-402ada1630b9/players/6a42eb18d77f3406e43d9b7e/v4/player.js"
+    id: "vid-6a8de2eb31552ce9b670d0bf",
+    scriptUrl: "https://scripts.converteai.net/a07c65c7-f155-44ff-8522-402ada1630b9/players/6a8de2eb31552ce9b670d0bf/v4/player.js",
+    maxWidth: "400px",
+    placeholderPadding: "177.77777777777777%"
   }
 };
 
@@ -318,8 +322,8 @@ function renderResult() {
       <span class="result-badge">${result.badge}</span>
       <h1>${result.title}</h1>
       <div class="video-frame" aria-label="Vídeo do Workshop Raio-X Humano">
-        <vturb-smartplayer id="${player.id}" style="display:block;margin:0 auto;width:100%;max-width:400px;">
-          <div class="vturb-player-placeholder"></div>
+        <vturb-smartplayer id="${player.id}" style="display:block;margin:0 auto;width:100%;max-width:${player.maxWidth};">
+          <div class="vturb-player-placeholder" style="padding:${player.placeholderPadding} 0 0;"></div>
         </vturb-smartplayer>
       </div>
       <div class="workshop-date-card"><span>Workshop Raio-X Humano</span><strong>${RAIOX_CONFIG.workshopDateText}</strong><small>Investimento: ${RAIOX_CONFIG.priceText}</small></div>
