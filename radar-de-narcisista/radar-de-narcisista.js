@@ -209,12 +209,11 @@ function renderOpening() {
   root.innerHTML = panel(`
     <span class="eyebrow">Quiz Radar de Narcisista</span>
     <h1 class="opening-title">Você conseguiria identificar um narcisista antes mesmo dele dizer a primeira palavra?</h1>
+    <p class="lead opening-promise">Existe uma técnica que utiliza o terço superior da face para observar sinais associados ao narcisismo.</p>
     <figure class="radar-hero-visual">
       <img src="/radar-de-narcisista/assets/radar-de-narcisista.png" alt="Radar de Narcisista" width="1254" height="1254">
       <span class="scan-line" aria-hidden="true"></span>
     </figure>
-    <p class="lead opening-promise">Existe uma técnica que utiliza o terço superior da face para observar sinais associados ao narcisismo.</p>
-    <p class="opening-support">Descubra quanto seu olhar percebe hoje e quantos sinais podem estar passando despercebidos.</p>
     <h2 class="benefit-heading">Essa habilidade pode ajudar você a:</h2>
     <ul class="opening-benefits">
       <li>Analisar alguém antes da primeira conversa.</li>

@@ -49,9 +49,9 @@ h1, h2, h3 { color: var(--radar-navy); }
 
 .radar-hero-visual {
   position: relative;
-  width: min(72vw, 295px);
+  width: min(60vw, 235px);
   aspect-ratio: 1;
-  margin: 8px auto 12px;
+  margin: 10px auto 12px;
   overflow: hidden;
   border-radius: 18px;
   background: #fff;
@@ -356,7 +356,7 @@ input:focus-visible {
   .panel, .result-page { border-radius: 16px; }
   .panel-inner { padding: 20px 16px; }
   .opening-title { font-size: 22px; }
-  .radar-hero-visual { width: min(66vw, 245px); }
+  .radar-hero-visual { width: min(52vw, 200px); }
   .opening-promise, .opening-support { font-size: 13px; }
   .opening-benefits { gap: 6px; }
   .opening-benefits li { font-size: 12px; }
@@ -383,7 +383,7 @@ input:focus-visible {
   .opening-screen .panel-inner { padding-top: 15px; }
   .opening-screen .eyebrow { margin-bottom: 7px; }
   .opening-title { font-size: 20px; }
-  .radar-hero-visual { width: min(48vw, 205px); margin: 5px auto 8px; }
+  .radar-hero-visual { width: min(42vw, 165px); margin: 7px auto 8px; }
   .benefit-heading { margin-top: 9px; }
   .opening-benefits { gap: 3px; }
 }
