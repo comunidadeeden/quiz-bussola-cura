@@ -7,7 +7,8 @@ const RADAR_CONFIG = {
   storageKey: "radar_de_narcisista_lead",
   sheetTabName: "Leads Radar de Narcisista",
   spreadsheetId: "11YDtO0DfVx9ETFHf6_cNy4N6OFq9S8j6CX7dKHHvQ_8",
-  priceText: "R$67"
+  priceText: "R$67",
+  workshopDateText: "01 e 02 de Setembro, às 20h · ao vivo"
 };
 
 const QUALIFICATION = {
@@ -414,7 +415,7 @@ function renderResult() {
           <p>O Radar de Narcisista ensina uma análise muito específica. Mas ele é apenas uma pequena parte do que pode ser observado no rosto e no corpo.</p>
           <p>Por isso, ao adquirir o Radar, você também garante sua participação no:</p>
           <h3 class="workshop-name">Workshop Raio-X Humano</h3>
-          <p class="live-label">2 noites ao vivo com Bruno Simplício</p>
+          <p class="live-label">${RADAR_CONFIG.workshopDateText} · 2 noites com Bruno Simplício</p>
         </div>
       </section>
 
@@ -464,7 +465,7 @@ function renderResult() {
           <h2>Radar de Narcisista + ingresso para o Workshop Raio-X Humano</h2>
           <div class="bundle-list">
             <div><span>Treinamento</span><strong>Radar de Narcisista</strong><p>Observe e analise o terço superior da face.</p></div>
-            <div><span>Bônus</span><strong>Ingresso para o Workshop Raio-X Humano</strong><p>Duas noites ao vivo com Bruno Simplício.</p></div>
+            <div><span>Bônus</span><strong>Ingresso para o Workshop Raio-X Humano</strong><p>${RADAR_CONFIG.workshopDateText} · Duas noites com Bruno Simplício.</p></div>
           </div>
           <div class="price-box">
             <span>Tudo isso teria o valor de</span>
